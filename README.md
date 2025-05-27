@@ -6,111 +6,77 @@
 
 mini DeepSeek is a pedagogical PyTorch implementation of a compact Transformer model designed for efficient language modeling. It integrates two core innovations from DeepSeek-V3:
 
-- **Multi-Head Latent Attention (MLA):** A Linformer-inspired low-rank projection that reduces attention complexity from \(O(T^2d)\) to \(O(TLd)\), cutting FLOPs by ~75% at sequence length 1024.
-- **Sparse Mixture-of-Experts (MoE):** A top-2 gating mechanism over four experts, doubling model capacity for only 2× compute, with a load-balancing auxiliary loss.
+* **Multi-Head Latent Attention (MLA):** A Linformer-inspired low-rank projection reduces attention complexity from $O(T^2d)$ to $O(TLd)$, cutting FLOPs by \~75% at sequence length 1024.
+* **Sparse Mixture-of-Experts (MoE):** A top-2 gating mechanism over four experts, doubling capacity for only 2× compute, with a load-balancing auxiliary loss.
 
-This repository provides the full training pipeline, from data preprocessing to model evaluation, along with scripts for experimentation.
+This repository provides the full training pipeline—from data preprocessing to model evaluation—with scripts for experimentation.
 
 ---
 
 ## Features
 
-- **Model Architecture**
-  - 12-layer, pre-norm Transformer.
-  - Early layers: MLA + Feed-Forward.
-  - Later layers: MLA + MoE.
-- **Tokenizer**
-  - Byte-level BPE using Hugging Face GPT-2 tokenizer.
-  - Full UTF-8 support; preserves whitespace.
-- **Scalable Training**
-  - Mixed-precision (BF16) on NVIDIA A100 GPUs.
-  - Micro-batching with gradient accumulation.
-  - AdamW optimizer with cosine-decay learning rate and warm-up.
-- **Eval & Metrics**
-  - Validation perplexity ~6.3 on the Bluemoon Roleplay Chat test split.
-  - Memory footprint ~18 GB peak; codebase under 1 000 lines.
+* **Model Architecture**
+
+  * 12-layer, pre-norm Transformer.
+  * Early layers: MLA + Feed-Forward.
+  * Later layers: MLA + MoE.
+* **Tokenizer**
+
+  * Byte-level BPE via Hugging Face GPT-2 tokenizer.
+  * Full UTF-8 support; preserves whitespace.
+* **Scalable Training**
+
+  * Mixed-precision (BF16) on NVIDIA A100 GPUs.
+  * Micro-batching with gradient accumulation.
+  * AdamW optimizer with cosine-decay learning rate and 1 000-step warm-up.
+* **Eval & Metrics**
+
+  * Validation perplexity \~6.3 on Bluemoon Roleplay Chat test split.
+  * Peak memory \~18 GB; codebase < 1 000 lines.
 
 ---
 
-## Getting Started
+## Architecture
 
-### Prerequisites
+*Place the architecture diagram here:*
 
-- Python 3.8+
-- PyTorch (1.12+)
-- Transformers & Datasets (Hugging Face)
-- NVIDIA CUDA toolkit
-
-### Installation
-
-```bash
-# Clone the repo
-git clone https://github.com/yourusername/mini-deepseek.git
-cd mini-deepseek
-
-# Create and activate a virtual environment
-python -m venv venv
-source venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
+```markdown
+![RolePlayTransformer Architecture](chatbot_roleplay.drawio.png)
 ```
 
-### Data Preparation
+`RolePlayTransformer` comprises:
 
-1. Download or prepare the Bluemoon Roleplay Chat corpus.
-2. Place the cleaned threads (≥4 messages each) in `data/roleplay/`.
-3. Run preprocessing:
+* **Embedding:** Byte-level BPE embeddings (│V│=50 257, d=768).
+* **Transformer Blocks (12 total):**
 
-```bash
-python scripts/preprocess.py   --input_dir data/roleplay/   --output_dir data/processed/   --window_size 4
-```
+  * **Layers 1–5:**
+
+    * RMSNorm → Multi-Head Latent Attention (MLA)
+    * RMSNorm → Feed-Forward (2 × Linear + GELU + Dropout)
+  * **Layers 6–10:**
+
+    * RMSNorm → MLA
+    * RMSNorm → Sparse Mixture-of-Experts (4 experts, top-2 router)
+  * **Layers 11–12:**
+
+    * RMSNorm → MLA
+    * RMSNorm → Feed-Forward
+* **Output Heads:**
+
+  * `lm_head` and `mtp_head` for language modeling and multi-turn prediction.
 
 ---
 
-## Training
+## Performance
 
-```bash
-python train.py   --train_data data/processed/train.jsonl   --val_data data/processed/val.jsonl   --model_config configs/mlamoe_config.yaml   --batch_size 8   --accumulate_steps 4   --max_tokens 4096   --fp16   --lr 1e-4   --warmup_steps 1000   --output_dir checkpoints/
-```
+* **Dataset:** 261 K messages (3 637 threads); 4-message sliding windows → 176 828 train / 73 396 test examples.
+* **Training Setup:** BF16 on NVIDIA A100 (40 GB), micro-batch 8 × gradient accumulation ×4, AdamW (β=(0.9,0.95), wd=0.01), cosine-decay LR with 1 000-step warm-up.
+* **Results:**
 
-- **Checkpointing:** Saved every epoch in `checkpoints/`.
-- **Logging:** TensorBoard logs in `runs/`.
-
----
-
-## Evaluation
-
-```bash
-python evaluate.py   --model_path checkpoints/epoch_last   --test_data data/processed/test.jsonl   --output metrics.json
-```
-
-- Reports validation perplexity and inference throughput.
+  * Validation perplexity ≈ 6.3 on 37 M tokens.
+  * Peak GPU memory ≈ 18 GB.
+  * Codebase < 1 000 lines, enabling rapid iteration.
 
 ---
 
-## Project Structure
-
-```
-mini-deepseek/
-├── configs/            # Model & training configurations
-├── data/               # Raw and processed datasets
-├── scripts/            # Preprocessing & utility scripts
-├── src/                # Model implementation
-├── train.py            # Training entrypoint
-├── evaluate.py         # Evaluation entrypoint
-├── requirements.txt    # Python dependencies
-└── README.md           # Project overview and instructions
-```
-
----
-
-## License
-
-This project is released under the MIT License. See `LICENSE` for details.
-
----
-
-## Contact
-
-For questions or contributions, please open an issue or reach out to Zhengyi Chen at <zhengyi.chen@example.com>.
+*Zhengyi Chen, May 2025*
