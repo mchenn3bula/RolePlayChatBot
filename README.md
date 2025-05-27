@@ -38,9 +38,7 @@ This repository provides the full training pipeline—from data preprocessing to
 
 ## Architecture
 
-```markdown
 ![RolePlayTransformer Architecture](chatbot_roleplay.drawio.png)
-```
 
 `RolePlayTransformer` comprises:
 
