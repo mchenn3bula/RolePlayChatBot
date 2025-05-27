@@ -1,4 +1,4 @@
-# mini DeepSeek: Compact Transformer with MLA & MoE
+ # mini DeepSeek: Compact Transformer with MLA & MoE
 
 ---
 
@@ -37,8 +37,6 @@ This repository provides the full training pipeline—from data preprocessing to
 ---
 
 ## Architecture
-
-*Place the architecture diagram here:*
 
 ```markdown
 ![RolePlayTransformer Architecture](chatbot_roleplay.drawio.png)
