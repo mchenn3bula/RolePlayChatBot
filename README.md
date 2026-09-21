@@ -1,78 +1,71 @@
- # mini DeepSeek: Compact Transformer with MLA & MoE
+# Mini-DeepSeek: experimental PyTorch language modeling
 
----
+A learning project exploring Transformer training, sequence-compressed attention and sparse mixture-of-experts routing for dialogue generation.
 
-## Overview
+**Status:** research prototype undergoing a correctness and reproducibility review. The historical project name is Mini-DeepSeek; the attention implementation in the current Python module uses Linformer-style sequence compression and should not be treated as a faithful reproduction of DeepSeek's MLA.
 
-mini DeepSeek is a pedagogical PyTorch implementation of a compact Transformer model designed for efficient language modeling. It integrates two core innovations from DeepSeek-V3:
+## Start here
 
-* **Multi-Head Latent Attention (MLA):** A Linformer-inspired low-rank projection reduces attention complexity from $O(T^2d)$ to $O(TLd)$, cutting FLOPs by \~75% at sequence length 1024.
-* **Sparse Mixture-of-Experts (MoE):** A top-2 gating mechanism over four experts, doubling capacity for only 2× compute, with a load-balancing auxiliary loss.
+| File | Purpose |
+| --- | --- |
+| [mini_deepseek.py](mini_deepseek.py) | Model components, training and evaluation methods. |
+| [chatbot_V1.ipynb](chatbot_V1.ipynb) | Original notebook experiments and data preparation. |
+| [markov_baseline.py](markov_baseline.py) | Separate Markov baseline implementation. |
+| [mini_deepseek.pdf](mini_deepseek.pdf) | Historical project write-up; read alongside the current-code notes below. |
 
-This repository provides the full training pipeline—from data preprocessing to model evaluation—with scripts for experimentation.
+## Architecture in the current module
 
----
+- RMSNorm and residual Transformer blocks with learned positional embeddings.
+- Learned projections compress keys and values along the sequence axis before attention.
+- Four feed-forward experts with top-2 routing in the MoE blocks.
+- Tied token-embedding and output weights, with an optional auxiliary prediction head.
+- Training support for BF16, gradient accumulation, gradient checkpointing, AdamW and cosine learning-rate scheduling.
 
-## Features
+The `RolePlayTransformer` constructor currently defaults to **10 layers**, with MoE enabled from zero-based layer index 5 onward. Earlier project documentation described a 12-layer configuration. Specify and save the configuration used for each experiment rather than assuming the notebook and module are identical.
 
-* **Model Architecture**
+![Historical architecture diagram](chatbot_roleplay.drawio.png)
 
-  * 12-layer, pre-norm Transformer.
-  * Early layers: MLA + Feed-Forward.
-  * Later layers: MLA + MoE.
-* **Tokenizer**
+The diagram records the original design; the Python source is the reference for the current implementation.
 
-  * Byte-level BPE via Hugging Face GPT-2 tokenizer.
-  * Full UTF-8 support; preserves whitespace.
-* **Scalable Training**
+## Working with the code
 
-  * Mixed-precision (BF16) on NVIDIA A100 GPUs.
-  * Micro-batching with gradient accumulation.
-  * AdamW optimizer with cosine-decay learning rate and 1 000-step warm-up.
-* **Eval & Metrics**
+The code uses Python, PyTorch, Hugging Face `transformers` and `datasets`. There is no packaged training CLI or pinned environment yet. The training methods expect a preprocessed dataset saved with Hugging Face datasets; inspect their arguments and the notebook before launching a run.
 
-  * Validation perplexity \~6.3 on Bluemoon Roleplay Chat test split.
-  * Peak memory \~18 GB; codebase < 1 000 lines.
+A small model can be instantiated for code exploration after installing compatible dependencies:
 
----
+```python
+from mini_deepseek import RolePlayTransformer
 
-## Architecture
+model = RolePlayTransformer(
+    vocab=256,
+    max_len=64,
+    d_model=128,
+    n_layers=2,
+    n_heads=2,
+    d_ff=256,
+    moe_start=1,
+    use_mtp=False,
+    gradient_checkpointing=False,
+)
+```
 
-![RolePlayTransformer Architecture](chatbot_roleplay.drawio.png)
+This is an inspection example, not a validated training recipe or a reproduced benchmark.
 
-`RolePlayTransformer` comprises:
+## Evaluation status
 
-* **Embedding:** Byte-level BPE embeddings (│V│=50 257, d=768).
-* **Transformer Blocks (12 total):**
+Earlier documentation reported perplexity, memory usage and compute savings. Those values are not presented here as verified benchmarks: reproducible configurations, checkpoints and benchmark logs must accompany any future performance claim.
 
-  * **Layers 1–5:**
+The current implementation needs particular attention in two areas:
 
-    * RMSNorm → Multi-Head Latent Attention (MLA)
-    * RMSNorm → Feed-Forward (2 × Linear + GELU + Dropout)
-  * **Layers 6–10:**
+1. **Causal masking after sequence compression.** Keys and values are mixed across positions before masking; tests are needed to ensure future tokens cannot influence earlier predictions.
+2. **Router auxiliary-loss gradients.** The current load-balancing calculation receives detached probabilities and masks, so that term does not train the router. A corrected objective needs gradient checks and a new training run.
 
-    * RMSNorm → MLA
-    * RMSNorm → Sparse Mixture-of-Experts (4 experts, top-2 router)
-  * **Layers 11–12:**
+## Next experiments
 
-    * RMSNorm → MLA
-    * RMSNorm → Feed-Forward
-* **Output Heads:**
+- Add causal-invariance, padding and router-gradient tests.
+- Establish a standard causal-attention baseline before comparing compression or MoE variants.
+- Fix a conversation-level data split before creating overlapping dialogue windows.
+- Record configuration, seed, software versions, dataset provenance and checkpoint identifiers.
+- Compare validation loss, generation examples, throughput and peak memory under matched settings.
 
-  * `lm_head` and `mtp_head` for language modeling and multi-turn prediction.
-
----
-
-## Performance
-
-* **Dataset:** 261 K messages (3 637 threads); 4-message sliding windows → 176 828 train / 73 396 test examples.
-* **Training Setup:** BF16 on NVIDIA A100 (40 GB), micro-batch 8 × gradient accumulation ×4, AdamW (β=(0.9,0.95), wd=0.01), cosine-decay LR with 1 000-step warm-up.
-* **Results:**
-
-  * Validation perplexity ≈ 6.3 on 37 M tokens.
-  * Peak GPU memory ≈ 18 GB.
-  * Codebase < 1 000 lines, enabling rapid iteration.
-
----
-
-*Zhengyi Chen, May 2025*
+These are planned tasks, not completed results.
