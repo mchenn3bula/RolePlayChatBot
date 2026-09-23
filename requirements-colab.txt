@@ -1,0 +1,4 @@
+# Keep Colab's preinstalled CUDA-enabled torch; do not install requirements-cuda.txt.
+transformers==5.17.0
+datasets==5.0.1
+tqdm>=4.66,<5

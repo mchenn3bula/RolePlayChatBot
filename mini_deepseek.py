@@ -1,642 +1,486 @@
+"""Causal decoder language model with an optional sparse mixture of experts.
+
+The pre-v2 sequence-compressed attention and duplicate MTP head are deliberately
+removed. Old checkpoints are not compatible with this architecture.
+"""
+
 import math
-from typing import Optional, List
 
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from torch.utils.data import DataLoader
 from datasets import load_from_disk
-from transformers import AutoTokenizer, get_cosine_schedule_with_warmup
-# -----------------------------------------------------------------------------
-#  Normalisation & Attention
-# -----------------------------------------------------------------------------
+from torch import nn
+from torch.nn import functional as F
+from torch.utils.checkpoint import checkpoint
+from torch.utils.data import DataLoader
+from transformers import AutoTokenizer
+
+from conversation import encode_context, format_messages, validate_dataset_metadata
+
+
 class RMSNorm(nn.Module):
-    def __init__(self, dim: int, eps: float = 1e-6):
+    def __init__(self, dim, eps=1e-6):
         super().__init__()
         self.eps = eps
         self.weight = nn.Parameter(torch.ones(dim))
 
     def forward(self, x):
-        return self.weight * x * torch.rsqrt(x.pow(2).mean(-1, keepdim=True) + self.eps)
+        # Accumulate squares in float32 even during mixed-precision training.
+        normalized = x.float() * torch.rsqrt(
+            x.float().square().mean(-1, keepdim=True) + self.eps
+        )
+        return normalized.to(x.dtype) * self.weight
 
 
 class MultiHeadAttention(nn.Module):
-    def __init__(self, dim: int, heads: int, p: float = 0.1):
+    """Standard self-attention; no mixing across positions before masking."""
+
+    def __init__(self, dim, heads, p=0.1, rotary=None):
         super().__init__()
-        assert dim % heads == 0, "d_model must divide n_heads"
-        self.h = heads; self.dh = dim // heads; self.scale = self.dh ** -0.5
+        if heads < 1 or dim % heads:
+            raise ValueError("d_model must be divisible by n_heads.")
+        self.h = heads
+        self.dh = dim // heads
+        self.dropout = p
+        self.rotary = rotary
         self.qkv = nn.Linear(dim, dim * 3, bias=False)
         self.o_proj = nn.Linear(dim, dim, bias=False)
-        self.drop   = nn.Dropout(p)  
 
-    def forward(self, x, mask):  # mask (B,1,T,T)
-        B, T, _ = x.size()
-        qkv = self.qkv(x).view(B, T, 3, self.h, self.dh).permute(2, 0, 3, 1, 4)
-        q, k, v = qkv
-        att = (q @ k.transpose(-2, -1)) * self.scale
-        att = att.masked_fill(~mask, -1e9)
-        att = F.softmax(att, dim=-1)
-        att = self.drop(att) 
-        out = (att @ v).transpose(1, 2).contiguous().view(B, T, -1)
-        return self.o_proj(out)
+    def forward(self, x, mask, positions=None):
+        batch, length, dim = x.shape
+        q, k, v = (
+            self.qkv(x).view(batch, length, 3, self.h, self.dh).permute(2, 0, 3, 1, 4)
+        )
+        if self.rotary is not None:
+            q, k = self.rotary(q, positions), self.rotary(k, positions)
+        output = F.scaled_dot_product_attention(
+            q,
+            k,
+            v,
+            attn_mask=mask,
+            dropout_p=self.dropout if self.training else 0.0,
+        )
+        return self.o_proj(output.transpose(1, 2).reshape(batch, length, dim))
 
-class MLA(nn.Module):
-    """
-    Linformer-style latent attention:
-    - Projects K & V with a learned (T→L) matrix, giving O(T·L) complexity.
-    - Same API as before: __init__(d_model, n_heads, dk_per_head=64, target_L=64, p=0.1)
-    """
-    def __init__(
-        self,
-        d_model: int,
-        n_heads: int,
-        dk_per_head: int = 64,
-        target_L: int = 64,
-        p: float = 0.1,
-        max_len: int = 3072,                # maximum supported sequence length
-    ):
+
+class RotaryEmbedding(nn.Module):
+    """Interleaved RoPE with positions counting valid tokens, including left padding."""
+
+    def __init__(self, head_dim, max_len, theta=10000.0):
         super().__init__()
-        assert d_model % n_heads == 0, "d_model must divide n_heads"
+        if head_dim % 2 or not math.isfinite(theta) or theta <= 1:
+            raise ValueError("RoPE requires an even head dimension and theta > 1.")
+        frequencies = theta ** (-torch.arange(0, head_dim, 2).float() / head_dim)
+        angles = torch.arange(max_len).float()[:, None] * frequencies[None, :]
+        self.register_buffer("cos", angles.cos(), persistent=False)
+        self.register_buffer("sin", angles.sin(), persistent=False)
 
-        self.h        = n_heads
-        self.dk       = dk_per_head
-        self.dq       = d_model // n_heads
-        self.target_L = target_L
-        self.max_len  = max_len
+    def forward(self, x, positions):
+        # FP32 rotations preserve accuracy during FP16 autocast.
+        cos = self.cos[positions][:, None].float()
+        sin = self.sin[positions][:, None].float()
+        even, odd = x.float()[..., 0::2], x.float()[..., 1::2]
+        rotated = torch.stack((even * cos - odd * sin, even * sin + odd * cos), -1)
+        return rotated.flatten(-2).to(x.dtype)
 
-        d_latent = self.dk * n_heads
-        # --- standard projections ---
-        self.kv_proj = nn.Linear(d_model, 2 * d_latent, bias=False)
-        self.q_proj  = nn.Linear(d_model, n_heads * self.dq, bias=False)
-        self.o_proj  = nn.Linear(n_heads * self.dq, d_model, bias=False)
-        self.scale   = self.dk ** -0.5
-        self.drop    = nn.Dropout(p)
 
-        # --- Linformer projections over sequence length ---
-        #   P_k, P_v: (target_L × max_len) mapping T→target_L
-        self.P_k = nn.Parameter(torch.empty(target_L, max_len))
-        self.P_v = nn.Parameter(torch.empty(target_L, max_len))
-        nn.init.xavier_uniform_(self.P_k)
-        nn.init.xavier_uniform_(self.P_v)
+class SwiGLU(nn.Module):
+    def __init__(self, dim, hidden, p=0.1):
+        super().__init__()
+        self.gate_proj = nn.Linear(dim, hidden, bias=False)
+        self.up_proj = nn.Linear(dim, hidden, bias=False)
+        self.down_proj = nn.Linear(hidden, dim, bias=False)
+        self.dropout = nn.Dropout(p)
 
-    def forward(self, x: torch.Tensor, mask: Optional[torch.Tensor] = None):
-        """
-        x:    (B, T, d_model)
-        mask: (B, 1, T, T) causal/padding mask
-        returns: (B, T, d_model)
-        """
-        B, T, _ = x.size()
-        # 1) Project & split K/V
-        kv = self.kv_proj(x)                   # (B, T, 2*d_latent)
-        kv = kv.permute(0, 2, 1)               # (B, 2*d_latent, T)
-        k, v = kv.chunk(2, dim=1)              # each (B, d_latent, T)
+    def forward(self, x):
+        hidden = self.dropout(F.silu(self.gate_proj(x)) * self.up_proj(x))
+        return self.dropout(self.down_proj(hidden))
 
-        # 2) Learnable Linformer compression: matmul with P_k^T, P_v^T
-        #    P_k[:, :T] is (L, T), so k @ P_k.T -> (B, d_latent, L)
-        Pk = self.P_k[:, :T]                   # (L, T)
-        Pv = self.P_v[:, :T]                   # (L, T)
-        k = torch.matmul(k, Pk.t())            # (B, d_latent, L)
-        v = torch.matmul(v, Pv.t())            # (B, d_latent, L)
 
-        # 3) Reshape into heads
-        k = k.view(B, self.h, self.dk, self.target_L)            # (B, h, dk, L)
-        v = v.view(B, self.h, self.dk, self.target_L)            # (B, h, dk, L)
-        v = v.permute(0, 1, 3, 2)                                # (B, h, L, dk)
-
-        # 4) Queries
-        q = self.q_proj(x) \
-             .view(B, T, self.h, self.dq) \
-             .transpose(1, 2)                                 # (B, h, T, dq)
-
-        # 5) Scaled dot-product attention
-        att = (q @ k) * self.scale                             # (B, h, T, L)
-        if mask is not None:
-            # mask: (B,1,T,T).  We need a (B,1,T, target_L) mask.
-            # First slice to the true seq-length:
-            mask_k = mask[..., :T]                            # (B,1,T,T)
-            # If target_L > T, pad the last dim with False:
-            if self.target_L > T:
-                pad_size = self.target_L - T
-                mask_k = F.pad(mask_k, (0, pad_size), value=False)  # (B,1,T,target_L)
-            else:
-                mask_k = mask_k[..., :self.target_L]           # (B,1,T,target_L)
-            causal = mask_k.expand(B, self.h, T, self.target_L)
-            att = att.masked_fill(~causal, -1e9)
-        att = F.softmax(att, dim=-1)
-        att = self.drop(att)
-
-        # 6) Aggregate & output
-        out = att @ v                                           # (B, h, T, dk)
-        out = out.transpose(1, 2).reshape(B, T, -1)             # (B, T, h*dk)
-        return self.o_proj(out)                                 # (B, T, d_model)
-    
-# -----------------------------------------------------------------------------
-#  Feed‑Forward & MoE
-# -----------------------------------------------------------------------------
 class FeedForward(nn.Module):
-    def __init__(self, dim: int, hidden: int, p: float = 0.1):
+    def __init__(self, dim, hidden, p=0.1):
         super().__init__()
         self.net = nn.Sequential(
             nn.Linear(dim, hidden, bias=False),
             nn.GELU(),
-            nn.Dropout(p),         # pre-projection
+            nn.Dropout(p),
             nn.Linear(hidden, dim, bias=False),
-            nn.Dropout(p),         # post-projection
+            nn.Dropout(p),
         )
+
     def forward(self, x):
         return self.net(x)
 
 
 class MoEBlock(nn.Module):
-    """
-    Top-k (default k=2) gating Mixture-of-Experts block.
-    - Differentiable gating (no hard argmax)
-    - Vectorized dispatch
-    - Built-in dropout in experts
-    - Returns (output, load_balancing_loss)
-    """
-    def __init__(
-        self,
-        dim: int,
-        hidden: int,
-        n_experts: int = 4,
-        top_k: int = 2,
-        p: float = 0.1,
-    ):
+    """Top-k routing with a differentiable, padding-aware balance objective."""
+
+    def __init__(self, dim, hidden, n_experts=4, top_k=2, p=0.1):
         super().__init__()
-        self.dim       = dim
-        self.hidden    = hidden
+        if not 1 <= top_k <= n_experts:
+            raise ValueError("Require 1 <= top_k <= n_experts.")
         self.n_experts = n_experts
-        self.top_k     = top_k
-        self.p         = p
-
-        # router: maps each token to E logits
+        self.top_k = top_k
         self.router = nn.Linear(dim, n_experts, bias=False)
+        self.experts = nn.ModuleList(
+            [FeedForward(dim, hidden, p) for _ in range(n_experts)]
+        )
 
-        # experts: each is a small MLP with dropout
-        self.experts = nn.ModuleList([
-            nn.Sequential(
-                nn.Linear(dim, hidden, bias=False),
-                nn.GELU(),
-                nn.Dropout(p),
-                nn.Linear(hidden, dim, bias=False),
-                nn.Dropout(p),
+    def forward(self, x, token_mask=None):
+        batch, length, dim = x.shape
+        flat = x.reshape(-1, dim)
+        valid = (
+            torch.ones(batch * length, dtype=torch.bool, device=x.device)
+            if token_mask is None
+            else token_mask.reshape(-1).bool()
+        )
+        probabilities = self.router(flat).float().softmax(-1)
+        weights, indices = probabilities.topk(self.top_k, dim=-1)
+        if self.top_k > 1:
+            weights = weights / weights.sum(-1, keepdim=True)
+        output = torch.zeros_like(flat)
+        for expert_index, expert in enumerate(self.experts):
+            tokens, slots = ((indices == expert_index) & valid[:, None]).nonzero(
+                as_tuple=True
             )
-            for _ in range(n_experts)
-        ])
-
-    @staticmethod
-    def _lb_loss(gate_p: torch.Tensor, expert_mask: torch.Tensor) -> torch.Tensor:
-        # importance and load distributions over experts
-        imp  = gate_p.sum(dim=(0,1))
-        load = expert_mask.sum(dim=(0,1))
-        imp  = imp  / (imp.sum()  + 1e-9)
-        load = load / (load.sum() + 1e-9)
-        # Switch-Transformer load balance: E · ⟨imp, load⟩
-        return (imp * load).sum() * gate_p.size(-1)
-
-    def forward(self, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
-        """
-        x: (B, T, D)
-        returns:
-          out: (B, T, D)
-          lb : scalar load-balancing loss
-        """
-        B, T, D = x.shape
-        # 1) router logits → probabilities
-        logits = self.router(x)                        # (B,T,E)
-        if self.training:
-            noise = torch.randn_like(logits) / self.n_experts
-            logits = logits + noise
-        probs = F.softmax(logits, dim=-1)              # (B,T,E)
-
-        # 2) top-k gating & renormalize
-        top_p, top_i = probs.topk(self.top_k, dim=-1)  # both (B,T,K)
-        top_p = top_p / (top_p.sum(dim=-1, keepdim=True) + 1e-9)
-
-        # 3) dispatch to experts
-        out = torch.zeros_like(x)
-        x_flat    = x.view(-1, D)                        # (B·T, D)
-        # flatten the top-k indices & weights along the token dimension
-        flat_top_i = top_i.reshape(-1, self.top_k)       # (B·T, K)
-        flat_top_p = top_p.reshape(-1, self.top_k)       # (B·T, K)
-        mask_flat  = torch.zeros(B*T, self.n_experts, device=x.device)
-
-        for e_idx, expert in enumerate(self.experts):
-            # find tokens where this expert was one of the top-k
-            token_mask = (flat_top_i == e_idx).any(dim=-1)  # (B·T,) bool
-            if not token_mask.any():
-                continue
-
-            routed_in = x_flat[token_mask]                # (n, D)
-            # pick out the ONE gate weight per token where flat_top_i == e_idx
-            gate_vals = flat_top_p[token_mask]            # (n, K)
-            sel       = (flat_top_i[token_mask] == e_idx) # (n, K) bool
-            gate_vals = gate_vals.masked_select(sel)      # (n,) scalar per token
-
-            routed_out = expert(routed_in) * gate_vals.unsqueeze(-1)  # (n, D)
-            out_flat   = out.view(-1, D)
-            out_flat[token_mask] += routed_out
-            mask_flat[token_mask, e_idx] = 1.0
-
-        # 4) load-balancing loss (detach gates so only router sees grad)
-        lb = self._lb_loss(probs.detach(), mask_flat.view(B, T, -1).detach())
-
-        return out, lb
+            if tokens.numel():
+                routed = expert(flat[tokens]) * weights[tokens, slots, None].to(x.dtype)
+                output = output.index_add(0, tokens, routed)
+        # Hard assignment counts are constants; soft router probabilities keep gradients.
+        assignment = F.one_hot(indices, self.n_experts).float().sum(1)
+        valid_float = valid.float().unsqueeze(-1)
+        count = valid_float.sum().clamp_min(1)
+        importance = (probabilities * valid_float).sum(0) / count
+        load = (assignment * valid_float).sum(0) / (count * self.top_k)
+        balance = self.n_experts * (importance * load.detach()).sum()
+        return output.view(batch, length, dim), balance
 
 
 class TransformerBlock(nn.Module):
-    def __init__(self, dim: int, heads: int, hidden: int, use_moe: bool, p: float = 0.1):
+    def __init__(
+        self, dim, heads, hidden, use_moe, p=0.1, rotary=None, ffn_type="gelu"
+    ):
         super().__init__()
         self.attn_norm = RMSNorm(dim)
-        self.attn = MLA(dim, heads, p=p)
+        self.attn = MultiHeadAttention(dim, heads, p, rotary)
         self.ffn_norm = RMSNorm(dim)
+        self.ffn = (
+            MoEBlock(dim, hidden, p=p)
+            if use_moe
+            else (
+                SwiGLU(dim, hidden, p)
+                if ffn_type == "swiglu"
+                else FeedForward(dim, hidden, p)
+            )
+        )
         self.use_moe = use_moe
-        self.ffn = MoEBlock(dim, hidden, p=p) if use_moe else FeedForward(dim, hidden, p)
 
-    def forward(self, x, mask):
-        x = x + self.attn(self.attn_norm(x), mask)
+    def forward(self, x, mask, token_mask, positions=None):
+        x = x + self.attn(self.attn_norm(x), mask, positions)
         if self.use_moe:
-            ff, lb = self.ffn(self.ffn_norm(x))
-            return x + ff, lb
-        return x + self.ffn(self.ffn_norm(x)), torch.tensor(0.0, device=x.device)
+            output, balance = self.ffn(self.ffn_norm(x), token_mask)
+        else:
+            output, balance = self.ffn(self.ffn_norm(x)), x.new_zeros(())
+        return x + output, balance
 
-# -----------------------------------------------------------------------------
-#  RolePlayTransformer with 4‑expert MoE from layer 4 onward
-# -----------------------------------------------------------------------------
+
+def next_token_loss(logits, labels):
+    """Summed target-only negative log likelihood and its exact token count."""
+    if logits.shape[:2] != labels.shape or labels.shape[1] < 2:
+        raise ValueError(
+            "Logits and labels must have matching batch/sequence shapes of length >= 2."
+        )
+    targets = labels[:, 1:]
+    count = (targets != -100).sum()
+    if count.item() == 0:
+        raise ValueError("Batch contains no target tokens.")
+    loss = F.cross_entropy(
+        logits[:, :-1].float().reshape(-1, logits.size(-1)),
+        targets.reshape(-1),
+        ignore_index=-100,
+        reduction="sum",
+    )
+    return loss, count
+
+
 class RolePlayTransformer(nn.Module):
     def __init__(
         self,
-        vocab: int,
-        max_len: int = 3072,
-        d_model: int = 768,
-        n_layers: int = 10,
-        n_heads: int = 12,
-        d_ff: int = 3072,
-        dropout: float = 0.1,
-        moe_start: int = 5,          # first 5 layers dense, rest MoE
-        lambda_lb: float = 0.01,
-        use_mtp: bool = True,
-        gradient_checkpointing: bool = True,
+        vocab,
+        max_len=3072,
+        d_model=768,
+        n_layers=10,
+        n_heads=12,
+        d_ff=3072,
+        dropout=0.1,
+        moe_start=None,
+        lambda_lb=0.01,
+        gradient_checkpointing=True,
+        position_encoding="learned",
+        ffn_type="gelu",
+        rope_theta=10000.0,
+        target_only_projection=False,
     ):
         super().__init__()
-        self.vocab = vocab; self.use_mtp = use_mtp; self.gc = gradient_checkpointing; self.lambda_lb = lambda_lb
-
+        if min(vocab, max_len, d_model, n_layers, n_heads, d_ff) < 1:
+            raise ValueError("Model dimensions must be positive.")
+        if d_model % n_heads or not 0 <= dropout < 1 or lambda_lb < 0:
+            raise ValueError("Invalid head dimensions, dropout, or balance weight.")
+        if moe_start is not None and not 0 <= moe_start < n_layers:
+            raise ValueError("moe_start must be None or a zero-based layer index.")
+        if position_encoding not in {"learned", "rope"} or ffn_type not in {
+            "gelu",
+            "swiglu",
+        }:
+            raise ValueError("Unsupported position encoding or feed-forward type.")
+        if moe_start is not None and ffn_type != "gelu":
+            raise ValueError("SwiGLU experiments use dense blocks; MoE is unsupported.")
+        self.vocab = vocab
+        self.max_len = max_len
+        self.target_only_projection = target_only_projection
+        self.variant = {
+            "position_encoding": position_encoding,
+            "ffn_type": ffn_type,
+            "rope_theta": rope_theta,
+            "target_only_projection": target_only_projection,
+        }
+        self.gc = gradient_checkpointing
+        self.lambda_lb = lambda_lb
         self.embed = nn.Embedding(vocab, d_model)
-        self.pos = nn.Parameter(torch.zeros(1, max_len, d_model))
-
-        self.layers = nn.ModuleList([
-            TransformerBlock(d_model, n_heads, d_ff, use_moe=(i>=moe_start), p=dropout)
-            for i in range(n_layers)
-        ])
-
+        self.pos = (
+            nn.Parameter(torch.empty(1, max_len, d_model))
+            if position_encoding == "learned"
+            else None
+        )
+        self.layers = nn.ModuleList(
+            [
+                TransformerBlock(
+                    d_model,
+                    n_heads,
+                    d_ff,
+                    moe_start is not None and i >= moe_start,
+                    dropout,
+                    RotaryEmbedding(d_model // n_heads, max_len, rope_theta)
+                    if position_encoding == "rope"
+                    else None,
+                    ffn_type,
+                )
+                for i in range(n_layers)
+            ]
+        )
         self.norm = RMSNorm(d_model)
         self.lm_head = nn.Linear(d_model, vocab, bias=False)
-        if use_mtp:
-            self.mtp_head = nn.Linear(d_model, vocab, bias=False)
-            self.mtp_head.weight = self.embed.weight
+        self.apply(self._initialize)
+        if self.pos is not None:
+            nn.init.normal_(self.pos, std=0.02)
+        # Tied embeddings need a small initialization, not unit-variance embeddings.
         self.lm_head.weight = self.embed.weight
-
-    # --------------------------------------------------------------
-    def _mask(self, B, T, dev):
-        return torch.tril(torch.ones(T, T, device=dev, dtype=torch.bool)).unsqueeze(0).unsqueeze(0).expand(B,1,T,T)
+        for block in self.layers:
+            nn.init.normal_(
+                block.attn.o_proj.weight, std=0.02 / math.sqrt(2 * n_layers)
+            )
+            experts = block.ffn.experts if block.use_moe else [block.ffn]
+            for expert in experts:
+                nn.init.normal_(
+                    (
+                        expert.down_proj
+                        if isinstance(expert, SwiGLU)
+                        else expert.net[3]
+                    ).weight,
+                    std=0.02 / math.sqrt(2 * n_layers),
+                )
 
     @staticmethod
-    def _lb_loss(gate_p: torch.Tensor, expert_mask: torch.Tensor) -> torch.Tensor:
-        """
-        Load-balancing from the Switch-Transformer paper:
-        L = E_gate · E_mask  (expectations over tokens)
-        """
-        imp = gate_p.sum(dim=(0, 1))        # importance - sum of gates
-        load = expert_mask.sum(dim=(0, 1))  # actual load (# tokens)
-        imp = imp / imp.sum()
-        load = load / load.sum()
-        return (imp * load).sum() * gate_p.size(-1)
+    def _initialize(module):
+        if isinstance(module, (nn.Linear, nn.Embedding)):
+            nn.init.normal_(module.weight, std=0.02)
 
-    def forward(self, ids: torch.Tensor, attention_mask: Optional[torch.Tensor] = None):
-        """
-        ids            : (B, T) int64  token ids
-        attention_mask : (B, T) bool / int {0,1} — optional padding mask
-        returns dict { "main": logits, "lb": Σ load-balancing, "mtp": logits? }
-        """
-        B, T = ids.size()
-        dev   = ids.device
-
-        x = self.embed(ids) + self.pos[:, :T, :]          # (B,T,D)
-
-        # causal mask (B,1,T,T)
-        mask = self._mask(B, T, dev)
-        if attention_mask is not None:
-            pad = attention_mask.unsqueeze(1).unsqueeze(2).bool()  # (B,1,1,T)
-            mask = mask & pad
-
-        lb_total = 0.0
+    def forward(self, ids, attention_mask=None, labels=None):
+        if ids.ndim != 2 or not 1 <= ids.size(1) <= self.max_len:
+            raise ValueError(
+                f"Expected (batch, sequence) IDs with 1..{self.max_len} tokens."
+            )
+        valid = (
+            torch.ones_like(ids, dtype=torch.bool)
+            if attention_mask is None
+            else attention_mask.to(device=ids.device, dtype=torch.bool)
+        )
+        if valid.shape != ids.shape:
+            raise ValueError("attention_mask must have the same shape as ids.")
+        positions = (valid.long().cumsum(-1) - 1).clamp_min(0)
+        x = self.embed(ids)
+        if self.pos is not None:
+            x = x + self.pos[0, positions]
+        length = ids.size(1)
+        causal = torch.ones(length, length, dtype=torch.bool, device=ids.device).tril()
+        mask = causal[None, None] & valid[:, None, None, :]
+        balance = x.new_zeros(())
+        moe_layers = 0
         for block in self.layers:
             if self.gc and self.training:
-                x, lb = torch.utils.checkpoint.checkpoint(block, x, mask)
+                x, auxiliary = checkpoint(
+                    block, x, mask, valid, positions, use_reentrant=False
+                )
             else:
-                x, lb = block(x, mask)
-            lb_total = lb_total + lb
+                x, auxiliary = block(x, mask, valid, positions)
+            balance = balance + auxiliary
+            moe_layers += int(block.use_moe)
+        balance = balance / max(moe_layers, 1)
+        if labels is not None:
+            if labels.shape != ids.shape or ids.size(1) < 2:
+                raise ValueError("Labels must match IDs with sequence length >= 2.")
+            targets = labels[:, 1:]
+            selected = targets != -100
+            count = selected.sum()
+            if count.item() == 0:
+                raise ValueError("Batch contains no target tokens.")
+            # Select states BEFORE each target, preserving the one-token shift.
+            logits = self.lm_head(self.norm(x[:, :-1][selected]))
+            loss = F.cross_entropy(logits.float(), targets[selected], reduction="sum")
+            return {"loss_sum": loss, "target_count": count, "lb": balance}
+        return {"main": self.lm_head(self.norm(x)), "lb": balance}
 
-        x = self.norm(x)
-        logits = self.lm_head(x)
+    def forward_loss(self, ids, attention_mask, labels):
+        if self.target_only_projection:
+            return self(ids, attention_mask=attention_mask, labels=labels)
+        output = self(ids, attention_mask=attention_mask)
+        loss, count = next_token_loss(output["main"], labels)
+        return {"loss_sum": loss, "target_count": count, "lb": output["lb"]}
 
-        out = {"main": logits, "lb": lb_total}
-        if self.use_mtp:
-            out["mtp"] = self.mtp_head(x)
-        return out
-    
     @staticmethod
     def make_collate_fn(tokenizer):
-        pad_id = tokenizer.pad_token_id
-        def coll(batch):
-            inp_seq, lbl_seq = [], []
-            for ex in batch:
-                ctx = torch.tensor(ex["input_ids"], dtype=torch.long)
-                tgt = torch.tensor(ex["labels"],    dtype=torch.long)
-                full   = torch.cat([ctx, tgt[:-1]])            # inputs
-                labels = torch.cat([
-                    torch.full_like(ctx, -100),                # ignore ctx
-                    tgt                                         # predict tgt
-                ])
-                inp_seq.append(full)
-                lbl_seq.append(labels)
-            inp_pad = nn.utils.rnn.pad_sequence(
-                inp_seq, batch_first=True, padding_value=pad_id
-            )
-            lbl_pad = nn.utils.rnn.pad_sequence(
-                lbl_seq, batch_first=True, padding_value=-100
-            )
-            attn_mask = (inp_pad != pad_id).long()
-            return inp_pad, attn_mask, lbl_pad
-        return coll
-# -----------------------------------------
-    def train_model(
-        self,
-        dataset_path: str,
-#       tokenizer_name: str = "deepseek-ai/DeepSeek-V3",
-        tokenizer_name: str = "gpt2",   
-        epochs: int = 1,
-        micro_batch: int = 8,
-        grad_accum: int = 4,
-        lr: float = 1e-4,
-        warmup_updates: int = 1000,
-        device: str = "cuda" if torch.cuda.is_available() else "cpu",
-        save_path: Optional[str] = None,
-    ):
-        tok = AutoTokenizer.from_pretrained(tokenizer_name, trust_remote_code=True)
-        # --- make sure GPT-2 has a pad token ---------------------------------
-        if tok.pad_token_id is None:
-            tok.pad_token = tok.eos_token
-        ds  = load_from_disk(dataset_path)
+        if tokenizer.pad_token_id is None:
+            raise ValueError("Tokenizer must define a padding token.")
 
-        # --- dataloader -----------------------------------------------------
-        coll_fn = self.make_collate_fn(tok)
-        loader = DataLoader(
-            ds,
-            batch_size = micro_batch,
-            shuffle    = True,
-            collate_fn = coll_fn,
-        )
-
-        # --- optimiser & scheduler -----------------------------------------
-        self.to(device)
-        opt   = torch.optim.AdamW(self.parameters(), lr=lr, betas=(0.9,0.95),
-                                  weight_decay=0.01)
-        total_updates = math.ceil(len(loader) * epochs / grad_accum)
-        sched = get_cosine_schedule_with_warmup(
-            opt, num_warmup_steps = warmup_updates, num_training_steps=total_updates
-        )
-        loss_fn = nn.CrossEntropyLoss(ignore_index=-100)
-
-        # --- training loop --------------------------------------------------
-        self.train()
-        step_global = 0
-        opt.zero_grad()
-
-        for ep in range(epochs):
-            for step, (iid, attn, lab) in enumerate(loader):
-                iid, attn, lab = iid.to(device), attn.to(device), lab.to(device)
-
-                with torch.autocast(device_type=device, dtype=torch.bfloat16):
-                    out    = self(iid, attention_mask=attn)
-                    logits = out["main"]                         # (B, L_in, V)
-
-                    # align logits and labels to the same effective length
-                    L_in   = logits.size(1)
-                    L_lab  = lab.size(1)
-                    seq_len = min(L_in - 1, L_lab - 1)           # number of training steps
-
-                    # slice both to [0..seq_len)
-                    log_slice = logits[:, :seq_len]              # (B, seq_len, V)
-                    lab_slice = lab    [:, 1:seq_len+1]          # (B, seq_len)
-
-                    # main CE
-                    loss = loss_fn(
-                        log_slice.reshape(-1, self.vocab),
-                        lab_slice.reshape(-1)
+        def collate(batch):
+            inputs, labels = [], []
+            for example in batch:
+                context = torch.tensor(example["input_ids"], dtype=torch.long)
+                target = torch.tensor(example["labels"], dtype=torch.long)
+                if not context.numel() or not target.numel():
+                    raise ValueError(
+                        "Every example needs nonempty context and target tokens."
                     )
+                inputs.append(torch.cat([context, target]))
+                labels.append(torch.cat([torch.full_like(context, -100), target]))
+            padded = nn.utils.rnn.pad_sequence(
+                inputs, batch_first=True, padding_value=tokenizer.pad_token_id
+            )
+            labels = nn.utils.rnn.pad_sequence(
+                labels, batch_first=True, padding_value=-100
+            )
+            lengths = torch.tensor([len(sequence) for sequence in inputs])
+            mask = torch.arange(padded.size(1))[None] < lengths[:, None]
+            return padded, mask, labels
 
-                    # optional MTP branch
-                    if self.use_mtp:
-                        mtp = out["mtp"][:, :seq_len]
-                        loss += 0.1 * loss_fn(
-                            mtp.reshape(-1, self.vocab),
-                            lab_slice.reshape(-1)
-                        )
- 
-                     # MoE load-balancing
-                    loss += self.lambda_lb * out["lb"]
- 
-                     # scale for gradient accumulation
-                    loss = loss / grad_accum
-                loss.backward()
- 
-                 # optimizer update every grad_accum mini-batches
-                if (step + 1) % grad_accum == 0:
-                    torch.nn.utils.clip_grad_norm_(self.parameters(), 1.0)
-                    opt.step()
-                    opt.zero_grad()
-                    sched.step()
+        return collate
 
+    def train_model(self, *args, **kwargs):
+        """Train with mixed precision and resumable checkpoints; see training.py."""
+        from training import train_model
 
-                    step_global += 1
-                    if step_global % 100 == 0:
-                        print(f"epoch {ep+1} | update {step_global} | "
-                              f"loss {loss.item() * grad_accum:.4f}")  # true CE
+        return train_model(self, *args, **kwargs)
 
-            if save_path:
-                torch.save(self.state_dict(), f"{save_path}/ckpt_ep{ep+1}.pt")
+    def _save_weights(self, path):
+        temporary = path.with_suffix(".pt.tmp")
+        torch.save(self.state_dict(), temporary)
+        temporary.replace(path)
 
+    @torch.no_grad()
     def evaluate_perplexity(
-        self,
-        model, 
-        dataset_path: str, 
-        tokenizer, 
-        device: str = "cuda", 
-        batch_size: int = 8,
+        self, dataset_path, tokenizer, device=None, batch_size=8, label="Test"
     ):
-        # 1) Load test split
-        ds = load_from_disk(dataset_path)
-
-        # 2) Collate: same as train but no grad
-        coll_fn = self.make_collate_fn(tokenizer)
+        if batch_size < 1:
+            raise ValueError("batch_size must be positive.")
+        device = device or next(self.parameters()).device
+        self.to(device)
+        validate_dataset_metadata(dataset_path, tokenizer)
         loader = DataLoader(
-            ds, 
-            batch_size   = batch_size, 
-            shuffle      = False, 
-            collate_fn   = coll_fn
+            load_from_disk(dataset_path),
+            batch_size=batch_size,
+            collate_fn=self.make_collate_fn(tokenizer),
         )
-
-
-        model.eval()
-        loss_fn = nn.CrossEntropyLoss(ignore_index=-100, reduction="sum")
-        total_loss = 0
-        total_tokens = 0
-
-        with torch.no_grad():
-            for (ids, attn_mask, labels) in loader:
-                ids, attn_mask, labels = ids.to(device), attn_mask.to(device), labels.to(device)
-                out    = model(ids, attention_mask=attn_mask)
-                logits = out["main"]              # (B, L, V)
-
-                # align lengths
-                L_in  = logits.size(1)
-                L_lab = labels.size(1)
-                seq_len = min(L_in-1, L_lab-1)
-                log_slice = logits[:, :seq_len].reshape(-1, model.vocab)
-                lab_slice = labels[:, 1:seq_len+1].reshape(-1)
-
-                # sum of CE, ignoring -100
-                batch_loss = loss_fn(log_slice, lab_slice)
-                total_loss += batch_loss.item()
-                total_tokens += (lab_slice != -100).sum().item()
-
-        # perplexity = exp(avg loss per token)
-        ppl = torch.exp(torch.tensor(total_loss / total_tokens))
-        print(f"Test perplexity: {ppl:.2f}")
-        return ppl
+        was_training = self.training
+        total_loss, total_tokens = 0.0, 0
+        self.eval()
+        try:
+            print(f"{label}: evaluating {len(loader.dataset)} examples...", flush=True)
+            for batch_index, (ids, mask, labels) in enumerate(loader, 1):
+                ids, mask, labels = ids.to(device), mask.to(device), labels.to(device)
+                output = self.forward_loss(ids, mask, labels)
+                loss, count = output["loss_sum"], output["target_count"]
+                total_loss += loss.item()
+                total_tokens += count.item()
+                if batch_index % 100 == 0 or batch_index == len(loader):
+                    print(
+                        f"{label}: batch {batch_index}/{len(loader)} | target NLL {total_loss / total_tokens:.4f}",
+                        flush=True,
+                    )
+        finally:
+            self.train(was_training)
+        if not total_tokens:
+            raise ValueError("Evaluation dataset contains no target tokens.")
+        mean_loss = total_loss / total_tokens
+        perplexity = math.exp(mean_loss) if mean_loss < 709 else math.inf
+        print(
+            f"{label} perplexity: {perplexity:.4f} | target NLL: {mean_loss:.4f} | tokens: {total_tokens}"
+        )
+        return perplexity
 
     @staticmethod
-    def top_k_top_p_filtering(
-    logits: torch.Tensor,
-    top_k: int = 0,
-    top_p: float = 1.0,
-    filter_value: float = -float("Inf"),
-    ) -> torch.Tensor:
-        """
-        Filter a distribution of logits using top-k and/or nucleus (top-p) filtering.
-        """
-        logits = logits.clone()
-        # Top-k
-        if top_k > 0:
-            top_k = min(max(top_k, 1), logits.size(-1))
-            threshold = torch.topk(logits, top_k)[0][..., -1, None]
-            logits = torch.where(logits < threshold, filter_value, logits)
-        # Nucleus (top-p)
-        if top_p < 1.0:
-            sorted_logits, sorted_indices = torch.sort(logits, descending=True)
-            cumulative_probs = torch.cumsum(F.softmax(sorted_logits, dim=-1), dim=-1)
-            to_remove = cumulative_probs > top_p
-            to_remove[..., 1:] = to_remove[..., :-1].clone()
-            to_remove[..., 0] = False
-            remove_indices = sorted_indices[to_remove]
-            logits.flatten()[remove_indices] = filter_value
-        return logits
+    def top_k_top_p_filtering(logits, top_k=0, top_p=1.0):
+        if top_k < 0 or not 0 < top_p <= 1:
+            raise ValueError("Require top_k >= 0 and 0 < top_p <= 1.")
+        filtered = logits.clone()
+        if top_k:
+            threshold = filtered.topk(min(top_k, filtered.size(-1)), dim=-1).values[
+                ..., -1, None
+            ]
+            filtered = filtered.masked_fill(filtered < threshold, -torch.inf)
+        if top_p < 1:
+            sorted_logits, sorted_indices = filtered.sort(dim=-1, descending=True)
+            remove = sorted_logits.float().softmax(-1).cumsum(-1) > top_p
+            remove[..., 1:] = remove[..., :-1].clone()
+            remove[..., 0] = False
+            # Scatter independently for every row; flattening mixes batch indices.
+            remove = torch.zeros_like(remove).scatter(-1, sorted_indices, remove)
+            filtered = filtered.masked_fill(remove, -torch.inf)
+        return filtered
 
     @staticmethod
-    def _build_attention_mask(ids: torch.Tensor, pad_token_id: int) -> torch.Tensor:
-        """
-        Create attention mask (1 for real tokens, 0 for padding).
-        """
-        return (ids != pad_token_id).int()
+    def apply_repetition_penalty(logits, previous_ids, penalty):
+        if not math.isfinite(penalty) or penalty <= 0:
+            raise ValueError("repetition_penalty must be finite and positive.")
+        result = logits.clone()
+        for row in range(logits.size(0)):
+            seen = previous_ids[row].unique()
+            scores = result[row, seen]
+            result[row, seen] = torch.where(
+                scores < 0, scores * penalty, scores / penalty
+            )
+        return result
 
     @torch.no_grad()
     def generate(
         self,
-        input_text: str,
-        max_new_tokens: int = 50,
-        temperature: float = 1.0,
-        top_k: int = 0,
-        top_p: float = 1.0,
-        repetition_penalty: float = 1.0,
-        stop_token: Optional[int] = None,
-        device: Optional[str] = None,
-    ) -> str:
-        """
-        Generate text step-by-step with top-k/top-p filtering and optional repetition penalty.
-        """
-        was_training = self.training
-        self.eval()
-        device = device or next(self.parameters()).device
-
-        tokenizer = AutoTokenizer.from_pretrained("gpt2", use_fast=True)
-        pad_id = tokenizer.pad_token_id or tokenizer.eos_token_id
-        stop_token = stop_token or tokenizer.eos_token_id
-
-        # Encode prompt
-        input_ids = tokenizer(
-            input_text, return_tensors="pt", padding=False
-        ).input_ids.to(device)
-        output_ids = input_ids.clone()
-
-        for _ in range(max_new_tokens):
-            # Build attention mask
-            attn_mask = self._build_attention_mask(output_ids, pad_id).to(device)
-            # Forward
-            outputs = self(output_ids, attention_mask=attn_mask)
-            logits = outputs["main"]
-            next_logits = logits[:, -1, :]
-
-            # Apply repetition penalty
-            if repetition_penalty != 1.0:
-                for token_id in set(output_ids.view(-1).tolist()):
-                    next_logits[:, token_id] /= repetition_penalty
-
-            # Choose next token
-            if temperature == 0:
-                next_token = torch.argmax(next_logits, dim=-1, keepdim=True)
-            else:
-                scaled = next_logits / temperature
-                filtered = self.top_k_top_p_filtering(scaled, top_k=top_k, top_p=top_p)
-                probs = F.softmax(filtered, dim=-1)
-                next_token = torch.multinomial(probs, num_samples=1)
-
-            if next_token.item() == stop_token:
-                break
-
-            output_ids = torch.cat([output_ids, next_token], dim=-1)
-
-        text = tokenizer.decode(output_ids[0], skip_special_tokens=True)
-        if was_training:
-            self.train()
-        return text
-
-    @torch.no_grad()
-    def generate_chat(
-        self,
-        prompt,
-        context: Optional[List[str]] = None,
-        max_new_tokens: int = 50,
-        temperature: float = 1.0,
-        top_k: int = 0,
-        top_p: float = 1.0,
-        repetition_penalty: float = 1.0,
-        stop_token: Optional[int] = None,
-        device: Optional[str] = None,
-    ) -> str:
-        """
-        Chat generation: accepts either a prompt string with context list or a single list of messages.
-        """
-        if isinstance(prompt, list) and context is None:
-            history = prompt
-            context = history[:-1]
-            prompt = history[-1]
-
-        history = (context.copy() if context else []) + [prompt]
-        full_input = "\n".join(history)
-        return self.generate(
-            input_text=full_input,
+        input_text,
+        max_new_tokens=50,
+        temperature=1.0,
+        top_k=0,
+        top_p=1.0,
+        repetition_penalty=1.0,
+        stop_token=None,
+        device=None,
+        tokenizer=None,
+        return_full_text=False,
+    ):
+        tokenizer = (
+            tokenizer
+            if tokenizer is not None
+            else AutoTokenizer.from_pretrained("gpt2")
+        )
+        stop_token = tokenizer.eos_token_id if stop_token is None else stop_token
+        tokens = self.generate_token_ids(
+            encode_context(input_text, tokenizer),
             max_new_tokens=max_new_tokens,
             temperature=temperature,
             top_k=top_k,
@@ -645,4 +489,75 @@ class RolePlayTransformer(nn.Module):
             stop_token=stop_token,
             device=device,
         )
+        visible = tokens[:-1] if tokens and tokens[-1] == stop_token else tokens
+        completion = tokenizer.decode(visible, skip_special_tokens=True)
+        return input_text + "\n\n" + completion if return_full_text else completion
 
+    @torch.no_grad()
+    def generate_token_ids(
+        self,
+        input_ids,
+        max_new_tokens=50,
+        temperature=1.0,
+        top_k=0,
+        top_p=1.0,
+        repetition_penalty=1.0,
+        stop_token=None,
+        device=None,
+    ):
+        """Generate from exact context IDs; return new IDs, including EOS if emitted.
+
+        Prepared evaluation contexts already include the reply boundary and
+        truncation. This avoids decoding and re-tokenizing them before generation.
+        """
+        if max_new_tokens < 1 or not math.isfinite(temperature) or temperature < 0:
+            raise ValueError(
+                "Require positive max_new_tokens and finite nonnegative temperature."
+            )
+        if (
+            top_k < 0
+            or not 0 < top_p <= 1
+            or not math.isfinite(repetition_penalty)
+            or repetition_penalty <= 0
+        ):
+            raise ValueError("Invalid sampling settings.")
+        if stop_token is not None and not 0 <= stop_token < self.vocab:
+            raise ValueError("stop_token is outside the vocabulary.")
+        if not input_ids or any(
+            not isinstance(token, int) or not 0 <= token < self.vocab
+            for token in input_ids
+        ):
+            raise ValueError("input_ids must be a nonempty list of vocabulary IDs.")
+        device = device or next(self.parameters()).device
+        ids = torch.tensor([input_ids], dtype=torch.long, device=device)
+        if ids.size(1) + max_new_tokens > self.max_len:
+            raise ValueError("Prompt plus requested output exceeds the context length.")
+        prompt_length = ids.size(1)
+        was_training = self.training
+        self.eval()
+        try:
+            for _ in range(max_new_tokens):
+                logits = self(ids)["main"][:, -1].float()
+                logits = self.apply_repetition_penalty(logits, ids, repetition_penalty)
+                if temperature == 0:
+                    next_token = logits.argmax(-1, keepdim=True)
+                else:
+                    filtered = self.top_k_top_p_filtering(
+                        logits / temperature, top_k, top_p
+                    )
+                    next_token = torch.multinomial(filtered.softmax(-1), 1)
+                ids = torch.cat([ids, next_token], dim=-1)
+                if next_token.item() == stop_token:
+                    break
+            return ids[0, prompt_length:].tolist()
+        finally:
+            self.train(was_training)
+
+    def generate_chat(self, prompt, context=None, **generation_options):
+        if isinstance(prompt, list):
+            if context is not None:
+                raise ValueError("Supply either a message list or prompt plus context.")
+            messages = prompt
+        else:
+            messages = list(context or []) + [prompt]
+        return self.generate(format_messages(messages), **generation_options)

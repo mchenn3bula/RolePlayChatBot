@@ -1,0 +1,560 @@
+{
+  "run": "modern-rope-swiglu-v1",
+  "evaluation_date": "2026-09-23",
+  "checkpoint_sha256": "c8e2a615586d188b4d0979ccfdd9d39702d24e9165043b6e2593095e2a7bd831",
+  "model_config": {
+    "architecture_version": 3,
+    "max_len": 1024,
+    "d_model": 768,
+    "n_layers": 12,
+    "n_heads": 12,
+    "d_ff": 2048,
+    "dropout": 0.1,
+    "moe_start": null,
+    "lambda_lb": 0.01,
+    "gradient_checkpointing": false,
+    "position_encoding": "rope",
+    "ffn_type": "swiglu",
+    "rope_theta": 10000.0,
+    "target_only_projection": true
+  },
+  "training_metrics": [
+    {
+      "epoch": 1,
+      "train_nll": 4.372218508916498,
+      "validation_perplexity": 52.961609856774395
+    },
+    {
+      "epoch": 2,
+      "train_nll": 3.6859560949343217,
+      "validation_perplexity": 43.03267028076835
+    },
+    {
+      "epoch": 3,
+      "train_nll": 3.462800759717903,
+      "validation_perplexity": 38.67614662239415
+    },
+    {
+      "epoch": 4,
+      "train_nll": 3.3258223375403078,
+      "validation_perplexity": 38.10111368299233
+    }
+  ],
+  "training_progress": {
+    "completed_epochs": 4,
+    "next_example": 0,
+    "global_step": 22210,
+    "planned_epochs": 4,
+    "skipped_fp16_updates": 6,
+    "precision": "fp16"
+  },
+  "evaluation": {
+    "selection_seed": 42,
+    "dataset_indices": [
+      20952,
+      3648,
+      819,
+      24299,
+      9012,
+      8024,
+      7314,
+      4572,
+      24132,
+      3358,
+      22174,
+      24270,
+      17870,
+      2848,
+      19349,
+      13825,
+      1041,
+      976,
+      3070,
+      7164,
+      7623,
+      16559,
+      19726,
+      869,
+      18390,
+      6515,
+      23462,
+      21295,
+      22981,
+      17856,
+      13746,
+      7223,
+      14719,
+      19309,
+      9115,
+      26523,
+      212,
+      24864,
+      26405,
+      5231,
+      22876,
+      13848,
+      11149,
+      9105,
+      5094,
+      7055,
+      25018,
+      11029,
+      3349,
+      3039
+    ],
+    "generation_seeds": [
+      42,
+      43,
+      44
+    ],
+    "generation_settings": {
+      "max_new_tokens": 128,
+      "temperature": 0.8,
+      "top_k": 50,
+      "top_p": 0.9,
+      "repetition_penalty": 1.05
+    },
+    "torch_version": "2.9.1+rocm7.2.1.gitff65f5bc",
+    "device": "AMD Radeon RX 7900 XTX",
+    "precision": "fp32 (matches chat.py inference; training uses mixed precision)",
+    "source_sha256": {
+      "evaluate_generation.py": "73ddea5818ee40f69225cbf2dd1af9ee43ff074d294013debb9eaf05a6d94fe1",
+      "mini_deepseek.py": "f62e109d2c0e1869a8d66941f698f8a0e2eef6dfc1a17307b72531e837e2fd88",
+      "workflow.py": "7590f7273770751b09df9ac5ef8e5ae585e3a0f6dc38242e5fcde5b3fae7a375",
+      "conversation.py": "48f884934ff0a3cbf658cd0495377b55ad731fc1446d2feab33d7e7962724490"
+    },
+    "dataset_files_sha256": {
+      "cache-056855f722b87dc6.arrow": "7c1919c72a51b0d368eda07f5329b76b7854b4ff5ce6ba5275ee7b6ac0cb326d",
+      "data-00000-of-00001.arrow": "9e53c91c15673420c91cb8e80f4ab42c9c5e59f0c7c080c1ac8b71314f743696",
+      "dataset_info.json": "c3528727b3170bcb54b4b0057dc4d2aebe8a8221a63779628e4872a35f7f3efc",
+      "roleplay_format.json": "7992d20769d17ea9ac40b165b83cde82e9fe177f0ffa92564600bb3881f29a2f",
+      "state.json": "d825b56ee7c7f49fe7d1d29836bfaf63bdbec73de180c3ff401fd361e8725151"
+    }
+  },
+  "generation_summary": {
+    "generations": 150,
+    "mean_generated_tokens_excluding_eos": 77.26666666666667,
+    "empty_response_fraction": 0.0,
+    "fewer_than_four_words_fraction": 0.0,
+    "eos_termination_fraction": 0.6933333333333334,
+    "length_limit_fraction": 0.30666666666666664,
+    "mean_repeated_word_4gram_fraction": 0.004120562579961649,
+    "responses_eligible_for_4gram_metric": 150,
+    "note": "Repetition excludes responses under four words; inspect lengths and empty responses. These metrics do not measure fluency or relevance. Seeds are repeated samples of the same prompts, not independent prompts.",
+    "by_seed": {
+      "42": {
+        "generations": 50,
+        "mean_generated_tokens_excluding_eos": 78.74,
+        "empty_response_fraction": 0.0,
+        "fewer_than_four_words_fraction": 0.0,
+        "eos_termination_fraction": 0.7,
+        "length_limit_fraction": 0.3,
+        "mean_repeated_word_4gram_fraction": 0.006822292117073112,
+        "responses_eligible_for_4gram_metric": 50,
+        "note": "Repetition excludes responses under four words; inspect lengths and empty responses. These metrics do not measure fluency or relevance. Seeds are repeated samples of the same prompts, not independent prompts."
+      },
+      "43": {
+        "generations": 50,
+        "mean_generated_tokens_excluding_eos": 80.46,
+        "empty_response_fraction": 0.0,
+        "fewer_than_four_words_fraction": 0.0,
+        "eos_termination_fraction": 0.66,
+        "length_limit_fraction": 0.34,
+        "mean_repeated_word_4gram_fraction": 0.0024674146649377904,
+        "responses_eligible_for_4gram_metric": 50,
+        "note": "Repetition excludes responses under four words; inspect lengths and empty responses. These metrics do not measure fluency or relevance. Seeds are repeated samples of the same prompts, not independent prompts."
+      },
+      "44": {
+        "generations": 50,
+        "mean_generated_tokens_excluding_eos": 72.6,
+        "empty_response_fraction": 0.0,
+        "fewer_than_four_words_fraction": 0.0,
+        "eos_termination_fraction": 0.72,
+        "length_limit_fraction": 0.28,
+        "mean_repeated_word_4gram_fraction": 0.0030719809578740455,
+        "responses_eligible_for_4gram_metric": 50,
+        "note": "Repetition excludes responses under four words; inspect lengths and empty responses. These metrics do not measure fluency or relevance. Seeds are repeated samples of the same prompts, not independent prompts."
+      }
+    }
+  },
+  "additional_metrics": {
+    "replies_with_any_repeated_word_4gram": 30,
+    "replies_with_repeated_word_4gram_fraction_at_least_0_1": 0,
+    "max_repetition": {
+      "dataset_index": 3648,
+      "seed": 42,
+      "repeated_word_4gram_fraction": 0.08602150537634412
+    },
+    "median_generated_tokens": 73.5,
+    "min_generated_tokens": 14,
+    "eos_count": 104,
+    "length_cap_count": 46,
+    "common_word_trigrams_by_response_count": [
+      {
+        "phrase": "going to be",
+        "responses": 15
+      },
+      {
+        "phrase": "not going to",
+        "responses": 11
+      },
+      {
+        "phrase": "was going to",
+        "responses": 11
+      },
+      {
+        "phrase": "be able to",
+        "responses": 11
+      },
+      {
+        "phrase": "a little and",
+        "responses": 10
+      },
+      {
+        "phrase": "shook his head",
+        "responses": 10
+      },
+      {
+        "phrase": "smiling a little",
+        "responses": 9
+      },
+      {
+        "phrase": "it would be",
+        "responses": 9
+      },
+      {
+        "phrase": "smiled a little",
+        "responses": 8
+      },
+      {
+        "phrase": "i don't know",
+        "responses": 8
+      },
+      {
+        "phrase": "it he admitted",
+        "responses": 7
+      },
+      {
+        "phrase": "i don't think",
+        "responses": 7
+      },
+      {
+        "phrase": "i'm not going",
+        "responses": 7
+      },
+      {
+        "phrase": "at the idea",
+        "responses": 7
+      },
+      {
+        "phrase": "the idea of",
+        "responses": 7
+      }
+    ],
+    "max_identical_consecutive_token_run": 1,
+    "inn_identical_token_runs": {
+      "42": 3,
+      "43": 3,
+      "44": 19
+    }
+  },
+  "assistant_review": {
+    "assessor": "Codex assistant; qualitative AI review, not independent human ratings",
+    "selection": "First 20 manifest prompts in predeclared order, seed 42 only. Reviewed full prepared contexts and generations; no best-seed selection.",
+    "rubric": {
+      "grammar": "1 mostly unreadable; 2 frequent malformed clauses; 3 understandable with errors; 4 mostly grammatical; 5 consistently fluent",
+      "relevance": "1 unrelated to immediate scene; 2 surface names/style/topic only; 3 partial response with omissions; 4 largely follows the scene; 5 directly addresses it and preserves details",
+      "coherence": "1 frequent contradiction/nonsense; 2 substantial identity/scene/meaning drift; 3 mostly understandable with some gaps; 4 locally consistent; 5 consistently logical throughout"
+    },
+    "reviews": [
+      {
+        "dataset_index": 20952,
+        "seed": 42,
+        "grammar": 2,
+        "relevance": 1,
+        "coherence": 2,
+        "notes": "Abrupt next-day jump; drops the hospital investigation and characters. The opening sentence is malformed.",
+        "generated_tokens": 128,
+        "stopped_on_eos": false
+      },
+      {
+        "dataset_index": 3648,
+        "seed": 42,
+        "grammar": 3,
+        "relevance": 2,
+        "coherence": 2,
+        "notes": "Imitates the source dialogue style and names but repeats reporting clauses and introduces unsupported topics.",
+        "generated_tokens": 128,
+        "stopped_on_eos": false
+      },
+      {
+        "dataset_index": 819,
+        "seed": 42,
+        "grammar": 3,
+        "relevance": 2,
+        "coherence": 2,
+        "notes": "Retains some names, but changes Shayne to Shay and female pronouns; does not respond to the team introduction.",
+        "generated_tokens": 67,
+        "stopped_on_eos": true
+      },
+      {
+        "dataset_index": 24299,
+        "seed": 42,
+        "grammar": 4,
+        "relevance": 4,
+        "coherence": 4,
+        "notes": "A plausible brief response from the correct character; the door movement is unsupported but not contradictory.",
+        "generated_tokens": 29,
+        "stopped_on_eos": true
+      },
+      {
+        "dataset_index": 9012,
+        "seed": 42,
+        "grammar": 2,
+        "relevance": 2,
+        "coherence": 1,
+        "notes": "Retains a character name and scene register, but actions and motives become contradictory; repeats an action verbatim.",
+        "generated_tokens": 128,
+        "stopped_on_eos": false
+      },
+      {
+        "dataset_index": 8024,
+        "seed": 42,
+        "grammar": 2,
+        "relevance": 1,
+        "coherence": 1,
+        "notes": "Replaces an indoor snowstorm/door-knock scene with an unexplained forest; includes a semantically impossible description.",
+        "generated_tokens": 41,
+        "stopped_on_eos": true
+      },
+      {
+        "dataset_index": 7314,
+        "seed": 42,
+        "grammar": 4,
+        "relevance": 3,
+        "coherence": 2,
+        "notes": "Responds to the request to sleep together, but replaces Rosalina with Kori and loses location continuity.",
+        "generated_tokens": 125,
+        "stopped_on_eos": true
+      },
+      {
+        "dataset_index": 4572,
+        "seed": 42,
+        "grammar": 3,
+        "relevance": 3,
+        "coherence": 2,
+        "notes": "Keeps Tony and the tired/intimate mood; mostly vague assent and repeated sighing rather than a specific response.",
+        "generated_tokens": 128,
+        "stopped_on_eos": false
+      },
+      {
+        "dataset_index": 24132,
+        "seed": 42,
+        "grammar": 4,
+        "relevance": 2,
+        "coherence": 3,
+        "notes": "Uses the existing names, but shifts the urgent feeding problem into generic concern without a clear answer.",
+        "generated_tokens": 43,
+        "stopped_on_eos": true
+      },
+      {
+        "dataset_index": 3358,
+        "seed": 42,
+        "grammar": 3,
+        "relevance": 1,
+        "coherence": 1,
+        "notes": "Mismatches an emotionally distressed scene with cheerful generic remarks; character identity and claims drift.",
+        "generated_tokens": 128,
+        "stopped_on_eos": false
+      },
+      {
+        "dataset_index": 22174,
+        "seed": 42,
+        "grammar": 4,
+        "relevance": 2,
+        "coherence": 2,
+        "notes": "Correct character and broad dialogue style, but the response barely addresses the apology and inserts unexplained movement.",
+        "generated_tokens": 26,
+        "stopped_on_eos": true
+      },
+      {
+        "dataset_index": 24270,
+        "seed": 42,
+        "grammar": 3,
+        "relevance": 4,
+        "coherence": 3,
+        "notes": "Tracks the health/stress topic and speaker; wording about handling stress is awkward but broadly relevant.",
+        "generated_tokens": 31,
+        "stopped_on_eos": true
+      },
+      {
+        "dataset_index": 17870,
+        "seed": 42,
+        "grammar": 4,
+        "relevance": 3,
+        "coherence": 4,
+        "notes": "Brief, locally consistent continuation with the same character; does not explicitly answer the question.",
+        "generated_tokens": 21,
+        "stopped_on_eos": true
+      },
+      {
+        "dataset_index": 2848,
+        "seed": 42,
+        "grammar": 2,
+        "relevance": 1,
+        "coherence": 1,
+        "notes": "Switches from a recovering Vulpix and an invitation to Dr. Moreau and a laboratory, with malformed narration.",
+        "generated_tokens": 91,
+        "stopped_on_eos": true
+      },
+      {
+        "dataset_index": 19349,
+        "seed": 42,
+        "grammar": 4,
+        "relevance": 2,
+        "coherence": 2,
+        "notes": "Readable but changes reluctant assent into a claim of enjoyment, missing the established emotional state.",
+        "generated_tokens": 21,
+        "stopped_on_eos": true
+      },
+      {
+        "dataset_index": 13825,
+        "seed": 42,
+        "grammar": 4,
+        "relevance": 1,
+        "coherence": 3,
+        "notes": "Readable standalone line, but replaces the kitchen characters with Kairi and introduces unrelated anger.",
+        "generated_tokens": 26,
+        "stopped_on_eos": true
+      },
+      {
+        "dataset_index": 1041,
+        "seed": 42,
+        "grammar": 3,
+        "relevance": 2,
+        "coherence": 1,
+        "notes": "Stays on the baby/family topic but makes mutually inconsistent claims about having, finding, and collecting a child.",
+        "generated_tokens": 114,
+        "stopped_on_eos": true
+      },
+      {
+        "dataset_index": 976,
+        "seed": 42,
+        "grammar": 2,
+        "relevance": 1,
+        "coherence": 1,
+        "notes": "Ignores the newspaper accusation; vague questions and nonsensical statements do not advance the scene.",
+        "generated_tokens": 83,
+        "stopped_on_eos": true
+      },
+      {
+        "dataset_index": 3070,
+        "seed": 42,
+        "grammar": 2,
+        "relevance": 2,
+        "coherence": 1,
+        "notes": "Broad scene register continues, but speaker agency, location, and instructions become inconsistent; repeated verbs escape the 4-gram metric.",
+        "generated_tokens": 121,
+        "stopped_on_eos": true
+      },
+      {
+        "dataset_index": 7164,
+        "seed": 42,
+        "grammar": 2,
+        "relevance": 2,
+        "coherence": 1,
+        "notes": "Retains a fight and Diego but introduces Lita without support; physical events and agent references are incoherent.",
+        "generated_tokens": 128,
+        "stopped_on_eos": false
+      }
+    ],
+    "summary": {
+      "grammar": 3.0,
+      "relevance": 2.05,
+      "coherence": 1.95,
+      "relevance_and_coherence_both_at_least_3": 3,
+      "reviewed_prompts": 20
+    }
+  },
+  "short_prompt_diagnostic": {
+    "prompt": "The traveler knocks on the inn door. \"Is anyone there?\"",
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "all_three_garbled": true,
+    "max_identical_consecutive_token_run": 19,
+    "probe": {
+      "prompt_roundtrip_exact": true,
+      "eos_boundary_correct": true,
+      "same_generation_through_chat_api": true,
+      "cpu_gpu_logits_close": true,
+      "math_default_gpu_logits_close": true,
+      "max_abs_cpu_gpu": 3.0517578125e-05,
+      "max_abs_math_default_gpu": 2.6702880859375e-05,
+      "max_abs_fp16_fp32": 0.01950836181640625,
+      "top5_fp32": [
+        {
+          "id": 23381,
+          "text": "Menu",
+          "probability": 0.00014433893375098705
+        },
+        {
+          "id": 41623,
+          "text": " Personnel",
+          "probability": 0.0001384975912515074
+        },
+        {
+          "id": 50143,
+          "text": " GPIO",
+          "probability": 0.0001379221212118864
+        },
+        {
+          "id": 38093,
+          "text": " =================================================================",
+          "probability": 0.0001361092581646517
+        },
+        {
+          "id": 39223,
+          "text": "umeric",
+          "probability": 0.00013359358126763254
+        }
+      ],
+      "top5_fp16": [
+        {
+          "id": 23381,
+          "text": "Menu",
+          "probability": 0.00014347968681249768
+        },
+        {
+          "id": 50143,
+          "text": " GPIO",
+          "probability": 0.00013906527601648122
+        },
+        {
+          "id": 41623,
+          "text": " Personnel",
+          "probability": 0.00013906527601648122
+        },
+        {
+          "id": 38093,
+          "text": " =================================================================",
+          "probability": 0.0001369092642562464
+        },
+        {
+          "id": 39223,
+          "text": "umeric",
+          "probability": 0.0001326970086665824
+        }
+      ],
+      "note": "A matching failure across these paths rules out the checked tokenizer/boundary and GPU-kernel discrepancies; it does not identify the training/data root cause."
+    }
+  },
+  "limitations": [
+    "Qualitative ratings are from the Codex assistant, not independent human annotations.",
+    "Raw conversations and generated-text panels, datasets, and weights are not included.",
+    "Historical T4 checkpoint was unavailable; no matched generation-quality comparison was performed.",
+    "Test split was not used."
+  ]
+}

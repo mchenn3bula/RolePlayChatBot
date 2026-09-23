@@ -1,0 +1,4 @@
+# Windows/NVIDIA environment verified with driver 591.59 (CUDA 13.1 support).
+--extra-index-url https://download.pytorch.org/whl/cu130
+-r requirements.txt
+torch==2.14.0+cu130

@@ -1,0 +1,16 @@
+{
+  "architecture_version": 3,
+  "max_len": 1024,
+  "d_model": 768,
+  "n_layers": 12,
+  "n_heads": 12,
+  "d_ff": 2048,
+  "dropout": 0.1,
+  "moe_start": null,
+  "lambda_lb": 0.01,
+  "gradient_checkpointing": false,
+  "position_encoding": "rope",
+  "ffn_type": "swiglu",
+  "rope_theta": 10000.0,
+  "target_only_projection": true
+}

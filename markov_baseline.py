@@ -1,6 +1,7 @@
 # markov_baseline.py
 
 import math
+import random
 from collections import defaultdict
 from datasets import load_from_disk
 
