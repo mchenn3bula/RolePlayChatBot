@@ -1,5 +1,21 @@
 # RolePlayChatBot
 
+## Research references
+
+Paper citations, source links, limitations and their connection to our experiments
+are collected in:
+
+- [Literature review](LITERATURE_REVIEW.md): data curation, DPO/Se-DPO, memory,
+  roleplay evaluation, distillation and reinforcement learning.
+- [Character-reference research](NATURAL_REFERENCE_RESEARCH.md): SPASM, RoleMRC,
+  prompt-format sensitivity, semantic evaluation and anonymous roleplay benchmarks.
+- [Advanced-method decision](ADVANCED_METHOD_DECISION.md): the Se-DPO reference
+  and why the available evidence did not justify an advanced training run.
+
+These sources motivate hypotheses; our measured results are reported separately
+in the experiment reports below. Future research-backed changes should include
+primary-source references and distinguish published evidence from local findings.
+
 ## Response-rule refinement and fresh scenes
 
 An added first-person/completeness rule improved semantic passes on new authored

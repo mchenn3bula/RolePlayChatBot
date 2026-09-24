@@ -4,6 +4,11 @@ Read `CODEX_HANDOFF.md` for current state, `BASELINE.md` for the fixed historica
 baseline, and `MODERN_BASELINE.md` for the completed modern experiment.
 User instructions take precedence over this document.
 
+- Include references for research-backed recommendations and method changes.
+  Link primary papers or official documentation near the claims they support;
+  distinguish published findings, our hypotheses, and local measurements. Keep
+  the README research-reference index current. Preserve frozen experiment files.
+
 - The user authorized continued refinement of natural-reference replies. The
   response-rule experiment in `RESPONSE_REFINEMENT_PROTOCOL.md` adds fresh authored
   bilingual validation, preserves historical ratings and scores third-person
