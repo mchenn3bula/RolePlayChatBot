@@ -1,0 +1,23 @@
+{
+  "experiment": "ministral-p1-v1",
+  "model_id": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+  "revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+  "precision": "float16",
+  "attention": "sdpa",
+  "max_context_tokens": 2048,
+  "max_new_tokens": 192,
+  "temperature": 0.7,
+  "top_p": 0.9,
+  "top_k": 50,
+  "repetition_penalty": 1.0,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "max_reserved_gib": 18,
+  "min_free_gib": 4,
+  "panel": "posttraining/eval_scenarios_v1.json",
+  "context_mode": "p1",
+  "state_panel": "posttraining/eval_states_v1.json"
+}

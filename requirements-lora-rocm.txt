@@ -1,0 +1,4 @@
+# Isolated training environment; preserve inference and custom-baseline environments.
+-r requirements-ministral-rocm.lock.txt
+peft==0.20.0
+pyarrow==25.0.1

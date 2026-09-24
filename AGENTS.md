@@ -1,8 +1,54 @@
 # RolePlayChatBot project instructions
 
 Read `CODEX_HANDOFF.md` for current state, `BASELINE.md` for the fixed historical
-baseline, and `MODERN_BASELINE.md` for the user's selected next experiment.
+baseline, and `MODERN_BASELINE.md` for the completed modern experiment.
 User instructions take precedence over this document.
+
+- The user authorized continued refinement of natural-reference replies. The
+  response-rule experiment in `RESPONSE_REFINEMENT_PROTOCOL.md` adds fresh authored
+  bilingual validation, preserves historical ratings and scores third-person
+  self-description separately. Generated evaluation review is allowed; private
+  source dialogue stays unread. No automatic default promotion or training.
+- The user additionally authorized literature research followed by a natural-
+  sentence character-reference ablation. See `NATURAL_REFERENCE_RESEARCH.md` and
+  frozen `NATURAL_REFERENCE_PROTOCOL.md`. Preserve historical per-text score
+  anchors, unchanged negative controls and all previous experiments. This is
+  inference-only with the same CSFT checkpoint, not authorization to promote a
+  default automatically. Generated evaluation review is allowed in this scope.
+- The user authorized a controlled role-confusion/state-format experiment.
+  `STATE_FORMAT_PROTOCOL.md` freezes a prose versus entity-assignment rendering
+  ablation using the unchanged continued-SFT epoch-02 adapter. Generated replies
+  and authored fixtures may be reviewed within this scope; private source dialogue
+  stays unread. Preserve its frozen inputs, mappings, criteria and annotations.
+  This reuses a familiar development panel, not a new held-out test. No automatic
+  model/prompt default promotion or extra training follows from the pilot.
+- Latest user override (DPO comparison): the user reviewed the generated dialogue,
+  found it appropriate, and permits reading generated replies when needed to
+  compare standard DPO with SFT. Limit this exception to generated evaluation
+  replies and authored synthetic preference fixtures; raw source conversations
+  remain private. Clearly distinguish assistant judgments from human ratings.
+  Logs should still omit dialogue. Preserve historical reports and checkpoints.
+- Standard DPO D1 is now trained from S1 epoch-02, also its immutable reference.
+  See `DPO_COMPARISON.md` and the frozen comparison protocol. The 160/40 preference
+  rows are assistant-authored synthetic contrasts from 16/4 template families,
+  not human labels. Selected checkpoint: `ministral-d1-standard-v1/epoch-02`.
+  Keep this pilot separate; no automatic promotion of the chat default.
+- The user authorized strengthening bilingual preferences and a continued-SFT
+  control. See `BILINGUAL_CONTROL_PROTOCOL.md` and `BILINGUAL_CONTROL_RESULTS.md`.
+  V2 uses 40 training scene families, one EN/FR pair per scene, and separately
+  held-out validation/evaluation scenes. Curation may inspect new authored fixtures
+  and their generated candidates; private source conversations remain unread.
+  Labels are assistant-curated unless the user supplies independent annotations.
+  The continued-SFT and standard-DPO arms start from S1, use identical chosen
+  exposure/updates, and are not equal-compute claims. Advanced methods stay deferred.
+- Earlier user output-review preference (superseded only within that exception): do not read, quote, or judge
+  roleplay dialogue or model-generated replies. Do not run content-scoring or
+  AI-review pipelines. Save replies for the user and provide file locations.
+  Verify changes with authored benign fixtures and technical checks only.
+  Keep future generation logs content-free; do not open generated galleries,
+  transcripts, or raw generations in tools. Historical reviews are superseded
+  as a workflow by this preference. The local chat model may process history
+  to run the application, but the coding assistant must not inspect replies.
 
 - Preserve the architecture-version-2 dense baseline: four layers, width 256,
   four heads, feed-forward width 1,024, maximum length 1,024, tied embeddings.
@@ -31,8 +77,30 @@ User instructions take precedence over this document.
   checkpointing. Real trainer smoke/resume/reload passed; peak reservation was
   15.28 GiB. Benchmark throughput was 36.28 examples/sec. Full training has not
   started. Preserve this as a separate experiment from the historical baseline.
-- Mistral/Ministral adapter training and the research plan are proposed work;
-  no pretrained backbone or adapters have been downloaded or trained here.
+- Ministral P0 inference is established in a separate WSL environment at
+  `$HOME/.venvs/roleplay-ministral`; pinned model weights are in the HF cache.
+  The completed P0 run saved 108 EN/FR replies. Its historical report contains
+  generated text: do not open it under the user's current output-review preference.
+  The user has authorized a whole-conversation LoRA S1 pilot. See
+  `LORA_TRAINING.md`; selected dialogue files are user-only and must not be opened
+  by the coding assistant. Structural curation is not semantic quality review.
+  S1 finished two epochs / 30 updates; selected adapter is
+  `checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02/`. Held-out reply NLL went
+  from 2.88195 to 2.68817; this is not a generated-quality judgment. Peak training
+  reservation was 11.41 GiB, with no FP16 overflow retries.
+  Use `train_lora.ps1` and the separate `roleplay-lora` environment. Do not alter
+  running trainer/config/runtime source files, whose hashes guard resume.
+  Preserve P0 and P1 as separate controls. P1 authored state is implemented; see
+  `PERSONA_SCENE_STATE.md`. The suite has 63 tests; the native tokenizer test is
+  additionally run in the LoRA environment when unavailable in the baseline env.
+  New inference
+  runs save file-only replies and technical summaries, with no AI/content scoring.
+  P1 is the default launcher profile; preserve P0 as a separately selectable control.
+  Use the user's own output judgments to decide later training work.
+  Follow the September 23 `RESEARCH_PLAN.md` and `LITERATURE_REVIEW.md`: first
+  explicit-state controls after P0 inference, then curated SFT and DPO.
+  Se-DPO/distillation/RL are gated alternatives, not mandatory stacked stages.
+  Use a separate environment and measured AMD preflight before a six-hour run.
 - The user adopted RoPE + SwiGLU and reply-position-only vocabulary projection
   as `modern-rope-swiglu-v1`, architecture version 3, 123,551,232 parameters.
   Use `configs/overnight_rope_swiglu.json` and `train_amd.ps1 -Profile Modern`.

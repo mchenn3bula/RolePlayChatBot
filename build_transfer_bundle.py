@@ -24,6 +24,45 @@ ROOT_FILES = (
     "MODERN_BASELINE.md",
     "GENERATION_EVALUATION.md",
     "RESEARCH_PLAN.md",
+    "LITERATURE_REVIEW.md",
+    "MINISTRAL_EVALUATION.md",
+    "PERSONA_SCENE_STATE.md",
+    "LORA_TRAINING.md",
+    "DPO_COMPARISON.md",
+    "ADVANCED_METHOD_DECISION.md",
+    "BILINGUAL_CONTROL_PROTOCOL.md",
+    "BILINGUAL_CONTROL_RESULTS.md",
+    "STATE_FORMAT_PROTOCOL.md",
+    "STATE_FORMAT_RESULTS.md",
+    "NATURAL_REFERENCE_RESEARCH.md",
+    "NATURAL_REFERENCE_PROTOCOL.md",
+    "NATURAL_REFERENCE_RESULTS.md",
+    "RESPONSE_REFINEMENT_PROTOCOL.md",
+    "RESPONSE_REFINEMENT_RESULTS.md",
+    "evaluate_response_refinement.ps1",
+    "run_response_refinement.sh",
+    "evaluate_natural_reference.ps1",
+    "run_natural_reference.sh",
+    "evaluate_state_format.ps1",
+    "run_state_format.sh",
+    "train_bilingual_control.ps1",
+    "train_bilingual_pair.ps1",
+    "run_bilingual_control.sh",
+    "DPO_COMPARISON_PROTOCOL.md",
+    "DPO_PROTOCOL_ADDENDUM.md",
+    "train_dpo.ps1",
+    "run_dpo.sh",
+    "train_lora.ps1",
+    "run_lora.sh",
+    "setup_lora_env.sh",
+    "requirements-lora-rocm.txt",
+    "requirements-lora-rocm.lock.txt",
+    "ministral.ps1",
+    "setup_ministral_env.sh",
+    "run_ministral.sh",
+    "chat_ministral.sh",
+    "requirements-ministral-rocm.txt",
+    "requirements-ministral-rocm.lock.txt",
     "baseline.py",
     "benchmark.py",
     "build_colab_bundle.py",
@@ -65,12 +104,48 @@ def main():
         ("configs", "*.json"),
         ("tests", "test_*.py"),
         ("notebooks", "*.ipynb"),
+        ("posttraining", "*.py"),
+        ("posttraining", "*.json"),
+        ("posttraining/personas", "*.json"),
     ):
         for path in sorted((ROOT / directory).glob(pattern)):
             sources[path.relative_to(ROOT).as_posix()] = path
     sources["dist/RolePlayChatBot_Colab.ipynb"] = (
         ROOT / "dist/RolePlayChatBot_Colab.ipynb"
     )
+    # Personal transfer only: keep whole-thread LoRA and synthetic DPO data reproducible.
+    # Dialogue stays excluded from Git, and is never printed or interpreted here.
+    for data_name in ("ministral-s1-whole-v1", "ministral-d1-preferences-v1", "ministral-preferences-v2"):
+        lora_data = ROOT / "data" / data_name
+        if not lora_data.is_dir():
+            continue
+        manifest_path = lora_data / "manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        sources[manifest_path.relative_to(ROOT).as_posix()] = manifest_path
+        for name, expected in manifest["files"].items():
+            path = lora_data / name
+            if not path.resolve().is_relative_to(lora_data.resolve()) or sha256(path) != expected:
+                raise ValueError("Prepared adapter dataset path/fingerprint mismatch.")
+            sources[path.relative_to(ROOT).as_posix()] = path
+    # Preserve v2 curation provenance in personal transfers, including unused candidates.
+    for directory, pattern in (
+        ("data/ministral-preferences-v2", "draft*"),
+        ("data/ministral-preferences-v2/source_snapshot", "*"),
+        ("reports/ministral-preferences-v2-curation", "*.json"),
+        ("reports/ministral-preferences-v2-curation", "*.jsonl"),
+        ("reports/ministral-preferences-v2-curation", "*.html"),
+        ("reports/ministral-state-format-v1", "*.json"),
+        ("reports/ministral-state-format-v1", "*.jsonl"),
+        ("reports/ministral-state-format-v1", "*.html"),
+        ("reports/ministral-natural-reference-v1", "*.json"),
+        ("reports/ministral-natural-reference-v1", "*.jsonl"),
+        ("reports/ministral-natural-reference-v1", "*.html"),
+        ("reports/ministral-response-refinement-v1", "*.json"),
+        ("reports/ministral-response-refinement-v1", "*.jsonl"),
+        ("reports/ministral-response-refinement-v1", "*.html"),
+    ):
+        for path in sorted((ROOT / directory).glob(pattern)):
+            sources[path.relative_to(ROOT).as_posix()] = path
     for path in sorted((ROOT / "dist/colab_tokenizer").glob("*")):
         if path.is_file() and path.suffix in (".json", ".txt", ".model"):
             sources[f"tokenizer/{path.name}"] = path

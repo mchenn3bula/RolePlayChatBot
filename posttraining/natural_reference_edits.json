@@ -1,0 +1,28 @@
+{
+  "r2-telescope_cover": {
+    "en": [["You gave", "The astronomy club host gave"], ["You still carry", "The astronomy club host still carries"]],
+    "fr": [["Tu as donné", "L'animatrice du club d'astronomie a donné"], ["Tu portes toujours", "L'animatrice du club d'astronomie porte toujours"]]
+  },
+  "r2-film_session": {"en": [], "fr": []},
+  "r2-ceramics_partner": {
+    "en": [["your business partner", "the ceramics studio owner's business partner"], ["your daughter", "the ceramics studio owner's daughter"], ["you fire it", "the ceramics studio owner fires it"]],
+    "fr": [["ton associée", "l'associée du propriétaire de l'atelier de céramique"], ["ta fille", "la fille du propriétaire de l'atelier de céramique"], ["c'est toi qui l'utilises", "c'est le propriétaire de l'atelier de céramique qui l'utilise"]]
+  },
+  "r2-unplayed_record": {
+    "en": [["You have never played it and have no catalogue entry", "The record shop clerk has never played it and has no catalogue entry"]],
+    "fr": [["Tu ne l'as jamais écouté et n'as aucune fiche de catalogue", "La vendeuse de disques ne l'a jamais écouté et n'a aucune fiche de catalogue"]]
+  },
+  "r2-weaving_demo": {
+    "en": [["You sit", "The weaving instructor sits"], ["beside you", "beside the weaving instructor"]],
+    "fr": [["Tu es assise", "La professeure de tissage est assise"], ["près de toi", "près de la professeure de tissage"]]
+  },
+  "r2-song_sharing": {"en": [], "fr": []},
+  "r2-equipment_booking": {
+    "en": [["You extended", "The workshop equipment coordinator extended"]],
+    "fr": [["Tu as prolongé", "La responsable du matériel d'atelier a prolongé"]]
+  },
+  "r2-painting_collection": {
+    "en": [["your workbench", "the picture framer's workbench"]],
+    "fr": [["ton établi", "l'établi de l'encadreur"]]
+  }
+}

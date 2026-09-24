@@ -1,0 +1,7 @@
+# Separate Ubuntu 24.04 / Python 3.12 inference environment; preserve baseline venv.
+torch @ https://repo.radeon.com/rocm/manylinux/rocm-rel-7.2.1/torch-2.9.1%2Brocm7.2.1.lw.gitff65f5bc-cp312-cp312-linux_x86_64.whl
+triton @ https://repo.radeon.com/rocm/manylinux/rocm-rel-7.2.1/triton-3.5.1%2Brocm7.2.1.gita272dfa8-cp312-cp312-linux_x86_64.whl
+transformers==5.17.0
+accelerate==1.15.0
+mistral-common==1.12.0
+numpy==1.26.4

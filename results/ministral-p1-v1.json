@@ -1,0 +1,45 @@
+{
+  "experiment": "ministral-p1-v1",
+  "status": "complete",
+  "review_policy": "user-only; assistant has not read or judged replies",
+  "validation": {
+    "unit_tests_passed": 56,
+    "ruff": "passed",
+    "powershell_parse": "passed",
+    "bash_syntax": "passed",
+    "finite_logits": true,
+    "all_parameters_frozen": true
+  },
+  "summary": {
+    "saved_generations": 108,
+    "by_language": {
+      "en": 54,
+      "fr": 54
+    },
+    "generation_seconds": 191.450339182,
+    "generated_tokens_including_eos": 5660,
+    "aggregate_tokens_per_second": 29.563802415724048,
+    "contexts_with_history_dropped": 0,
+    "final_memory": {
+      "free_gib": 9.886466979980469,
+      "total_gib": 23.942665100097656,
+      "allocated_gib": 7.201572418212891,
+      "reserved_gib": 9.16796875,
+      "peak_allocated_gib": 9.04532241821289,
+      "peak_reserved_gib": 9.16796875
+    },
+    "review_policy": "user-only"
+  },
+  "output_directory": "reports/ministral-p1-v1-20260924",
+  "elapsed_seconds": 213.123392488,
+  "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+  "source_hashes": {
+    "configs/ministral_p1.json": "7eaab1eeff09e58fce3809fc28fd3715dff830a1e6c62a44c5eb08ddf3730a0b",
+    "posttraining/eval_scenarios_v1.json": "241d68205db9f33399296a21d367b1c4241ce5ef9f86bfeb9b21b1d44c9ee313",
+    "/mnt/c/Users/N3BULA/Documents/ChatGPT/RolePlayChatBot/posttraining/evaluate.py": "359970430e8c11f71402fb1e083a3bffa54997bf5de544fa076d89663825937c",
+    "posttraining/runtime.py": "87c36b6d9e32fb27d289cd036eba13cea7c652a2b4977c8eedde429a42a6da05",
+    "posttraining/state.py": "af1118d614b21ea40f7eb5cdd28c1718d87105684033928715a0d9752e76bbc4",
+    "posttraining/artifacts.py": "f56067f1014a7fc4cfc0ef33c6a61947fe55b6a6ffc0516d44e668b8fa159d34",
+    "posttraining/eval_states_v1.json": "36ce6b93aa5d6ba4249644580340a75dd3186c3e11454e653ab215ebb6f347fd"
+  }
+}

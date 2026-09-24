@@ -1,8 +1,82 @@
 # RolePlayChatBot
 
+## Response-rule refinement and fresh scenes
+
+An added first-person/completeness rule improved semantic passes on new authored
+EN/FR scenes from 10 to 14/36, but reduced familiar-scene passes from 41 to 39/48.
+The acceptance gate failed; the default remains unchanged. Stale possession
+updates and incomplete answers remain weaknesses. Read
+[RESPONSE_REFINEMENT_RESULTS.md](RESPONSE_REFINEMENT_RESULTS.md); all paired replies
+are in `reports/ministral-response-refinement-v1/comparison.html`. These are
+single-assistant judgments, not independent human evaluation. No training was run.
+
+## Natural-sentence character references
+
+A paper-informed controlled follow-up reduced observed role errors from 13 to
+zero and improved all-constraint passes from 30 to 41/48, but omissions increased
+from four to seven. It remains experimental; the default is unchanged. Read
+[NATURAL_REFERENCE_RESULTS.md](NATURAL_REFERENCE_RESULTS.md) and the
+[research references](NATURAL_REFERENCE_RESEARCH.md). Full paired replies and
+inputs: `reports/ministral-natural-reference-v1/comparison.html`. Scores are
+non-independent assistant judgments on a familiar development panel.
+
+## Controlled state-format comparison
+
+Explicit entity assignments reduced role confusion but increased omissions in the
+fixed continued-SFT model. The default remains unchanged. See
+[STATE_FORMAT_RESULTS.md](STATE_FORMAT_RESULTS.md) for paired EN/FR results and
+`reports/ministral-state-format-v1/comparison.html` for every reply and exact prompt.
+The frozen experiment used no training; ratings are assistant judgments on a
+familiar development panel, not independent human evidence.
+
+## Bilingual preferences and continued-SFT control
+
+The v2 comparison adds varied bilingual scenes, assistant-reviewed SFT mistakes
+and a continued-SFT arm using the exact chosen replies given to DPO. Read
+[BILINGUAL_CONTROL_RESULTS.md](BILINGUAL_CONTROL_RESULTS.md) for outcomes and
+[BILINGUAL_CONTROL_PROTOCOL.md](BILINGUAL_CONTROL_PROTOCOL.md) for the frozen
+exposure/update-matched design. Independent human preference review remains absent.
+
+## Standard DPO versus SFT
+
+The standard-DPO pilot starts from the completed SFT adapter and compares both
+using identical evaluation inputs and decoding. See [DPO_COMPARISON.md](DPO_COMPARISON.md)
+for measurements, limitations, and the side-by-side gallery location. The user
+permits assistant review of generated replies for this comparison; private source
+conversations remain unread. Older user-only review notes below describe earlier
+runs and remain the default outside this explicit exception.
+
+## Whole-conversation LoRA
+
+A separate rank-16 Ministral LoRA pilot uses structurally filtered whole source
+conversations. See [LORA_TRAINING.md](LORA_TRAINING.md) for data selection,
+training/resume commands and explicit adapter loading. Dialogue and generated
+replies are saved for user review only; the coding assistant checks technical
+metrics without reading their contents.
+
+## Explicit persona and scene state
+
+Ministral chat now defaults to the P1 authored-state profile. Start with
+`.\ministral.ps1 -Mode Chat -Profile P1 -Language en` (or `fr`). The terminal
+shows an editable session state file and the path to `replies.html`; open that
+file in your browser and refresh for replies. Use `/reload` after editing state
+and increasing its revision. State updates are explicit, not extracted from chat.
+
+See [PERSONA_SCENE_STATE.md](PERSONA_SCENE_STATE.md) for the schema, commands and
+context limits. P0 remains selectable. The coding assistant does not read or
+judge replies; new runs log technical progress and save outputs for user review.
+
 The modern four-epoch run and fixed validation generation panel are complete.
 See [GENERATION_EVALUATION.md](GENERATION_EVALUATION.md): perplexity improved,
 but reply coherence and relevance remain weak, with a severe short-prompt failure.
+
+The [Ministral P0 inference evaluation](MINISTRAL_EVALUATION.md) is complete:
+108 English/French replies, 35.2 tokens/sec, 9.17 GiB peak reservation. The model
+runs locally, but the bilingual quality gate fails on factual/scene consistency.
+Use `./ministral.ps1 -Mode Chat -Language en` (or `fr`) for interactive inference.
+The revised [research plan](RESEARCH_PLAN.md) prioritizes explicit-state controls
+before curated SFT and matched DPO experiments. See the
+[September 2026 literature review](LITERATURE_REVIEW.md) for the research basis.
 
 The completed PC experiment uses **RoPE + SwiGLU, 123.6M parameters**.
 See [MODERN_BASELINE.md](MODERN_BASELINE.md) for checked preflight results,

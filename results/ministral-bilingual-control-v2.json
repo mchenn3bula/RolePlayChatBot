@@ -1,0 +1,2126 @@
+{
+  "experiment": "ministral-bilingual-control-v2",
+  "review_sha256": "247292d1a0bf35ab8504c00745159ce83b91c95829c70ee0e603ae2f0e667851",
+  "review_criteria_sha256": "08468f113e24a47a6a034270c35ce26a711425c61dde1a3830fc8088d1adf31a",
+  "reviewer": "Single non-independent assistant",
+  "scope": "Exposure/update matched; not equal compute",
+  "groups": {
+    "all": {
+      "n": 48,
+      "arms": {
+        "baseline": {
+          "contradiction": 15,
+          "omission": 11,
+          "agency": 2,
+          "language_ok": 48,
+          "mean_coherence": 3.5208333333333335,
+          "mean_relevance": 3.875,
+          "mean_grammar": 4.8125,
+          "all_constraints_satisfied": 25
+        },
+        "csft": {
+          "contradiction": 15,
+          "omission": 5,
+          "agency": 2,
+          "language_ok": 48,
+          "mean_coherence": 3.75,
+          "mean_relevance": 4.083333333333333,
+          "mean_grammar": 4.916666666666667,
+          "all_constraints_satisfied": 29
+        },
+        "dpo": {
+          "contradiction": 20,
+          "omission": 7,
+          "agency": 2,
+          "language_ok": 48,
+          "mean_coherence": 3.5208333333333335,
+          "mean_relevance": 3.9375,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 24
+        }
+      },
+      "dpo_vs_csft": {
+        "dpo_wins": 1,
+        "ties": 40,
+        "csft_wins": 7,
+        "dpo_win_share": 0.4375
+      }
+    },
+    "en": {
+      "n": 24,
+      "arms": {
+        "baseline": {
+          "contradiction": 6,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 24,
+          "mean_coherence": 3.7916666666666665,
+          "mean_relevance": 4.125,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 15
+        },
+        "csft": {
+          "contradiction": 7,
+          "omission": 2,
+          "agency": 0,
+          "language_ok": 24,
+          "mean_coherence": 3.75,
+          "mean_relevance": 4.166666666666667,
+          "mean_grammar": 4.958333333333333,
+          "all_constraints_satisfied": 15
+        },
+        "dpo": {
+          "contradiction": 8,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 24,
+          "mean_coherence": 3.7083333333333335,
+          "mean_relevance": 4.083333333333333,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 14
+        }
+      },
+      "dpo_vs_csft": {
+        "dpo_wins": 0,
+        "ties": 22,
+        "csft_wins": 2,
+        "dpo_win_share": 0.4583333333333333
+      }
+    },
+    "fr": {
+      "n": 24,
+      "arms": {
+        "baseline": {
+          "contradiction": 9,
+          "omission": 8,
+          "agency": 2,
+          "language_ok": 24,
+          "mean_coherence": 3.25,
+          "mean_relevance": 3.625,
+          "mean_grammar": 4.625,
+          "all_constraints_satisfied": 10
+        },
+        "csft": {
+          "contradiction": 8,
+          "omission": 3,
+          "agency": 2,
+          "language_ok": 24,
+          "mean_coherence": 3.75,
+          "mean_relevance": 4.0,
+          "mean_grammar": 4.875,
+          "all_constraints_satisfied": 14
+        },
+        "dpo": {
+          "contradiction": 12,
+          "omission": 4,
+          "agency": 2,
+          "language_ok": 24,
+          "mean_coherence": 3.3333333333333335,
+          "mean_relevance": 3.7916666666666665,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 10
+        }
+      },
+      "dpo_vs_csft": {
+        "dpo_wins": 1,
+        "ties": 18,
+        "csft_wins": 5,
+        "dpo_win_share": 0.4166666666666667
+      }
+    }
+  },
+  "families": {
+    "r2-ceramics_partner": {
+      "n": 6,
+      "arms": {
+        "baseline": {
+          "contradiction": 5,
+          "omission": 2,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 2.1666666666666665,
+          "mean_relevance": 3.6666666666666665,
+          "mean_grammar": 4.666666666666667,
+          "all_constraints_satisfied": 0
+        },
+        "csft": {
+          "contradiction": 4,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 3.0,
+          "mean_relevance": 4.333333333333333,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 2
+        },
+        "dpo": {
+          "contradiction": 5,
+          "omission": 1,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 2.5,
+          "mean_relevance": 4.0,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 1
+        }
+      },
+      "dpo_vs_csft": {
+        "dpo_wins": 0,
+        "ties": 5,
+        "csft_wins": 1,
+        "dpo_win_share": 0.4166666666666667
+      }
+    },
+    "r2-equipment_booking": {
+      "n": 6,
+      "arms": {
+        "baseline": {
+          "contradiction": 2,
+          "omission": 2,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 3.8333333333333335,
+          "mean_relevance": 3.5,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 2
+        },
+        "csft": {
+          "contradiction": 3,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 3.3333333333333335,
+          "mean_relevance": 3.1666666666666665,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 1
+        },
+        "dpo": {
+          "contradiction": 3,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 3.3333333333333335,
+          "mean_relevance": 3.1666666666666665,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 1
+        }
+      },
+      "dpo_vs_csft": {
+        "dpo_wins": 0,
+        "ties": 6,
+        "csft_wins": 0,
+        "dpo_win_share": 0.5
+      }
+    },
+    "r2-film_session": {
+      "n": 6,
+      "arms": {
+        "baseline": {
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 5.0,
+          "mean_relevance": 5.0,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 6
+        },
+        "csft": {
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 5.0,
+          "mean_relevance": 5.0,
+          "mean_grammar": 4.833333333333333,
+          "all_constraints_satisfied": 6
+        },
+        "dpo": {
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 5.0,
+          "mean_relevance": 5.0,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 6
+        }
+      },
+      "dpo_vs_csft": {
+        "dpo_wins": 0,
+        "ties": 6,
+        "csft_wins": 0,
+        "dpo_win_share": 0.5
+      }
+    },
+    "r2-painting_collection": {
+      "n": 6,
+      "arms": {
+        "baseline": {
+          "contradiction": 2,
+          "omission": 2,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 2.8333333333333335,
+          "mean_relevance": 3.5,
+          "mean_grammar": 4.666666666666667,
+          "all_constraints_satisfied": 2
+        },
+        "csft": {
+          "contradiction": 3,
+          "omission": 1,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 2.8333333333333335,
+          "mean_relevance": 3.5,
+          "mean_grammar": 4.666666666666667,
+          "all_constraints_satisfied": 2
+        },
+        "dpo": {
+          "contradiction": 3,
+          "omission": 2,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 2.5,
+          "mean_relevance": 3.0,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 1
+        }
+      },
+      "dpo_vs_csft": {
+        "dpo_wins": 0,
+        "ties": 5,
+        "csft_wins": 1,
+        "dpo_win_share": 0.4166666666666667
+      }
+    },
+    "r2-song_sharing": {
+      "n": 6,
+      "arms": {
+        "baseline": {
+          "contradiction": 0,
+          "omission": 1,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 3.8333333333333335,
+          "mean_relevance": 3.8333333333333335,
+          "mean_grammar": 4.833333333333333,
+          "all_constraints_satisfied": 5
+        },
+        "csft": {
+          "contradiction": 0,
+          "omission": 1,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 4.0,
+          "mean_relevance": 3.6666666666666665,
+          "mean_grammar": 4.833333333333333,
+          "all_constraints_satisfied": 5
+        },
+        "dpo": {
+          "contradiction": 2,
+          "omission": 1,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 3.8333333333333335,
+          "mean_relevance": 3.6666666666666665,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 4
+        }
+      },
+      "dpo_vs_csft": {
+        "dpo_wins": 1,
+        "ties": 3,
+        "csft_wins": 2,
+        "dpo_win_share": 0.4166666666666667
+      }
+    },
+    "r2-telescope_cover": {
+      "n": 6,
+      "arms": {
+        "baseline": {
+          "contradiction": 4,
+          "omission": 2,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 2.8333333333333335,
+          "mean_relevance": 3.6666666666666665,
+          "mean_grammar": 4.5,
+          "all_constraints_satisfied": 2
+        },
+        "csft": {
+          "contradiction": 3,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 3.3333333333333335,
+          "mean_relevance": 4.333333333333333,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 3
+        },
+        "dpo": {
+          "contradiction": 4,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 2.8333333333333335,
+          "mean_relevance": 4.166666666666667,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 2
+        }
+      },
+      "dpo_vs_csft": {
+        "dpo_wins": 0,
+        "ties": 5,
+        "csft_wins": 1,
+        "dpo_win_share": 0.4166666666666667
+      }
+    },
+    "r2-unplayed_record": {
+      "n": 6,
+      "arms": {
+        "baseline": {
+          "contradiction": 2,
+          "omission": 1,
+          "agency": 2,
+          "language_ok": 6,
+          "mean_coherence": 3.1666666666666665,
+          "mean_relevance": 3.3333333333333335,
+          "mean_grammar": 4.833333333333333,
+          "all_constraints_satisfied": 3
+        },
+        "csft": {
+          "contradiction": 2,
+          "omission": 0,
+          "agency": 2,
+          "language_ok": 6,
+          "mean_coherence": 3.6666666666666665,
+          "mean_relevance": 4.0,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 4
+        },
+        "dpo": {
+          "contradiction": 3,
+          "omission": 0,
+          "agency": 2,
+          "language_ok": 6,
+          "mean_coherence": 3.5,
+          "mean_relevance": 4.0,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 3
+        }
+      },
+      "dpo_vs_csft": {
+        "dpo_wins": 0,
+        "ties": 5,
+        "csft_wins": 1,
+        "dpo_win_share": 0.4166666666666667
+      }
+    },
+    "r2-weaving_demo": {
+      "n": 6,
+      "arms": {
+        "baseline": {
+          "contradiction": 0,
+          "omission": 1,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 4.5,
+          "mean_relevance": 4.5,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 5
+        },
+        "csft": {
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 4.833333333333333,
+          "mean_relevance": 4.666666666666667,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 6
+        },
+        "dpo": {
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 4.666666666666667,
+          "mean_relevance": 4.5,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 6
+        }
+      },
+      "dpo_vs_csft": {
+        "dpo_wins": 0,
+        "ties": 5,
+        "csft_wins": 1,
+        "dpo_win_share": 0.4166666666666667
+      }
+    }
+  },
+  "cluster_bootstrap": {
+    "families": 8,
+    "resamples": 10000,
+    "dpo_win_share_95_percentile_interval": [
+      0.4166666666666667,
+      0.46875
+    ],
+    "descriptive_only": true
+  },
+  "generation": {
+    "baseline": {
+      "mean_output_tokens": 22.958333333333332,
+      "empty": 0,
+      "eos": 48,
+      "capped": 0,
+      "mean_repeated_4gram_fraction": 0.0015243902439024389,
+      "seconds": 53.861521932999835,
+      "manifest": {
+        "status": "complete",
+        "config": {
+          "experiment": "ministral-p1-v1",
+          "model_id": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+          "revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+          "precision": "float16",
+          "attention": "sdpa",
+          "max_context_tokens": 2048,
+          "max_new_tokens": 192,
+          "temperature": 0.7,
+          "top_p": 0.9,
+          "top_k": 50,
+          "repetition_penalty": 1.0,
+          "seeds": [
+            42,
+            43,
+            44
+          ],
+          "max_reserved_gib": 18,
+          "min_free_gib": 4,
+          "panel": "posttraining/eval_scenarios_v1.json",
+          "context_mode": "p1",
+          "state_panel": "posttraining/eval_states_v1.json"
+        },
+        "adapter": {
+          "path": "checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+          "files": {
+            "adapter_model.safetensors": "60018fdbe357d579733df25cd9cb7ee3e0bf1fb847468ccee4f2209aaa7b2adc",
+            "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+          }
+        },
+        "requests_sha256": "edb1f631adae6c9288993d7b6b0cfdfe284cde546e65916b0f6dbf83b9e06dd3",
+        "preflight": {
+          "finite_logits": true,
+          "all_parameters_frozen": true,
+          "logits_shape": [
+            1,
+            20,
+            131072
+          ],
+          "memory": {
+            "free_gib": 11.02914810180664,
+            "total_gib": 23.942665100097656,
+            "allocated_gib": 7.241367340087891,
+            "reserved_gib": 9.173828125,
+            "peak_allocated_gib": 9.04532241821289,
+            "peak_reserved_gib": 9.173828125
+          }
+        },
+        "memory": {
+          "free_gib": 11.333244323730469,
+          "total_gib": 23.942665100097656,
+          "allocated_gib": 7.236484527587891,
+          "reserved_gib": 9.220703125,
+          "peak_allocated_gib": 9.04532241821289,
+          "peak_reserved_gib": 9.220703125
+        },
+        "training": {
+          "csft": {
+            "complete": {
+              "status": "complete",
+              "progress": {
+                "epoch": 2,
+                "offset": 0,
+                "update": 20,
+                "overflow_retries": 0,
+                "chosen_presentations": 160,
+                "optimization_seconds": 41.42082067899997,
+                "validation_history": [
+                  {
+                    "epoch": 1,
+                    "chosen_nll": 1.5408458721228424,
+                    "preference": {
+                      "loss": 0.6540966580311457,
+                      "margin": 0.8047565221786499,
+                      "chosen_preferred": 0.625,
+                      "relative_margin_positive": 0.9583333333333334,
+                      "chosen_nll": 1.5262078066128548
+                    }
+                  },
+                  {
+                    "epoch": 2,
+                    "chosen_nll": 1.5212946587877725,
+                    "preference": {
+                      "loss": 0.6414376969138781,
+                      "margin": 1.075910210609436,
+                      "chosen_preferred": 0.625,
+                      "relative_margin_positive": 0.9583333333333334,
+                      "chosen_nll": 1.5060176716559648
+                    }
+                  }
+                ],
+                "initial_chosen_nll": 1.6088519973816278,
+                "initial_preference": {
+                  "loss": 0.6931471824645996,
+                  "margin": 0.0,
+                  "chosen_preferred": 0.625,
+                  "relative_margin_positive": 0.0,
+                  "chosen_nll": 1.5965126115825632
+                }
+              },
+              "selected_checkpoint": "epoch-02",
+              "selection": "prespecified final epoch, no output tuning",
+              "reference_unchanged": true,
+              "elapsed_seconds": 96.31604731400003,
+              "memory": {
+                "free_gib": 13.23367691040039,
+                "total_gib": 23.942665100097656,
+                "allocated_gib": 7.337559700012207,
+                "reserved_gib": 7.900390625,
+                "peak_allocated_gib": 9.04532241821289,
+                "peak_reserved_gib": 9.173828125
+              }
+            },
+            "run": {
+              "identity": {
+                "config": {
+                  "experiment": "ministral-v2-sft",
+                  "model_id": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+                  "revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                  "precision": "float16",
+                  "attention": "sdpa",
+                  "max_context_tokens": 2048,
+                  "max_new_tokens": 192,
+                  "temperature": 0.7,
+                  "top_p": 0.9,
+                  "top_k": 50,
+                  "repetition_penalty": 1.0,
+                  "seeds": [
+                    42,
+                    43,
+                    44
+                  ],
+                  "seed": 20260928,
+                  "max_reserved_gib": 18,
+                  "min_free_gib": 4,
+                  "data_dir": "data/ministral-preferences-v2",
+                  "rank": 16,
+                  "lora_alpha": 32,
+                  "lora_dropout": 0.0,
+                  "target_modules": "model\\.language_model\\.layers\\.\\d+\\.self_attn\\.(q_proj|k_proj|v_proj|o_proj)",
+                  "micro_batch": 1,
+                  "accumulation": 8,
+                  "epochs": 2,
+                  "learning_rate": 5e-06,
+                  "warmup_ratio": 0.1,
+                  "min_lr_ratio": 0.1,
+                  "weight_decay": 0.01,
+                  "max_grad_norm": 1.0,
+                  "checkpoint_every": 10,
+                  "max_hours": 6,
+                  "context_mode": "p1",
+                  "panel": "posttraining/eval_scenarios_v1.json",
+                  "state_panel": "posttraining/eval_states_v1.json",
+                  "sft_reference": "checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+                  "beta": 0.1,
+                  "objective": "sft_chosen",
+                  "reference_free": false,
+                  "label_smoothing": 0.0,
+                  "length_normalization": false,
+                  "selection_metric": "prespecified_final_epoch"
+                },
+                "data_manifest": {
+                  "format": "bilingual-preferences-v2",
+                  "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                  "max_length": 2048,
+                  "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                  "files": {
+                    "train.jsonl": "4f2c73d19f80263e80e47c970d1b49743d21d875e525c77bd9bf5adf8fecc509",
+                    "validation.jsonl": "22dd672cc0e4e7566d972ca5b28dd6831e96ea7e1239ef2a01ae11c7608dce10",
+                    "evaluation.jsonl": "d6099475f4ff74941efe8bd3b45f4c884b1b11bdba4615236a0b067a8084bb7a"
+                  },
+                  "stats": {
+                    "train": {
+                      "pairs": 80,
+                      "scenario_families": 40,
+                      "languages": {
+                        "en": 40,
+                        "fr": 40
+                      },
+                      "mined_rejections": 24,
+                      "chosen_tokens": 1686,
+                      "rejected_tokens": 1934,
+                      "history_examples": 8,
+                      "max_length": 584
+                    },
+                    "validation": {
+                      "pairs": 24,
+                      "scenario_families": 12,
+                      "languages": {
+                        "en": 12,
+                        "fr": 12
+                      },
+                      "mined_rejections": 8,
+                      "chosen_tokens": 466,
+                      "rejected_tokens": 500,
+                      "history_examples": 4,
+                      "max_length": 426
+                    },
+                    "evaluation": {
+                      "pairs": 16,
+                      "scenario_families": 8,
+                      "languages": {
+                        "en": 8,
+                        "fr": 8
+                      },
+                      "mined_rejections": 0,
+                      "chosen_tokens": 349,
+                      "rejected_tokens": 276,
+                      "history_examples": 4,
+                      "max_length": 437
+                    }
+                  },
+                  "draft": {
+                    "draft_sha256": "4b9f8e99bc4f91825aaadc5f3c14164350e7deea15af2bd51c736de95962cbfd",
+                    "scenes_sha256": "7bafb70f367a4b930df01242cb2955e334f26e6811caf8febf6771108ff07a66",
+                    "builder_sha256": "cdfad291fc34972420f23343a0d7035e07a2af57489a4a66cd9ffe69f50e02d4",
+                    "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                    "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                    "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                    "rows": {
+                      "train": 80,
+                      "validation": 24,
+                      "evaluation": 16
+                    },
+                    "scenario_families": {
+                      "train": 40,
+                      "validation": 12,
+                      "evaluation": 8
+                    }
+                  },
+                  "curation_sha256": "1972043d4addd39d6cc63ea7b922a6647cd4d97d23265d3393025109a1f22214",
+                  "mining": {
+                    "adapter": {
+                      "path": "checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+                      "files": {
+                        "adapter_model.safetensors": "60018fdbe357d579733df25cd9cb7ee3e0bf1fb847468ccee4f2209aaa7b2adc",
+                        "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+                      }
+                    },
+                    "draft": {
+                      "draft_sha256": "4b9f8e99bc4f91825aaadc5f3c14164350e7deea15af2bd51c736de95962cbfd",
+                      "scenes_sha256": "7bafb70f367a4b930df01242cb2955e334f26e6811caf8febf6771108ff07a66",
+                      "builder_sha256": "cdfad291fc34972420f23343a0d7035e07a2af57489a4a66cd9ffe69f50e02d4",
+                      "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                      "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                      "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                      "rows": {
+                        "train": 80,
+                        "validation": 24,
+                        "evaluation": 16
+                      },
+                      "scenario_families": {
+                        "train": 40,
+                        "validation": 12,
+                        "evaluation": 8
+                      }
+                    },
+                    "candidates_sha256": "1c2ded37e3d48e102b9985305d95834e04489ceab05906703701e394a21e5329",
+                    "memory": {
+                      "free_gib": 11.944389343261719,
+                      "total_gib": 23.942665100097656,
+                      "allocated_gib": 7.236484527587891,
+                      "reserved_gib": 9.220703125,
+                      "peak_allocated_gib": 9.04532241821289,
+                      "peak_reserved_gib": 9.220703125
+                    }
+                  },
+                  "label_source": "assistant-authored/reviewed; no independent human labels",
+                  "test_data_used": false,
+                  "limitation": "Distinct scene instances share skill patterns; new evaluation is development, not a locked test"
+                },
+                "reference_files": {
+                  "adapter_model.safetensors": "60018fdbe357d579733df25cd9cb7ee3e0bf1fb847468ccee4f2209aaa7b2adc",
+                  "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+                },
+                "code": {
+                  "/mnt/c/Users/N3BULA/Documents/ChatGPT/RolePlayChatBot/posttraining/dpo_train.py": "41c5e716cc5fa4c51541997a61e5729d9efec29a682f0317f07706d079a5b215",
+                  "posttraining/dpo_core.py": "b476c18266cd9b8fb5da6d9b120d8caed12979064a9cb35a0a0aca49058fe0bc",
+                  "posttraining/lora_train.py": "167c3de17bd84891cc5e267bfca2b12c8c4268b52d10412736b877e6496ef5a5",
+                  "posttraining/runtime.py": "97fda1028aa80e7b7b2426bac6196bd94565a725f829ec9cf3147db0346be63e"
+                },
+                "environment_lock": "da547cfdb7880baedd5619bcd62a664e06b5139dd8671a10f8fa46966bbc33d3",
+                "control_trainer_sha256": "1aac0870bf827ccdcfae7211a9ac4b40593326e8f52507b549f7cca94ed91a40",
+                "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                "reference_cache_sha256": "1df07370af75b6694d9a09798bf575f860fb2506cd1834e19d883c0717bdc420"
+              },
+              "planned_updates": 20,
+              "matched_axis": "chosen presentations and optimizer updates; not FLOPs/wall time",
+              "per_epoch": {
+                "chosen_target_tokens": 1686,
+                "rejected_target_tokens": 1934,
+                "chosen_sequence_tokens": 29724,
+                "rejected_sequence_tokens": 29972
+              },
+              "reference_cache_seconds_this_invocation": 19.20193486300002
+            }
+          },
+          "dpo": {
+            "complete": {
+              "status": "complete",
+              "progress": {
+                "epoch": 2,
+                "offset": 0,
+                "update": 20,
+                "overflow_retries": 0,
+                "chosen_presentations": 160,
+                "optimization_seconds": 81.88161507400002,
+                "validation_history": [
+                  {
+                    "epoch": 1,
+                    "chosen_nll": 1.5665662406340177,
+                    "preference": {
+                      "loss": 0.6539048726360003,
+                      "margin": 0.8065089384714762,
+                      "chosen_preferred": 0.625,
+                      "relative_margin_positive": 0.9583333333333334,
+                      "chosen_nll": 1.5528188284201416
+                    }
+                  },
+                  {
+                    "epoch": 2,
+                    "chosen_nll": 1.5548120613006051,
+                    "preference": {
+                      "loss": 0.6413666233420372,
+                      "margin": 1.0733076333999634,
+                      "chosen_preferred": 0.625,
+                      "relative_margin_positive": 0.9583333333333334,
+                      "chosen_nll": 1.5406677529487902
+                    }
+                  }
+                ],
+                "initial_chosen_nll": 1.6088519973816278,
+                "initial_preference": {
+                  "loss": 0.6931471824645996,
+                  "margin": 0.0,
+                  "chosen_preferred": 0.625,
+                  "relative_margin_positive": 0.0,
+                  "chosen_nll": 1.5965126115825632
+                }
+              },
+              "selected_checkpoint": "epoch-02",
+              "selection": "prespecified final epoch, no output tuning",
+              "reference_unchanged": true,
+              "elapsed_seconds": 133.33897792099998,
+              "memory": {
+                "free_gib": 12.577342987060547,
+                "total_gib": 23.942665100097656,
+                "allocated_gib": 7.337559700012207,
+                "reserved_gib": 7.900390625,
+                "peak_allocated_gib": 9.04532241821289,
+                "peak_reserved_gib": 9.173828125
+              }
+            },
+            "run": {
+              "identity": {
+                "config": {
+                  "experiment": "ministral-v2-dpo",
+                  "model_id": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+                  "revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                  "precision": "float16",
+                  "attention": "sdpa",
+                  "max_context_tokens": 2048,
+                  "max_new_tokens": 192,
+                  "temperature": 0.7,
+                  "top_p": 0.9,
+                  "top_k": 50,
+                  "repetition_penalty": 1.0,
+                  "seeds": [
+                    42,
+                    43,
+                    44
+                  ],
+                  "seed": 20260928,
+                  "max_reserved_gib": 18,
+                  "min_free_gib": 4,
+                  "data_dir": "data/ministral-preferences-v2",
+                  "rank": 16,
+                  "lora_alpha": 32,
+                  "lora_dropout": 0.0,
+                  "target_modules": "model\\.language_model\\.layers\\.\\d+\\.self_attn\\.(q_proj|k_proj|v_proj|o_proj)",
+                  "micro_batch": 1,
+                  "accumulation": 8,
+                  "epochs": 2,
+                  "learning_rate": 5e-06,
+                  "warmup_ratio": 0.1,
+                  "min_lr_ratio": 0.1,
+                  "weight_decay": 0.01,
+                  "max_grad_norm": 1.0,
+                  "checkpoint_every": 10,
+                  "max_hours": 6,
+                  "context_mode": "p1",
+                  "panel": "posttraining/eval_scenarios_v1.json",
+                  "state_panel": "posttraining/eval_states_v1.json",
+                  "sft_reference": "checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+                  "beta": 0.1,
+                  "objective": "sigmoid_dpo",
+                  "reference_free": false,
+                  "label_smoothing": 0.0,
+                  "length_normalization": false,
+                  "selection_metric": "prespecified_final_epoch"
+                },
+                "data_manifest": {
+                  "format": "bilingual-preferences-v2",
+                  "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                  "max_length": 2048,
+                  "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                  "files": {
+                    "train.jsonl": "4f2c73d19f80263e80e47c970d1b49743d21d875e525c77bd9bf5adf8fecc509",
+                    "validation.jsonl": "22dd672cc0e4e7566d972ca5b28dd6831e96ea7e1239ef2a01ae11c7608dce10",
+                    "evaluation.jsonl": "d6099475f4ff74941efe8bd3b45f4c884b1b11bdba4615236a0b067a8084bb7a"
+                  },
+                  "stats": {
+                    "train": {
+                      "pairs": 80,
+                      "scenario_families": 40,
+                      "languages": {
+                        "en": 40,
+                        "fr": 40
+                      },
+                      "mined_rejections": 24,
+                      "chosen_tokens": 1686,
+                      "rejected_tokens": 1934,
+                      "history_examples": 8,
+                      "max_length": 584
+                    },
+                    "validation": {
+                      "pairs": 24,
+                      "scenario_families": 12,
+                      "languages": {
+                        "en": 12,
+                        "fr": 12
+                      },
+                      "mined_rejections": 8,
+                      "chosen_tokens": 466,
+                      "rejected_tokens": 500,
+                      "history_examples": 4,
+                      "max_length": 426
+                    },
+                    "evaluation": {
+                      "pairs": 16,
+                      "scenario_families": 8,
+                      "languages": {
+                        "en": 8,
+                        "fr": 8
+                      },
+                      "mined_rejections": 0,
+                      "chosen_tokens": 349,
+                      "rejected_tokens": 276,
+                      "history_examples": 4,
+                      "max_length": 437
+                    }
+                  },
+                  "draft": {
+                    "draft_sha256": "4b9f8e99bc4f91825aaadc5f3c14164350e7deea15af2bd51c736de95962cbfd",
+                    "scenes_sha256": "7bafb70f367a4b930df01242cb2955e334f26e6811caf8febf6771108ff07a66",
+                    "builder_sha256": "cdfad291fc34972420f23343a0d7035e07a2af57489a4a66cd9ffe69f50e02d4",
+                    "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                    "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                    "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                    "rows": {
+                      "train": 80,
+                      "validation": 24,
+                      "evaluation": 16
+                    },
+                    "scenario_families": {
+                      "train": 40,
+                      "validation": 12,
+                      "evaluation": 8
+                    }
+                  },
+                  "curation_sha256": "1972043d4addd39d6cc63ea7b922a6647cd4d97d23265d3393025109a1f22214",
+                  "mining": {
+                    "adapter": {
+                      "path": "checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+                      "files": {
+                        "adapter_model.safetensors": "60018fdbe357d579733df25cd9cb7ee3e0bf1fb847468ccee4f2209aaa7b2adc",
+                        "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+                      }
+                    },
+                    "draft": {
+                      "draft_sha256": "4b9f8e99bc4f91825aaadc5f3c14164350e7deea15af2bd51c736de95962cbfd",
+                      "scenes_sha256": "7bafb70f367a4b930df01242cb2955e334f26e6811caf8febf6771108ff07a66",
+                      "builder_sha256": "cdfad291fc34972420f23343a0d7035e07a2af57489a4a66cd9ffe69f50e02d4",
+                      "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                      "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                      "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                      "rows": {
+                        "train": 80,
+                        "validation": 24,
+                        "evaluation": 16
+                      },
+                      "scenario_families": {
+                        "train": 40,
+                        "validation": 12,
+                        "evaluation": 8
+                      }
+                    },
+                    "candidates_sha256": "1c2ded37e3d48e102b9985305d95834e04489ceab05906703701e394a21e5329",
+                    "memory": {
+                      "free_gib": 11.944389343261719,
+                      "total_gib": 23.942665100097656,
+                      "allocated_gib": 7.236484527587891,
+                      "reserved_gib": 9.220703125,
+                      "peak_allocated_gib": 9.04532241821289,
+                      "peak_reserved_gib": 9.220703125
+                    }
+                  },
+                  "label_source": "assistant-authored/reviewed; no independent human labels",
+                  "test_data_used": false,
+                  "limitation": "Distinct scene instances share skill patterns; new evaluation is development, not a locked test"
+                },
+                "reference_files": {
+                  "adapter_model.safetensors": "60018fdbe357d579733df25cd9cb7ee3e0bf1fb847468ccee4f2209aaa7b2adc",
+                  "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+                },
+                "code": {
+                  "/mnt/c/Users/N3BULA/Documents/ChatGPT/RolePlayChatBot/posttraining/dpo_train.py": "41c5e716cc5fa4c51541997a61e5729d9efec29a682f0317f07706d079a5b215",
+                  "posttraining/dpo_core.py": "b476c18266cd9b8fb5da6d9b120d8caed12979064a9cb35a0a0aca49058fe0bc",
+                  "posttraining/lora_train.py": "167c3de17bd84891cc5e267bfca2b12c8c4268b52d10412736b877e6496ef5a5",
+                  "posttraining/runtime.py": "97fda1028aa80e7b7b2426bac6196bd94565a725f829ec9cf3147db0346be63e"
+                },
+                "environment_lock": "da547cfdb7880baedd5619bcd62a664e06b5139dd8671a10f8fa46966bbc33d3",
+                "control_trainer_sha256": "1aac0870bf827ccdcfae7211a9ac4b40593326e8f52507b549f7cca94ed91a40",
+                "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                "reference_cache_sha256": "b3d487c96382817d3cefa0cdbb90813e8cb6a38ce87772edd3bacf310e00e048"
+              },
+              "planned_updates": 20,
+              "matched_axis": "chosen presentations and optimizer updates; not FLOPs/wall time",
+              "per_epoch": {
+                "chosen_target_tokens": 1686,
+                "rejected_target_tokens": 1934,
+                "chosen_sequence_tokens": 29724,
+                "rejected_sequence_tokens": 29972
+              },
+              "reference_cache_seconds_this_invocation": 19.566207702999975
+            }
+          }
+        },
+        "generations_sha256": "ca024943fb461f23305492693c2cf630542e4bbbed72cf15a4dfdd79f8e10d69",
+        "code_sha256": "f2a9b4ec6e62fd65e10399520431651304b43eb787655814c1e690478aaaa7e9"
+      }
+    },
+    "csft": {
+      "mean_output_tokens": 20.9375,
+      "empty": 0,
+      "eos": 48,
+      "capped": 0,
+      "mean_repeated_4gram_fraction": 0.0,
+      "seconds": 50.07199979800015,
+      "manifest": {
+        "status": "complete",
+        "config": {
+          "experiment": "ministral-p1-v1",
+          "model_id": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+          "revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+          "precision": "float16",
+          "attention": "sdpa",
+          "max_context_tokens": 2048,
+          "max_new_tokens": 192,
+          "temperature": 0.7,
+          "top_p": 0.9,
+          "top_k": 50,
+          "repetition_penalty": 1.0,
+          "seeds": [
+            42,
+            43,
+            44
+          ],
+          "max_reserved_gib": 18,
+          "min_free_gib": 4,
+          "panel": "posttraining/eval_scenarios_v1.json",
+          "context_mode": "p1",
+          "state_panel": "posttraining/eval_states_v1.json"
+        },
+        "adapter": {
+          "path": "checkpoints/ministral-v2-csft-v1/epoch-02",
+          "files": {
+            "adapter_model.safetensors": "60b2c0c6a420613702946fafe040635e0fa889578fcf1fb574cef643d1356877",
+            "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+          }
+        },
+        "requests_sha256": "edb1f631adae6c9288993d7b6b0cfdfe284cde546e65916b0f6dbf83b9e06dd3",
+        "preflight": {
+          "finite_logits": true,
+          "all_parameters_frozen": true,
+          "logits_shape": [
+            1,
+            20,
+            131072
+          ],
+          "memory": {
+            "free_gib": 11.60922622680664,
+            "total_gib": 23.942665100097656,
+            "allocated_gib": 7.241367340087891,
+            "reserved_gib": 9.173828125,
+            "peak_allocated_gib": 9.04532241821289,
+            "peak_reserved_gib": 9.173828125
+          }
+        },
+        "memory": {
+          "free_gib": 11.417228698730469,
+          "total_gib": 23.942665100097656,
+          "allocated_gib": 7.236484527587891,
+          "reserved_gib": 9.220703125,
+          "peak_allocated_gib": 9.04532241821289,
+          "peak_reserved_gib": 9.220703125
+        },
+        "training": {
+          "csft": {
+            "complete": {
+              "status": "complete",
+              "progress": {
+                "epoch": 2,
+                "offset": 0,
+                "update": 20,
+                "overflow_retries": 0,
+                "chosen_presentations": 160,
+                "optimization_seconds": 41.42082067899997,
+                "validation_history": [
+                  {
+                    "epoch": 1,
+                    "chosen_nll": 1.5408458721228424,
+                    "preference": {
+                      "loss": 0.6540966580311457,
+                      "margin": 0.8047565221786499,
+                      "chosen_preferred": 0.625,
+                      "relative_margin_positive": 0.9583333333333334,
+                      "chosen_nll": 1.5262078066128548
+                    }
+                  },
+                  {
+                    "epoch": 2,
+                    "chosen_nll": 1.5212946587877725,
+                    "preference": {
+                      "loss": 0.6414376969138781,
+                      "margin": 1.075910210609436,
+                      "chosen_preferred": 0.625,
+                      "relative_margin_positive": 0.9583333333333334,
+                      "chosen_nll": 1.5060176716559648
+                    }
+                  }
+                ],
+                "initial_chosen_nll": 1.6088519973816278,
+                "initial_preference": {
+                  "loss": 0.6931471824645996,
+                  "margin": 0.0,
+                  "chosen_preferred": 0.625,
+                  "relative_margin_positive": 0.0,
+                  "chosen_nll": 1.5965126115825632
+                }
+              },
+              "selected_checkpoint": "epoch-02",
+              "selection": "prespecified final epoch, no output tuning",
+              "reference_unchanged": true,
+              "elapsed_seconds": 96.31604731400003,
+              "memory": {
+                "free_gib": 13.23367691040039,
+                "total_gib": 23.942665100097656,
+                "allocated_gib": 7.337559700012207,
+                "reserved_gib": 7.900390625,
+                "peak_allocated_gib": 9.04532241821289,
+                "peak_reserved_gib": 9.173828125
+              }
+            },
+            "run": {
+              "identity": {
+                "config": {
+                  "experiment": "ministral-v2-sft",
+                  "model_id": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+                  "revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                  "precision": "float16",
+                  "attention": "sdpa",
+                  "max_context_tokens": 2048,
+                  "max_new_tokens": 192,
+                  "temperature": 0.7,
+                  "top_p": 0.9,
+                  "top_k": 50,
+                  "repetition_penalty": 1.0,
+                  "seeds": [
+                    42,
+                    43,
+                    44
+                  ],
+                  "seed": 20260928,
+                  "max_reserved_gib": 18,
+                  "min_free_gib": 4,
+                  "data_dir": "data/ministral-preferences-v2",
+                  "rank": 16,
+                  "lora_alpha": 32,
+                  "lora_dropout": 0.0,
+                  "target_modules": "model\\.language_model\\.layers\\.\\d+\\.self_attn\\.(q_proj|k_proj|v_proj|o_proj)",
+                  "micro_batch": 1,
+                  "accumulation": 8,
+                  "epochs": 2,
+                  "learning_rate": 5e-06,
+                  "warmup_ratio": 0.1,
+                  "min_lr_ratio": 0.1,
+                  "weight_decay": 0.01,
+                  "max_grad_norm": 1.0,
+                  "checkpoint_every": 10,
+                  "max_hours": 6,
+                  "context_mode": "p1",
+                  "panel": "posttraining/eval_scenarios_v1.json",
+                  "state_panel": "posttraining/eval_states_v1.json",
+                  "sft_reference": "checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+                  "beta": 0.1,
+                  "objective": "sft_chosen",
+                  "reference_free": false,
+                  "label_smoothing": 0.0,
+                  "length_normalization": false,
+                  "selection_metric": "prespecified_final_epoch"
+                },
+                "data_manifest": {
+                  "format": "bilingual-preferences-v2",
+                  "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                  "max_length": 2048,
+                  "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                  "files": {
+                    "train.jsonl": "4f2c73d19f80263e80e47c970d1b49743d21d875e525c77bd9bf5adf8fecc509",
+                    "validation.jsonl": "22dd672cc0e4e7566d972ca5b28dd6831e96ea7e1239ef2a01ae11c7608dce10",
+                    "evaluation.jsonl": "d6099475f4ff74941efe8bd3b45f4c884b1b11bdba4615236a0b067a8084bb7a"
+                  },
+                  "stats": {
+                    "train": {
+                      "pairs": 80,
+                      "scenario_families": 40,
+                      "languages": {
+                        "en": 40,
+                        "fr": 40
+                      },
+                      "mined_rejections": 24,
+                      "chosen_tokens": 1686,
+                      "rejected_tokens": 1934,
+                      "history_examples": 8,
+                      "max_length": 584
+                    },
+                    "validation": {
+                      "pairs": 24,
+                      "scenario_families": 12,
+                      "languages": {
+                        "en": 12,
+                        "fr": 12
+                      },
+                      "mined_rejections": 8,
+                      "chosen_tokens": 466,
+                      "rejected_tokens": 500,
+                      "history_examples": 4,
+                      "max_length": 426
+                    },
+                    "evaluation": {
+                      "pairs": 16,
+                      "scenario_families": 8,
+                      "languages": {
+                        "en": 8,
+                        "fr": 8
+                      },
+                      "mined_rejections": 0,
+                      "chosen_tokens": 349,
+                      "rejected_tokens": 276,
+                      "history_examples": 4,
+                      "max_length": 437
+                    }
+                  },
+                  "draft": {
+                    "draft_sha256": "4b9f8e99bc4f91825aaadc5f3c14164350e7deea15af2bd51c736de95962cbfd",
+                    "scenes_sha256": "7bafb70f367a4b930df01242cb2955e334f26e6811caf8febf6771108ff07a66",
+                    "builder_sha256": "cdfad291fc34972420f23343a0d7035e07a2af57489a4a66cd9ffe69f50e02d4",
+                    "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                    "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                    "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                    "rows": {
+                      "train": 80,
+                      "validation": 24,
+                      "evaluation": 16
+                    },
+                    "scenario_families": {
+                      "train": 40,
+                      "validation": 12,
+                      "evaluation": 8
+                    }
+                  },
+                  "curation_sha256": "1972043d4addd39d6cc63ea7b922a6647cd4d97d23265d3393025109a1f22214",
+                  "mining": {
+                    "adapter": {
+                      "path": "checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+                      "files": {
+                        "adapter_model.safetensors": "60018fdbe357d579733df25cd9cb7ee3e0bf1fb847468ccee4f2209aaa7b2adc",
+                        "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+                      }
+                    },
+                    "draft": {
+                      "draft_sha256": "4b9f8e99bc4f91825aaadc5f3c14164350e7deea15af2bd51c736de95962cbfd",
+                      "scenes_sha256": "7bafb70f367a4b930df01242cb2955e334f26e6811caf8febf6771108ff07a66",
+                      "builder_sha256": "cdfad291fc34972420f23343a0d7035e07a2af57489a4a66cd9ffe69f50e02d4",
+                      "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                      "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                      "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                      "rows": {
+                        "train": 80,
+                        "validation": 24,
+                        "evaluation": 16
+                      },
+                      "scenario_families": {
+                        "train": 40,
+                        "validation": 12,
+                        "evaluation": 8
+                      }
+                    },
+                    "candidates_sha256": "1c2ded37e3d48e102b9985305d95834e04489ceab05906703701e394a21e5329",
+                    "memory": {
+                      "free_gib": 11.944389343261719,
+                      "total_gib": 23.942665100097656,
+                      "allocated_gib": 7.236484527587891,
+                      "reserved_gib": 9.220703125,
+                      "peak_allocated_gib": 9.04532241821289,
+                      "peak_reserved_gib": 9.220703125
+                    }
+                  },
+                  "label_source": "assistant-authored/reviewed; no independent human labels",
+                  "test_data_used": false,
+                  "limitation": "Distinct scene instances share skill patterns; new evaluation is development, not a locked test"
+                },
+                "reference_files": {
+                  "adapter_model.safetensors": "60018fdbe357d579733df25cd9cb7ee3e0bf1fb847468ccee4f2209aaa7b2adc",
+                  "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+                },
+                "code": {
+                  "/mnt/c/Users/N3BULA/Documents/ChatGPT/RolePlayChatBot/posttraining/dpo_train.py": "41c5e716cc5fa4c51541997a61e5729d9efec29a682f0317f07706d079a5b215",
+                  "posttraining/dpo_core.py": "b476c18266cd9b8fb5da6d9b120d8caed12979064a9cb35a0a0aca49058fe0bc",
+                  "posttraining/lora_train.py": "167c3de17bd84891cc5e267bfca2b12c8c4268b52d10412736b877e6496ef5a5",
+                  "posttraining/runtime.py": "97fda1028aa80e7b7b2426bac6196bd94565a725f829ec9cf3147db0346be63e"
+                },
+                "environment_lock": "da547cfdb7880baedd5619bcd62a664e06b5139dd8671a10f8fa46966bbc33d3",
+                "control_trainer_sha256": "1aac0870bf827ccdcfae7211a9ac4b40593326e8f52507b549f7cca94ed91a40",
+                "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                "reference_cache_sha256": "1df07370af75b6694d9a09798bf575f860fb2506cd1834e19d883c0717bdc420"
+              },
+              "planned_updates": 20,
+              "matched_axis": "chosen presentations and optimizer updates; not FLOPs/wall time",
+              "per_epoch": {
+                "chosen_target_tokens": 1686,
+                "rejected_target_tokens": 1934,
+                "chosen_sequence_tokens": 29724,
+                "rejected_sequence_tokens": 29972
+              },
+              "reference_cache_seconds_this_invocation": 19.20193486300002
+            }
+          },
+          "dpo": {
+            "complete": {
+              "status": "complete",
+              "progress": {
+                "epoch": 2,
+                "offset": 0,
+                "update": 20,
+                "overflow_retries": 0,
+                "chosen_presentations": 160,
+                "optimization_seconds": 81.88161507400002,
+                "validation_history": [
+                  {
+                    "epoch": 1,
+                    "chosen_nll": 1.5665662406340177,
+                    "preference": {
+                      "loss": 0.6539048726360003,
+                      "margin": 0.8065089384714762,
+                      "chosen_preferred": 0.625,
+                      "relative_margin_positive": 0.9583333333333334,
+                      "chosen_nll": 1.5528188284201416
+                    }
+                  },
+                  {
+                    "epoch": 2,
+                    "chosen_nll": 1.5548120613006051,
+                    "preference": {
+                      "loss": 0.6413666233420372,
+                      "margin": 1.0733076333999634,
+                      "chosen_preferred": 0.625,
+                      "relative_margin_positive": 0.9583333333333334,
+                      "chosen_nll": 1.5406677529487902
+                    }
+                  }
+                ],
+                "initial_chosen_nll": 1.6088519973816278,
+                "initial_preference": {
+                  "loss": 0.6931471824645996,
+                  "margin": 0.0,
+                  "chosen_preferred": 0.625,
+                  "relative_margin_positive": 0.0,
+                  "chosen_nll": 1.5965126115825632
+                }
+              },
+              "selected_checkpoint": "epoch-02",
+              "selection": "prespecified final epoch, no output tuning",
+              "reference_unchanged": true,
+              "elapsed_seconds": 133.33897792099998,
+              "memory": {
+                "free_gib": 12.577342987060547,
+                "total_gib": 23.942665100097656,
+                "allocated_gib": 7.337559700012207,
+                "reserved_gib": 7.900390625,
+                "peak_allocated_gib": 9.04532241821289,
+                "peak_reserved_gib": 9.173828125
+              }
+            },
+            "run": {
+              "identity": {
+                "config": {
+                  "experiment": "ministral-v2-dpo",
+                  "model_id": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+                  "revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                  "precision": "float16",
+                  "attention": "sdpa",
+                  "max_context_tokens": 2048,
+                  "max_new_tokens": 192,
+                  "temperature": 0.7,
+                  "top_p": 0.9,
+                  "top_k": 50,
+                  "repetition_penalty": 1.0,
+                  "seeds": [
+                    42,
+                    43,
+                    44
+                  ],
+                  "seed": 20260928,
+                  "max_reserved_gib": 18,
+                  "min_free_gib": 4,
+                  "data_dir": "data/ministral-preferences-v2",
+                  "rank": 16,
+                  "lora_alpha": 32,
+                  "lora_dropout": 0.0,
+                  "target_modules": "model\\.language_model\\.layers\\.\\d+\\.self_attn\\.(q_proj|k_proj|v_proj|o_proj)",
+                  "micro_batch": 1,
+                  "accumulation": 8,
+                  "epochs": 2,
+                  "learning_rate": 5e-06,
+                  "warmup_ratio": 0.1,
+                  "min_lr_ratio": 0.1,
+                  "weight_decay": 0.01,
+                  "max_grad_norm": 1.0,
+                  "checkpoint_every": 10,
+                  "max_hours": 6,
+                  "context_mode": "p1",
+                  "panel": "posttraining/eval_scenarios_v1.json",
+                  "state_panel": "posttraining/eval_states_v1.json",
+                  "sft_reference": "checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+                  "beta": 0.1,
+                  "objective": "sigmoid_dpo",
+                  "reference_free": false,
+                  "label_smoothing": 0.0,
+                  "length_normalization": false,
+                  "selection_metric": "prespecified_final_epoch"
+                },
+                "data_manifest": {
+                  "format": "bilingual-preferences-v2",
+                  "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                  "max_length": 2048,
+                  "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                  "files": {
+                    "train.jsonl": "4f2c73d19f80263e80e47c970d1b49743d21d875e525c77bd9bf5adf8fecc509",
+                    "validation.jsonl": "22dd672cc0e4e7566d972ca5b28dd6831e96ea7e1239ef2a01ae11c7608dce10",
+                    "evaluation.jsonl": "d6099475f4ff74941efe8bd3b45f4c884b1b11bdba4615236a0b067a8084bb7a"
+                  },
+                  "stats": {
+                    "train": {
+                      "pairs": 80,
+                      "scenario_families": 40,
+                      "languages": {
+                        "en": 40,
+                        "fr": 40
+                      },
+                      "mined_rejections": 24,
+                      "chosen_tokens": 1686,
+                      "rejected_tokens": 1934,
+                      "history_examples": 8,
+                      "max_length": 584
+                    },
+                    "validation": {
+                      "pairs": 24,
+                      "scenario_families": 12,
+                      "languages": {
+                        "en": 12,
+                        "fr": 12
+                      },
+                      "mined_rejections": 8,
+                      "chosen_tokens": 466,
+                      "rejected_tokens": 500,
+                      "history_examples": 4,
+                      "max_length": 426
+                    },
+                    "evaluation": {
+                      "pairs": 16,
+                      "scenario_families": 8,
+                      "languages": {
+                        "en": 8,
+                        "fr": 8
+                      },
+                      "mined_rejections": 0,
+                      "chosen_tokens": 349,
+                      "rejected_tokens": 276,
+                      "history_examples": 4,
+                      "max_length": 437
+                    }
+                  },
+                  "draft": {
+                    "draft_sha256": "4b9f8e99bc4f91825aaadc5f3c14164350e7deea15af2bd51c736de95962cbfd",
+                    "scenes_sha256": "7bafb70f367a4b930df01242cb2955e334f26e6811caf8febf6771108ff07a66",
+                    "builder_sha256": "cdfad291fc34972420f23343a0d7035e07a2af57489a4a66cd9ffe69f50e02d4",
+                    "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                    "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                    "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                    "rows": {
+                      "train": 80,
+                      "validation": 24,
+                      "evaluation": 16
+                    },
+                    "scenario_families": {
+                      "train": 40,
+                      "validation": 12,
+                      "evaluation": 8
+                    }
+                  },
+                  "curation_sha256": "1972043d4addd39d6cc63ea7b922a6647cd4d97d23265d3393025109a1f22214",
+                  "mining": {
+                    "adapter": {
+                      "path": "checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+                      "files": {
+                        "adapter_model.safetensors": "60018fdbe357d579733df25cd9cb7ee3e0bf1fb847468ccee4f2209aaa7b2adc",
+                        "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+                      }
+                    },
+                    "draft": {
+                      "draft_sha256": "4b9f8e99bc4f91825aaadc5f3c14164350e7deea15af2bd51c736de95962cbfd",
+                      "scenes_sha256": "7bafb70f367a4b930df01242cb2955e334f26e6811caf8febf6771108ff07a66",
+                      "builder_sha256": "cdfad291fc34972420f23343a0d7035e07a2af57489a4a66cd9ffe69f50e02d4",
+                      "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                      "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                      "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                      "rows": {
+                        "train": 80,
+                        "validation": 24,
+                        "evaluation": 16
+                      },
+                      "scenario_families": {
+                        "train": 40,
+                        "validation": 12,
+                        "evaluation": 8
+                      }
+                    },
+                    "candidates_sha256": "1c2ded37e3d48e102b9985305d95834e04489ceab05906703701e394a21e5329",
+                    "memory": {
+                      "free_gib": 11.944389343261719,
+                      "total_gib": 23.942665100097656,
+                      "allocated_gib": 7.236484527587891,
+                      "reserved_gib": 9.220703125,
+                      "peak_allocated_gib": 9.04532241821289,
+                      "peak_reserved_gib": 9.220703125
+                    }
+                  },
+                  "label_source": "assistant-authored/reviewed; no independent human labels",
+                  "test_data_used": false,
+                  "limitation": "Distinct scene instances share skill patterns; new evaluation is development, not a locked test"
+                },
+                "reference_files": {
+                  "adapter_model.safetensors": "60018fdbe357d579733df25cd9cb7ee3e0bf1fb847468ccee4f2209aaa7b2adc",
+                  "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+                },
+                "code": {
+                  "/mnt/c/Users/N3BULA/Documents/ChatGPT/RolePlayChatBot/posttraining/dpo_train.py": "41c5e716cc5fa4c51541997a61e5729d9efec29a682f0317f07706d079a5b215",
+                  "posttraining/dpo_core.py": "b476c18266cd9b8fb5da6d9b120d8caed12979064a9cb35a0a0aca49058fe0bc",
+                  "posttraining/lora_train.py": "167c3de17bd84891cc5e267bfca2b12c8c4268b52d10412736b877e6496ef5a5",
+                  "posttraining/runtime.py": "97fda1028aa80e7b7b2426bac6196bd94565a725f829ec9cf3147db0346be63e"
+                },
+                "environment_lock": "da547cfdb7880baedd5619bcd62a664e06b5139dd8671a10f8fa46966bbc33d3",
+                "control_trainer_sha256": "1aac0870bf827ccdcfae7211a9ac4b40593326e8f52507b549f7cca94ed91a40",
+                "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                "reference_cache_sha256": "b3d487c96382817d3cefa0cdbb90813e8cb6a38ce87772edd3bacf310e00e048"
+              },
+              "planned_updates": 20,
+              "matched_axis": "chosen presentations and optimizer updates; not FLOPs/wall time",
+              "per_epoch": {
+                "chosen_target_tokens": 1686,
+                "rejected_target_tokens": 1934,
+                "chosen_sequence_tokens": 29724,
+                "rejected_sequence_tokens": 29972
+              },
+              "reference_cache_seconds_this_invocation": 19.566207702999975
+            }
+          }
+        },
+        "generations_sha256": "69d41c5ef62df008714084945b193c37441cc02e932630d351c3689ad5e798b3",
+        "code_sha256": "f2a9b4ec6e62fd65e10399520431651304b43eb787655814c1e690478aaaa7e9"
+      }
+    },
+    "dpo": {
+      "mean_output_tokens": 22.854166666666668,
+      "empty": 0,
+      "eos": 48,
+      "capped": 0,
+      "mean_repeated_4gram_fraction": 0.0005630630630630631,
+      "seconds": 53.44403560899991,
+      "manifest": {
+        "status": "complete",
+        "config": {
+          "experiment": "ministral-p1-v1",
+          "model_id": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+          "revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+          "precision": "float16",
+          "attention": "sdpa",
+          "max_context_tokens": 2048,
+          "max_new_tokens": 192,
+          "temperature": 0.7,
+          "top_p": 0.9,
+          "top_k": 50,
+          "repetition_penalty": 1.0,
+          "seeds": [
+            42,
+            43,
+            44
+          ],
+          "max_reserved_gib": 18,
+          "min_free_gib": 4,
+          "panel": "posttraining/eval_scenarios_v1.json",
+          "context_mode": "p1",
+          "state_panel": "posttraining/eval_states_v1.json"
+        },
+        "adapter": {
+          "path": "checkpoints/ministral-v2-dpo-v1/epoch-02",
+          "files": {
+            "adapter_model.safetensors": "231c9d056f9bbf40bf7de9b3273dc8931823421a6c4a9522f7a4201054529f8d",
+            "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+          }
+        },
+        "requests_sha256": "edb1f631adae6c9288993d7b6b0cfdfe284cde546e65916b0f6dbf83b9e06dd3",
+        "preflight": {
+          "finite_logits": true,
+          "all_parameters_frozen": true,
+          "logits_shape": [
+            1,
+            20,
+            131072
+          ],
+          "memory": {
+            "free_gib": 11.474445343017578,
+            "total_gib": 23.942665100097656,
+            "allocated_gib": 7.241367340087891,
+            "reserved_gib": 9.173828125,
+            "peak_allocated_gib": 9.04532241821289,
+            "peak_reserved_gib": 9.173828125
+          }
+        },
+        "memory": {
+          "free_gib": 11.331291198730469,
+          "total_gib": 23.942665100097656,
+          "allocated_gib": 7.236484527587891,
+          "reserved_gib": 9.220703125,
+          "peak_allocated_gib": 9.04532241821289,
+          "peak_reserved_gib": 9.220703125
+        },
+        "training": {
+          "csft": {
+            "complete": {
+              "status": "complete",
+              "progress": {
+                "epoch": 2,
+                "offset": 0,
+                "update": 20,
+                "overflow_retries": 0,
+                "chosen_presentations": 160,
+                "optimization_seconds": 41.42082067899997,
+                "validation_history": [
+                  {
+                    "epoch": 1,
+                    "chosen_nll": 1.5408458721228424,
+                    "preference": {
+                      "loss": 0.6540966580311457,
+                      "margin": 0.8047565221786499,
+                      "chosen_preferred": 0.625,
+                      "relative_margin_positive": 0.9583333333333334,
+                      "chosen_nll": 1.5262078066128548
+                    }
+                  },
+                  {
+                    "epoch": 2,
+                    "chosen_nll": 1.5212946587877725,
+                    "preference": {
+                      "loss": 0.6414376969138781,
+                      "margin": 1.075910210609436,
+                      "chosen_preferred": 0.625,
+                      "relative_margin_positive": 0.9583333333333334,
+                      "chosen_nll": 1.5060176716559648
+                    }
+                  }
+                ],
+                "initial_chosen_nll": 1.6088519973816278,
+                "initial_preference": {
+                  "loss": 0.6931471824645996,
+                  "margin": 0.0,
+                  "chosen_preferred": 0.625,
+                  "relative_margin_positive": 0.0,
+                  "chosen_nll": 1.5965126115825632
+                }
+              },
+              "selected_checkpoint": "epoch-02",
+              "selection": "prespecified final epoch, no output tuning",
+              "reference_unchanged": true,
+              "elapsed_seconds": 96.31604731400003,
+              "memory": {
+                "free_gib": 13.23367691040039,
+                "total_gib": 23.942665100097656,
+                "allocated_gib": 7.337559700012207,
+                "reserved_gib": 7.900390625,
+                "peak_allocated_gib": 9.04532241821289,
+                "peak_reserved_gib": 9.173828125
+              }
+            },
+            "run": {
+              "identity": {
+                "config": {
+                  "experiment": "ministral-v2-sft",
+                  "model_id": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+                  "revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                  "precision": "float16",
+                  "attention": "sdpa",
+                  "max_context_tokens": 2048,
+                  "max_new_tokens": 192,
+                  "temperature": 0.7,
+                  "top_p": 0.9,
+                  "top_k": 50,
+                  "repetition_penalty": 1.0,
+                  "seeds": [
+                    42,
+                    43,
+                    44
+                  ],
+                  "seed": 20260928,
+                  "max_reserved_gib": 18,
+                  "min_free_gib": 4,
+                  "data_dir": "data/ministral-preferences-v2",
+                  "rank": 16,
+                  "lora_alpha": 32,
+                  "lora_dropout": 0.0,
+                  "target_modules": "model\\.language_model\\.layers\\.\\d+\\.self_attn\\.(q_proj|k_proj|v_proj|o_proj)",
+                  "micro_batch": 1,
+                  "accumulation": 8,
+                  "epochs": 2,
+                  "learning_rate": 5e-06,
+                  "warmup_ratio": 0.1,
+                  "min_lr_ratio": 0.1,
+                  "weight_decay": 0.01,
+                  "max_grad_norm": 1.0,
+                  "checkpoint_every": 10,
+                  "max_hours": 6,
+                  "context_mode": "p1",
+                  "panel": "posttraining/eval_scenarios_v1.json",
+                  "state_panel": "posttraining/eval_states_v1.json",
+                  "sft_reference": "checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+                  "beta": 0.1,
+                  "objective": "sft_chosen",
+                  "reference_free": false,
+                  "label_smoothing": 0.0,
+                  "length_normalization": false,
+                  "selection_metric": "prespecified_final_epoch"
+                },
+                "data_manifest": {
+                  "format": "bilingual-preferences-v2",
+                  "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                  "max_length": 2048,
+                  "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                  "files": {
+                    "train.jsonl": "4f2c73d19f80263e80e47c970d1b49743d21d875e525c77bd9bf5adf8fecc509",
+                    "validation.jsonl": "22dd672cc0e4e7566d972ca5b28dd6831e96ea7e1239ef2a01ae11c7608dce10",
+                    "evaluation.jsonl": "d6099475f4ff74941efe8bd3b45f4c884b1b11bdba4615236a0b067a8084bb7a"
+                  },
+                  "stats": {
+                    "train": {
+                      "pairs": 80,
+                      "scenario_families": 40,
+                      "languages": {
+                        "en": 40,
+                        "fr": 40
+                      },
+                      "mined_rejections": 24,
+                      "chosen_tokens": 1686,
+                      "rejected_tokens": 1934,
+                      "history_examples": 8,
+                      "max_length": 584
+                    },
+                    "validation": {
+                      "pairs": 24,
+                      "scenario_families": 12,
+                      "languages": {
+                        "en": 12,
+                        "fr": 12
+                      },
+                      "mined_rejections": 8,
+                      "chosen_tokens": 466,
+                      "rejected_tokens": 500,
+                      "history_examples": 4,
+                      "max_length": 426
+                    },
+                    "evaluation": {
+                      "pairs": 16,
+                      "scenario_families": 8,
+                      "languages": {
+                        "en": 8,
+                        "fr": 8
+                      },
+                      "mined_rejections": 0,
+                      "chosen_tokens": 349,
+                      "rejected_tokens": 276,
+                      "history_examples": 4,
+                      "max_length": 437
+                    }
+                  },
+                  "draft": {
+                    "draft_sha256": "4b9f8e99bc4f91825aaadc5f3c14164350e7deea15af2bd51c736de95962cbfd",
+                    "scenes_sha256": "7bafb70f367a4b930df01242cb2955e334f26e6811caf8febf6771108ff07a66",
+                    "builder_sha256": "cdfad291fc34972420f23343a0d7035e07a2af57489a4a66cd9ffe69f50e02d4",
+                    "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                    "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                    "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                    "rows": {
+                      "train": 80,
+                      "validation": 24,
+                      "evaluation": 16
+                    },
+                    "scenario_families": {
+                      "train": 40,
+                      "validation": 12,
+                      "evaluation": 8
+                    }
+                  },
+                  "curation_sha256": "1972043d4addd39d6cc63ea7b922a6647cd4d97d23265d3393025109a1f22214",
+                  "mining": {
+                    "adapter": {
+                      "path": "checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+                      "files": {
+                        "adapter_model.safetensors": "60018fdbe357d579733df25cd9cb7ee3e0bf1fb847468ccee4f2209aaa7b2adc",
+                        "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+                      }
+                    },
+                    "draft": {
+                      "draft_sha256": "4b9f8e99bc4f91825aaadc5f3c14164350e7deea15af2bd51c736de95962cbfd",
+                      "scenes_sha256": "7bafb70f367a4b930df01242cb2955e334f26e6811caf8febf6771108ff07a66",
+                      "builder_sha256": "cdfad291fc34972420f23343a0d7035e07a2af57489a4a66cd9ffe69f50e02d4",
+                      "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                      "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                      "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                      "rows": {
+                        "train": 80,
+                        "validation": 24,
+                        "evaluation": 16
+                      },
+                      "scenario_families": {
+                        "train": 40,
+                        "validation": 12,
+                        "evaluation": 8
+                      }
+                    },
+                    "candidates_sha256": "1c2ded37e3d48e102b9985305d95834e04489ceab05906703701e394a21e5329",
+                    "memory": {
+                      "free_gib": 11.944389343261719,
+                      "total_gib": 23.942665100097656,
+                      "allocated_gib": 7.236484527587891,
+                      "reserved_gib": 9.220703125,
+                      "peak_allocated_gib": 9.04532241821289,
+                      "peak_reserved_gib": 9.220703125
+                    }
+                  },
+                  "label_source": "assistant-authored/reviewed; no independent human labels",
+                  "test_data_used": false,
+                  "limitation": "Distinct scene instances share skill patterns; new evaluation is development, not a locked test"
+                },
+                "reference_files": {
+                  "adapter_model.safetensors": "60018fdbe357d579733df25cd9cb7ee3e0bf1fb847468ccee4f2209aaa7b2adc",
+                  "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+                },
+                "code": {
+                  "/mnt/c/Users/N3BULA/Documents/ChatGPT/RolePlayChatBot/posttraining/dpo_train.py": "41c5e716cc5fa4c51541997a61e5729d9efec29a682f0317f07706d079a5b215",
+                  "posttraining/dpo_core.py": "b476c18266cd9b8fb5da6d9b120d8caed12979064a9cb35a0a0aca49058fe0bc",
+                  "posttraining/lora_train.py": "167c3de17bd84891cc5e267bfca2b12c8c4268b52d10412736b877e6496ef5a5",
+                  "posttraining/runtime.py": "97fda1028aa80e7b7b2426bac6196bd94565a725f829ec9cf3147db0346be63e"
+                },
+                "environment_lock": "da547cfdb7880baedd5619bcd62a664e06b5139dd8671a10f8fa46966bbc33d3",
+                "control_trainer_sha256": "1aac0870bf827ccdcfae7211a9ac4b40593326e8f52507b549f7cca94ed91a40",
+                "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                "reference_cache_sha256": "1df07370af75b6694d9a09798bf575f860fb2506cd1834e19d883c0717bdc420"
+              },
+              "planned_updates": 20,
+              "matched_axis": "chosen presentations and optimizer updates; not FLOPs/wall time",
+              "per_epoch": {
+                "chosen_target_tokens": 1686,
+                "rejected_target_tokens": 1934,
+                "chosen_sequence_tokens": 29724,
+                "rejected_sequence_tokens": 29972
+              },
+              "reference_cache_seconds_this_invocation": 19.20193486300002
+            }
+          },
+          "dpo": {
+            "complete": {
+              "status": "complete",
+              "progress": {
+                "epoch": 2,
+                "offset": 0,
+                "update": 20,
+                "overflow_retries": 0,
+                "chosen_presentations": 160,
+                "optimization_seconds": 81.88161507400002,
+                "validation_history": [
+                  {
+                    "epoch": 1,
+                    "chosen_nll": 1.5665662406340177,
+                    "preference": {
+                      "loss": 0.6539048726360003,
+                      "margin": 0.8065089384714762,
+                      "chosen_preferred": 0.625,
+                      "relative_margin_positive": 0.9583333333333334,
+                      "chosen_nll": 1.5528188284201416
+                    }
+                  },
+                  {
+                    "epoch": 2,
+                    "chosen_nll": 1.5548120613006051,
+                    "preference": {
+                      "loss": 0.6413666233420372,
+                      "margin": 1.0733076333999634,
+                      "chosen_preferred": 0.625,
+                      "relative_margin_positive": 0.9583333333333334,
+                      "chosen_nll": 1.5406677529487902
+                    }
+                  }
+                ],
+                "initial_chosen_nll": 1.6088519973816278,
+                "initial_preference": {
+                  "loss": 0.6931471824645996,
+                  "margin": 0.0,
+                  "chosen_preferred": 0.625,
+                  "relative_margin_positive": 0.0,
+                  "chosen_nll": 1.5965126115825632
+                }
+              },
+              "selected_checkpoint": "epoch-02",
+              "selection": "prespecified final epoch, no output tuning",
+              "reference_unchanged": true,
+              "elapsed_seconds": 133.33897792099998,
+              "memory": {
+                "free_gib": 12.577342987060547,
+                "total_gib": 23.942665100097656,
+                "allocated_gib": 7.337559700012207,
+                "reserved_gib": 7.900390625,
+                "peak_allocated_gib": 9.04532241821289,
+                "peak_reserved_gib": 9.173828125
+              }
+            },
+            "run": {
+              "identity": {
+                "config": {
+                  "experiment": "ministral-v2-dpo",
+                  "model_id": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+                  "revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                  "precision": "float16",
+                  "attention": "sdpa",
+                  "max_context_tokens": 2048,
+                  "max_new_tokens": 192,
+                  "temperature": 0.7,
+                  "top_p": 0.9,
+                  "top_k": 50,
+                  "repetition_penalty": 1.0,
+                  "seeds": [
+                    42,
+                    43,
+                    44
+                  ],
+                  "seed": 20260928,
+                  "max_reserved_gib": 18,
+                  "min_free_gib": 4,
+                  "data_dir": "data/ministral-preferences-v2",
+                  "rank": 16,
+                  "lora_alpha": 32,
+                  "lora_dropout": 0.0,
+                  "target_modules": "model\\.language_model\\.layers\\.\\d+\\.self_attn\\.(q_proj|k_proj|v_proj|o_proj)",
+                  "micro_batch": 1,
+                  "accumulation": 8,
+                  "epochs": 2,
+                  "learning_rate": 5e-06,
+                  "warmup_ratio": 0.1,
+                  "min_lr_ratio": 0.1,
+                  "weight_decay": 0.01,
+                  "max_grad_norm": 1.0,
+                  "checkpoint_every": 10,
+                  "max_hours": 6,
+                  "context_mode": "p1",
+                  "panel": "posttraining/eval_scenarios_v1.json",
+                  "state_panel": "posttraining/eval_states_v1.json",
+                  "sft_reference": "checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+                  "beta": 0.1,
+                  "objective": "sigmoid_dpo",
+                  "reference_free": false,
+                  "label_smoothing": 0.0,
+                  "length_normalization": false,
+                  "selection_metric": "prespecified_final_epoch"
+                },
+                "data_manifest": {
+                  "format": "bilingual-preferences-v2",
+                  "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                  "max_length": 2048,
+                  "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                  "files": {
+                    "train.jsonl": "4f2c73d19f80263e80e47c970d1b49743d21d875e525c77bd9bf5adf8fecc509",
+                    "validation.jsonl": "22dd672cc0e4e7566d972ca5b28dd6831e96ea7e1239ef2a01ae11c7608dce10",
+                    "evaluation.jsonl": "d6099475f4ff74941efe8bd3b45f4c884b1b11bdba4615236a0b067a8084bb7a"
+                  },
+                  "stats": {
+                    "train": {
+                      "pairs": 80,
+                      "scenario_families": 40,
+                      "languages": {
+                        "en": 40,
+                        "fr": 40
+                      },
+                      "mined_rejections": 24,
+                      "chosen_tokens": 1686,
+                      "rejected_tokens": 1934,
+                      "history_examples": 8,
+                      "max_length": 584
+                    },
+                    "validation": {
+                      "pairs": 24,
+                      "scenario_families": 12,
+                      "languages": {
+                        "en": 12,
+                        "fr": 12
+                      },
+                      "mined_rejections": 8,
+                      "chosen_tokens": 466,
+                      "rejected_tokens": 500,
+                      "history_examples": 4,
+                      "max_length": 426
+                    },
+                    "evaluation": {
+                      "pairs": 16,
+                      "scenario_families": 8,
+                      "languages": {
+                        "en": 8,
+                        "fr": 8
+                      },
+                      "mined_rejections": 0,
+                      "chosen_tokens": 349,
+                      "rejected_tokens": 276,
+                      "history_examples": 4,
+                      "max_length": 437
+                    }
+                  },
+                  "draft": {
+                    "draft_sha256": "4b9f8e99bc4f91825aaadc5f3c14164350e7deea15af2bd51c736de95962cbfd",
+                    "scenes_sha256": "7bafb70f367a4b930df01242cb2955e334f26e6811caf8febf6771108ff07a66",
+                    "builder_sha256": "cdfad291fc34972420f23343a0d7035e07a2af57489a4a66cd9ffe69f50e02d4",
+                    "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                    "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                    "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                    "rows": {
+                      "train": 80,
+                      "validation": 24,
+                      "evaluation": 16
+                    },
+                    "scenario_families": {
+                      "train": 40,
+                      "validation": 12,
+                      "evaluation": 8
+                    }
+                  },
+                  "curation_sha256": "1972043d4addd39d6cc63ea7b922a6647cd4d97d23265d3393025109a1f22214",
+                  "mining": {
+                    "adapter": {
+                      "path": "checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+                      "files": {
+                        "adapter_model.safetensors": "60018fdbe357d579733df25cd9cb7ee3e0bf1fb847468ccee4f2209aaa7b2adc",
+                        "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+                      }
+                    },
+                    "draft": {
+                      "draft_sha256": "4b9f8e99bc4f91825aaadc5f3c14164350e7deea15af2bd51c736de95962cbfd",
+                      "scenes_sha256": "7bafb70f367a4b930df01242cb2955e334f26e6811caf8febf6771108ff07a66",
+                      "builder_sha256": "cdfad291fc34972420f23343a0d7035e07a2af57489a4a66cd9ffe69f50e02d4",
+                      "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                      "tokenizer_sha256": "600bb27946565481ecf51ba8aee252e49b9a68507866080ac9c30185bb312843",
+                      "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                      "rows": {
+                        "train": 80,
+                        "validation": 24,
+                        "evaluation": 16
+                      },
+                      "scenario_families": {
+                        "train": 40,
+                        "validation": 12,
+                        "evaluation": 8
+                      }
+                    },
+                    "candidates_sha256": "1c2ded37e3d48e102b9985305d95834e04489ceab05906703701e394a21e5329",
+                    "memory": {
+                      "free_gib": 11.944389343261719,
+                      "total_gib": 23.942665100097656,
+                      "allocated_gib": 7.236484527587891,
+                      "reserved_gib": 9.220703125,
+                      "peak_allocated_gib": 9.04532241821289,
+                      "peak_reserved_gib": 9.220703125
+                    }
+                  },
+                  "label_source": "assistant-authored/reviewed; no independent human labels",
+                  "test_data_used": false,
+                  "limitation": "Distinct scene instances share skill patterns; new evaluation is development, not a locked test"
+                },
+                "reference_files": {
+                  "adapter_model.safetensors": "60018fdbe357d579733df25cd9cb7ee3e0bf1fb847468ccee4f2209aaa7b2adc",
+                  "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+                },
+                "code": {
+                  "/mnt/c/Users/N3BULA/Documents/ChatGPT/RolePlayChatBot/posttraining/dpo_train.py": "41c5e716cc5fa4c51541997a61e5729d9efec29a682f0317f07706d079a5b215",
+                  "posttraining/dpo_core.py": "b476c18266cd9b8fb5da6d9b120d8caed12979064a9cb35a0a0aca49058fe0bc",
+                  "posttraining/lora_train.py": "167c3de17bd84891cc5e267bfca2b12c8c4268b52d10412736b877e6496ef5a5",
+                  "posttraining/runtime.py": "97fda1028aa80e7b7b2426bac6196bd94565a725f829ec9cf3147db0346be63e"
+                },
+                "environment_lock": "da547cfdb7880baedd5619bcd62a664e06b5139dd8671a10f8fa46966bbc33d3",
+                "control_trainer_sha256": "1aac0870bf827ccdcfae7211a9ac4b40593326e8f52507b549f7cca94ed91a40",
+                "protocol_sha256": "43a8fb03a061f785ab69fcf9e6ec27c7cf7103acf59a9601156c75214b6647d8",
+                "reference_cache_sha256": "b3d487c96382817d3cefa0cdbb90813e8cb6a38ce87772edd3bacf310e00e048"
+              },
+              "planned_updates": 20,
+              "matched_axis": "chosen presentations and optimizer updates; not FLOPs/wall time",
+              "per_epoch": {
+                "chosen_target_tokens": 1686,
+                "rejected_target_tokens": 1934,
+                "chosen_sequence_tokens": 29724,
+                "rejected_sequence_tokens": 29972
+              },
+              "reference_cache_seconds_this_invocation": 19.566207702999975
+            }
+          }
+        },
+        "generations_sha256": "4ce2c571cc1d28a8be036ef026970ec108e913d5aaca003efbc0206a12c0334c",
+        "code_sha256": "f2a9b4ec6e62fd65e10399520431651304b43eb787655814c1e690478aaaa7e9"
+      }
+    }
+  }
+}

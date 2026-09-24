@@ -1,0 +1,42 @@
+[
+  {
+    "id":"concert_handoff",
+    "criteria":"Correct that the user no longer holds the pencil: the stage manager has it. Identify the stage manager as holding the revised program and Mara as holding the cue cards. All three requested objects must be covered.",
+    "en":["a stage manager","The stage manager holds the revised program. Mara holds the cue cards. The user returned the pencil to the stage manager after the rehearsal; the stage manager still has the pencil.","I still have the pencil, right? Who has the revised program and the cue cards?","No, I have the pencil now and the revised program. Mara has the cue cards."],
+    "fr":["une régisseuse","La régisseuse tient le programme révisé. Mara tient les fiches de conduite. L'utilisateur a rendu le crayon à la régisseuse après la répétition ; la régisseuse a toujours le crayon.","J'ai toujours le crayon, non ? Qui a le programme révisé et les fiches de conduite ?","Non, j'ai maintenant le crayon et le programme révisé. Mara a les fiches de conduite."],
+    "history_en":["Can I keep the pencil during rehearsal?","Yes, you have the pencil for rehearsal."],
+    "history_fr":["Je peux garder le crayon pendant la répétition ?","Oui, tu as le crayon pour la répétition."]
+  },
+  {
+    "id":"museum_authority",
+    "criteria":"Correct assistant to supervisor. The speaking guide leads the visitor group; Iris approved the evening tour. Distinguish approval from guiding and answer both requested responsibilities.",
+    "en":["a museum guide","Iris is the museum guide's supervisor, not the guide's assistant. Iris approved the evening tour. The museum guide leads the user's group; Iris will not lead that group.","Will your assistant Iris lead my group, and who approved the evening tour?","Iris is my supervisor, not my assistant. I will lead your group; Iris approved the evening tour."],
+    "fr":["un guide de musée","Iris est la supérieure du guide de musée, pas son assistante. Iris a approuvé la visite du soir. Le guide de musée accompagne le groupe de l'utilisateur ; Iris n'accompagnera pas ce groupe.","Ton assistante Iris accompagnera mon groupe, et qui a approuvé la visite du soir ?","Iris est ma supérieure, pas mon assistante. J'accompagnerai ton groupe ; Iris a approuvé la visite du soir."]
+  },
+  {
+    "id":"calibration_move",
+    "criteria":"Reject the stale Tuesday 09:00 room C appointment and provide Thursday 14:00 room F. Say the machine must be switched off. All three scheduling slots and the power requirement are mandatory; do not enact user compliance.",
+    "en":["a calibration technician","The machine calibration appointment was Tuesday at 09:00 in room C. It has moved to Thursday at 14:00 in room F. The machine must be switched off for calibration; leaving it powered on is not allowed.","Should I bring it Tuesday at nine to room C, and can I leave it powered on?","No, the appointment is Thursday at 14:00 in room F. The machine must be switched off."],
+    "fr":["une technicienne d'étalonnage","Le rendez-vous d'étalonnage de la machine était mardi à 9 h en salle C. Il a été déplacé à jeudi à 14 h en salle F. La machine doit être éteinte pour l'étalonnage ; la laisser allumée n'est pas autorisé.","Je dois l'apporter mardi à neuf heures en salle C, et je peux la laisser allumée ?","Non, le rendez-vous est jeudi à 14 h en salle F. La machine doit être éteinte."],
+    "history_en":["What were the initial appointment details?","Tuesday at 09:00 in room C."],
+    "history_fr":["Quels étaient les détails du rendez-vous initial ?","Mardi à 9 h en salle C."]
+  },
+  {
+    "id":"seed_estimate",
+    "criteria":"State that 120 is only a label estimate, not a verified exact viable-seed count. Actual count and viability remain unknown. Explicitly say the horticulturist has not opened the tin. Do not assert that the user has inspected it.",
+    "en":["a horticulturist","The horticulturist has not opened the sealed seed tin. Its label estimates 120 seeds. The actual seed count and the number of viable seeds are unknown.","So it contains exactly 120 viable seeds? Have you opened it to check?","No, 120 is only the label's estimate. I haven't opened the tin, so the actual count and viability are unknown."],
+    "fr":["une horticultrice","L'horticultrice n'a pas ouvert la boîte de graines scellée. Son étiquette estime le nombre de graines à 120. Le nombre réel de graines et le nombre de graines viables sont inconnus.","Donc elle contient exactement 120 graines viables ? Tu l'as ouverte pour vérifier ?","Non, 120 n'est qu'une estimation de l'étiquette. Je n'ai pas ouvert la boîte ; le nombre réel et la viabilité des graines sont inconnus."]
+  },
+  {
+    "id":"library_copies",
+    "criteria":"Refuse taking the blue archive copy home: it can only be read in the reading room. The user's green copy is available tomorrow at 14:00. Distinguish the two copies and give both timing slots, not merely a refusal.",
+    "en":["a librarian","The blue copy belongs to the archive and may only be read in the reading room; it cannot be borrowed for home use. The green copy is reserved for the user and will be ready tomorrow at 14:00.","Can I take the blue copy home today? When will my green copy be ready?","The blue copy must stay in the reading room. Your green copy will be ready tomorrow at 14:00."],
+    "fr":["un bibliothécaire","L'exemplaire bleu appartient aux archives et ne peut être lu qu'en salle de lecture ; il ne peut pas être emprunté pour être lu chez soi. L'exemplaire vert est réservé à l'utilisateur et sera prêt demain à 14 h.","Je peux emporter l'exemplaire bleu chez moi aujourd'hui ? Quand mon exemplaire vert sera-t-il prêt ?","L'exemplaire bleu doit rester en salle de lecture. Ton exemplaire vert sera prêt demain à 14 h."]
+  },
+  {
+    "id":"puppet_observer",
+    "criteria":"Offer or demonstrate the red puppet walking with the puppeteer as actor while the user watches. Identify the user's closed sketchbook as what they hold. Do not assign puppet operation or opening the book to the user; no detailed movement steps are required.",
+    "en":["a puppeteer","The puppeteer operates the red puppet at the table. The user watches from behind the table and holds a closed sketchbook. The user has not agreed to operate the puppet or open the sketchbook.","Show me the red puppet walking while I watch, and remind me what I'm holding.","I'll make the red puppet walk while you watch. You're holding a closed sketchbook."],
+    "fr":["une marionnettiste","La marionnettiste manipule la marionnette rouge sur la table. L'utilisateur regarde depuis l'arrière de la table et tient un carnet de croquis fermé. L'utilisateur n'a pas accepté de manipuler la marionnette ni d'ouvrir le carnet.","Montre-moi la marionnette rouge en train de marcher pendant que je regarde, et rappelle-moi ce que je tiens.","Je vais faire marcher la marionnette rouge pendant que tu regardes. Tu tiens un carnet de croquis fermé."]
+  }
+]

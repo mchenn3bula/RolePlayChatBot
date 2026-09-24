@@ -1,0 +1,836 @@
+{
+  "experiment": "ministral-response-refinement-v1",
+  "panels": {
+    "familiar": {
+      "all": {
+        "n": 48,
+        "arms": {
+          "natural": {
+            "role_error": 0,
+            "contradiction": 0,
+            "omission": 7,
+            "agency": 0,
+            "language_ok": 48,
+            "third_person_self": 6,
+            "mean_coherence": 4.520833333333333,
+            "mean_relevance": 4.5625,
+            "mean_grammar": 5.0,
+            "semantic_pass": 41,
+            "semantic_and_voice_pass": 35
+          },
+          "direct": {
+            "role_error": 1,
+            "contradiction": 1,
+            "omission": 8,
+            "agency": 0,
+            "language_ok": 48,
+            "third_person_self": 2,
+            "mean_coherence": 4.5625,
+            "mean_relevance": 4.5625,
+            "mean_grammar": 5.0,
+            "semantic_pass": 39,
+            "semantic_and_voice_pass": 37
+          }
+        },
+        "wins": {
+          "natural": 6,
+          "direct": 8,
+          "tie": 34
+        }
+      },
+      "en": {
+        "n": 24,
+        "arms": {
+          "natural": {
+            "role_error": 0,
+            "contradiction": 0,
+            "omission": 3,
+            "agency": 0,
+            "language_ok": 24,
+            "third_person_self": 5,
+            "mean_coherence": 4.416666666666667,
+            "mean_relevance": 4.541666666666667,
+            "mean_grammar": 5.0,
+            "semantic_pass": 21,
+            "semantic_and_voice_pass": 16
+          },
+          "direct": {
+            "role_error": 0,
+            "contradiction": 0,
+            "omission": 4,
+            "agency": 0,
+            "language_ok": 24,
+            "third_person_self": 2,
+            "mean_coherence": 4.541666666666667,
+            "mean_relevance": 4.583333333333333,
+            "mean_grammar": 5.0,
+            "semantic_pass": 20,
+            "semantic_and_voice_pass": 18
+          }
+        },
+        "wins": {
+          "natural": 2,
+          "direct": 4,
+          "tie": 18
+        }
+      },
+      "fr": {
+        "n": 24,
+        "arms": {
+          "natural": {
+            "role_error": 0,
+            "contradiction": 0,
+            "omission": 4,
+            "agency": 0,
+            "language_ok": 24,
+            "third_person_self": 1,
+            "mean_coherence": 4.625,
+            "mean_relevance": 4.583333333333333,
+            "mean_grammar": 5.0,
+            "semantic_pass": 20,
+            "semantic_and_voice_pass": 19
+          },
+          "direct": {
+            "role_error": 1,
+            "contradiction": 1,
+            "omission": 4,
+            "agency": 0,
+            "language_ok": 24,
+            "third_person_self": 0,
+            "mean_coherence": 4.583333333333333,
+            "mean_relevance": 4.541666666666667,
+            "mean_grammar": 5.0,
+            "semantic_pass": 19,
+            "semantic_and_voice_pass": 19
+          }
+        },
+        "wins": {
+          "natural": 4,
+          "direct": 4,
+          "tie": 16
+        }
+      }
+    },
+    "fresh": {
+      "all": {
+        "n": 36,
+        "arms": {
+          "natural": {
+            "role_error": 5,
+            "contradiction": 6,
+            "omission": 21,
+            "agency": 0,
+            "language_ok": 36,
+            "third_person_self": 13,
+            "mean_coherence": 3.861111111111111,
+            "mean_relevance": 3.8055555555555554,
+            "mean_grammar": 5.0,
+            "semantic_pass": 10,
+            "semantic_and_voice_pass": 7
+          },
+          "direct": {
+            "role_error": 5,
+            "contradiction": 5,
+            "omission": 17,
+            "agency": 0,
+            "language_ok": 36,
+            "third_person_self": 12,
+            "mean_coherence": 4.0,
+            "mean_relevance": 4.083333333333333,
+            "mean_grammar": 5.0,
+            "semantic_pass": 14,
+            "semantic_and_voice_pass": 10
+          }
+        },
+        "wins": {
+          "natural": 2,
+          "direct": 6,
+          "tie": 28
+        }
+      },
+      "en": {
+        "n": 18,
+        "arms": {
+          "natural": {
+            "role_error": 3,
+            "contradiction": 3,
+            "omission": 7,
+            "agency": 0,
+            "language_ok": 18,
+            "third_person_self": 5,
+            "mean_coherence": 4.0,
+            "mean_relevance": 4.111111111111111,
+            "mean_grammar": 5.0,
+            "semantic_pass": 8,
+            "semantic_and_voice_pass": 6
+          },
+          "direct": {
+            "role_error": 3,
+            "contradiction": 3,
+            "omission": 6,
+            "agency": 0,
+            "language_ok": 18,
+            "third_person_self": 5,
+            "mean_coherence": 4.111111111111111,
+            "mean_relevance": 4.166666666666667,
+            "mean_grammar": 5.0,
+            "semantic_pass": 9,
+            "semantic_and_voice_pass": 7
+          }
+        },
+        "wins": {
+          "natural": 0,
+          "direct": 1,
+          "tie": 17
+        }
+      },
+      "fr": {
+        "n": 18,
+        "arms": {
+          "natural": {
+            "role_error": 2,
+            "contradiction": 3,
+            "omission": 14,
+            "agency": 0,
+            "language_ok": 18,
+            "third_person_self": 8,
+            "mean_coherence": 3.7222222222222223,
+            "mean_relevance": 3.5,
+            "mean_grammar": 5.0,
+            "semantic_pass": 2,
+            "semantic_and_voice_pass": 1
+          },
+          "direct": {
+            "role_error": 2,
+            "contradiction": 2,
+            "omission": 11,
+            "agency": 0,
+            "language_ok": 18,
+            "third_person_self": 7,
+            "mean_coherence": 3.888888888888889,
+            "mean_relevance": 4.0,
+            "mean_grammar": 5.0,
+            "semantic_pass": 5,
+            "semantic_and_voice_pass": 3
+          }
+        },
+        "wins": {
+          "natural": 2,
+          "direct": 5,
+          "tie": 11
+        }
+      }
+    }
+  },
+  "gates": {
+    "familiar-en": false,
+    "familiar-fr": false,
+    "fresh-en": true,
+    "fresh-fr": true,
+    "familiar_strict_improvement": false
+  },
+  "passes_gate": false,
+  "families": {
+    "r2-ceramics_partner": {
+      "n": 6,
+      "arms": {
+        "natural": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 3,
+          "mean_coherence": 4.0,
+          "mean_relevance": 4.333333333333333,
+          "mean_grammar": 5.0,
+          "semantic_pass": 3,
+          "semantic_and_voice_pass": 0
+        },
+        "direct": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 4,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 1,
+          "mean_coherence": 4.166666666666667,
+          "mean_relevance": 4.166666666666667,
+          "mean_grammar": 5.0,
+          "semantic_pass": 2,
+          "semantic_and_voice_pass": 1
+        }
+      },
+      "wins": {
+        "natural": 1,
+        "direct": 1,
+        "tie": 4
+      }
+    },
+    "r2-equipment_booking": {
+      "n": 6,
+      "arms": {
+        "natural": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 1,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 1,
+          "mean_coherence": 4.5,
+          "mean_relevance": 4.5,
+          "mean_grammar": 5.0,
+          "semantic_pass": 5,
+          "semantic_and_voice_pass": 4
+        },
+        "direct": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 1,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 1,
+          "mean_coherence": 4.666666666666667,
+          "mean_relevance": 4.833333333333333,
+          "mean_grammar": 5.0,
+          "semantic_pass": 5,
+          "semantic_and_voice_pass": 4
+        }
+      },
+      "wins": {
+        "natural": 0,
+        "direct": 1,
+        "tie": 5
+      }
+    },
+    "r2-film_session": {
+      "n": 6,
+      "arms": {
+        "natural": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 5.0,
+          "mean_relevance": 5.0,
+          "mean_grammar": 5.0,
+          "semantic_pass": 6,
+          "semantic_and_voice_pass": 6
+        },
+        "direct": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 5.0,
+          "mean_relevance": 5.0,
+          "mean_grammar": 5.0,
+          "semantic_pass": 6,
+          "semantic_and_voice_pass": 6
+        }
+      },
+      "wins": {
+        "natural": 0,
+        "direct": 0,
+        "tie": 6
+      }
+    },
+    "r2-painting_collection": {
+      "n": 6,
+      "arms": {
+        "natural": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 1,
+          "mean_coherence": 4.166666666666667,
+          "mean_relevance": 4.166666666666667,
+          "mean_grammar": 5.0,
+          "semantic_pass": 3,
+          "semantic_and_voice_pass": 2
+        },
+        "direct": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 4.0,
+          "mean_relevance": 3.8333333333333335,
+          "mean_grammar": 5.0,
+          "semantic_pass": 3,
+          "semantic_and_voice_pass": 3
+        }
+      },
+      "wins": {
+        "natural": 3,
+        "direct": 2,
+        "tie": 1
+      }
+    },
+    "r2-song_sharing": {
+      "n": 6,
+      "arms": {
+        "natural": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 4.0,
+          "mean_relevance": 3.8333333333333335,
+          "mean_grammar": 5.0,
+          "semantic_pass": 6,
+          "semantic_and_voice_pass": 6
+        },
+        "direct": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 4.333333333333333,
+          "mean_relevance": 4.166666666666667,
+          "mean_grammar": 5.0,
+          "semantic_pass": 6,
+          "semantic_and_voice_pass": 6
+        }
+      },
+      "wins": {
+        "natural": 0,
+        "direct": 2,
+        "tie": 4
+      }
+    },
+    "r2-telescope_cover": {
+      "n": 6,
+      "arms": {
+        "natural": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 1,
+          "mean_coherence": 4.833333333333333,
+          "mean_relevance": 5.0,
+          "mean_grammar": 5.0,
+          "semantic_pass": 6,
+          "semantic_and_voice_pass": 5
+        },
+        "direct": {
+          "role_error": 1,
+          "contradiction": 1,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 4.666666666666667,
+          "mean_relevance": 4.833333333333333,
+          "mean_grammar": 5.0,
+          "semantic_pass": 5,
+          "semantic_and_voice_pass": 5
+        }
+      },
+      "wins": {
+        "natural": 1,
+        "direct": 1,
+        "tie": 4
+      }
+    },
+    "r2-unplayed_record": {
+      "n": 6,
+      "arms": {
+        "natural": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 5.0,
+          "mean_relevance": 5.0,
+          "mean_grammar": 5.0,
+          "semantic_pass": 6,
+          "semantic_and_voice_pass": 6
+        },
+        "direct": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 5.0,
+          "mean_relevance": 5.0,
+          "mean_grammar": 5.0,
+          "semantic_pass": 6,
+          "semantic_and_voice_pass": 6
+        }
+      },
+      "wins": {
+        "natural": 0,
+        "direct": 0,
+        "tie": 6
+      }
+    },
+    "r2-weaving_demo": {
+      "n": 6,
+      "arms": {
+        "natural": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 4.666666666666667,
+          "mean_relevance": 4.666666666666667,
+          "mean_grammar": 5.0,
+          "semantic_pass": 6,
+          "semantic_and_voice_pass": 6
+        },
+        "direct": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 4.666666666666667,
+          "mean_relevance": 4.666666666666667,
+          "mean_grammar": 5.0,
+          "semantic_pass": 6,
+          "semantic_and_voice_pass": 6
+        }
+      },
+      "wins": {
+        "natural": 1,
+        "direct": 1,
+        "tie": 4
+      }
+    },
+    "rr1-calibration_move": {
+      "n": 6,
+      "arms": {
+        "natural": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 4,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 4.333333333333333,
+          "mean_relevance": 3.5,
+          "mean_grammar": 5.0,
+          "semantic_pass": 2,
+          "semantic_and_voice_pass": 2
+        },
+        "direct": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 4,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 4.333333333333333,
+          "mean_relevance": 3.6666666666666665,
+          "mean_grammar": 5.0,
+          "semantic_pass": 2,
+          "semantic_and_voice_pass": 2
+        }
+      },
+      "wins": {
+        "natural": 0,
+        "direct": 1,
+        "tie": 5
+      }
+    },
+    "rr1-concert_handoff": {
+      "n": 6,
+      "arms": {
+        "natural": {
+          "role_error": 5,
+          "contradiction": 5,
+          "omission": 1,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 6,
+          "mean_coherence": 3.1666666666666665,
+          "mean_relevance": 3.8333333333333335,
+          "mean_grammar": 5.0,
+          "semantic_pass": 0,
+          "semantic_and_voice_pass": 0
+        },
+        "direct": {
+          "role_error": 5,
+          "contradiction": 5,
+          "omission": 1,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 6,
+          "mean_coherence": 3.1666666666666665,
+          "mean_relevance": 3.8333333333333335,
+          "mean_grammar": 5.0,
+          "semantic_pass": 0,
+          "semantic_and_voice_pass": 0
+        }
+      },
+      "wins": {
+        "natural": 0,
+        "direct": 0,
+        "tie": 6
+      }
+    },
+    "rr1-library_copies": {
+      "n": 6,
+      "arms": {
+        "natural": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 5,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 4.0,
+          "mean_relevance": 4.0,
+          "mean_grammar": 5.0,
+          "semantic_pass": 1,
+          "semantic_and_voice_pass": 1
+        },
+        "direct": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 4.333333333333333,
+          "mean_relevance": 4.5,
+          "mean_grammar": 5.0,
+          "semantic_pass": 3,
+          "semantic_and_voice_pass": 3
+        }
+      },
+      "wins": {
+        "natural": 0,
+        "direct": 2,
+        "tie": 4
+      }
+    },
+    "rr1-museum_authority": {
+      "n": 6,
+      "arms": {
+        "natural": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 5,
+          "mean_coherence": 4.0,
+          "mean_relevance": 4.5,
+          "mean_grammar": 5.0,
+          "semantic_pass": 3,
+          "semantic_and_voice_pass": 0
+        },
+        "direct": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 5,
+          "mean_coherence": 4.0,
+          "mean_relevance": 4.5,
+          "mean_grammar": 5.0,
+          "semantic_pass": 3,
+          "semantic_and_voice_pass": 0
+        }
+      },
+      "wins": {
+        "natural": 0,
+        "direct": 0,
+        "tie": 6
+      }
+    },
+    "rr1-puppet_observer": {
+      "n": 6,
+      "arms": {
+        "natural": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 4,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 3.6666666666666665,
+          "mean_relevance": 3.3333333333333335,
+          "mean_grammar": 5.0,
+          "semantic_pass": 2,
+          "semantic_and_voice_pass": 2
+        },
+        "direct": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 0,
+          "mean_coherence": 4.0,
+          "mean_relevance": 3.8333333333333335,
+          "mean_grammar": 5.0,
+          "semantic_pass": 3,
+          "semantic_and_voice_pass": 3
+        }
+      },
+      "wins": {
+        "natural": 1,
+        "direct": 1,
+        "tie": 4
+      }
+    },
+    "rr1-seed_estimate": {
+      "n": 6,
+      "arms": {
+        "natural": {
+          "role_error": 0,
+          "contradiction": 1,
+          "omission": 4,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 2,
+          "mean_coherence": 4.0,
+          "mean_relevance": 3.6666666666666665,
+          "mean_grammar": 5.0,
+          "semantic_pass": 2,
+          "semantic_and_voice_pass": 2
+        },
+        "direct": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 6,
+          "third_person_self": 1,
+          "mean_coherence": 4.166666666666667,
+          "mean_relevance": 4.166666666666667,
+          "mean_grammar": 5.0,
+          "semantic_pass": 3,
+          "semantic_and_voice_pass": 2
+        }
+      },
+      "wins": {
+        "natural": 1,
+        "direct": 2,
+        "tie": 3
+      }
+    }
+  },
+  "technical": {
+    "familiar": {
+      "natural": {
+        "empty": 0,
+        "eos": 48,
+        "caps": 0,
+        "mean_repeated_4gram_fraction": 0.00932327961672474,
+        "mean_input_tokens": 367.0625,
+        "mean_output_tokens": 22.4375
+      },
+      "direct": {
+        "empty": 0,
+        "eos": 48,
+        "caps": 0,
+        "mean_repeated_4gram_fraction": 0.005437271062271063,
+        "mean_input_tokens": 401.0625,
+        "mean_output_tokens": 21.291666666666668
+      }
+    },
+    "fresh": {
+      "natural": {
+        "empty": 0,
+        "eos": 36,
+        "caps": 0,
+        "mean_repeated_4gram_fraction": 0.0,
+        "mean_input_tokens": 388.4166666666667,
+        "mean_output_tokens": 27.305555555555557
+      },
+      "direct": {
+        "empty": 0,
+        "eos": 36,
+        "caps": 0,
+        "mean_repeated_4gram_fraction": 0.002314814814814815,
+        "mean_input_tokens": 422.4166666666667,
+        "mean_output_tokens": 28.444444444444443
+      }
+    }
+  },
+  "pairing": {
+    "reproduced": 48,
+    "anchored_scores": 72,
+    "blind_sha256": "a5bd68d43b9ad9b561b2651eef29504afe8bb252117fd84f59bcc5b159fc2034",
+    "key_sha256": "5447e220faa3130f5190262809a2d3c9505f6de7aa89a8770cfd032e5bfe55ec"
+  },
+  "manifest": {
+    "status": "complete",
+    "adapter": {
+      "path": "checkpoints/ministral-v2-csft-v1/epoch-02",
+      "files": {
+        "adapter_model.safetensors": "60b2c0c6a420613702946fafe040635e0fa889578fcf1fb574cef643d1356877",
+        "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+      }
+    },
+    "preflight": {
+      "finite_logits": true,
+      "all_parameters_frozen": true,
+      "logits_shape": [
+        1,
+        20,
+        131072
+      ],
+      "memory": {
+        "free_gib": 11.713325500488281,
+        "total_gib": 23.942665100097656,
+        "allocated_gib": 7.241367340087891,
+        "reserved_gib": 9.173828125,
+        "peak_allocated_gib": 9.04532241821289,
+        "peak_reserved_gib": 9.173828125
+      }
+    },
+    "memory": {
+      "free_gib": 11.898983001708984,
+      "total_gib": 23.942665100097656,
+      "allocated_gib": 7.236484527587891,
+      "reserved_gib": 9.220703125,
+      "peak_allocated_gib": 9.04532241821289,
+      "peak_reserved_gib": 9.220703125
+    },
+    "protocol_sha256": "99abf1bb2203209c891ddb201571f0aa79768ad3333a76437bc0565cfe4ec33e",
+    "generations_sha256": "0e797305927bdb4db6df463a6d7a832e1b6efa47e39339aca6c1f3b301b0b1fa"
+  },
+  "review": {
+    "sha256": "52154b67ffcbabef6b1f76d830159b1d716b5e13534e5ba3df8852b7000cad8d",
+    "fields": [
+      "role_error",
+      "contradiction",
+      "omission",
+      "agency",
+      "language_ok",
+      "coherence",
+      "relevance",
+      "grammar",
+      "third_person_self"
+    ],
+    "reviewer": "Single non-independent assistant; anchored historical scores; familiar texts limit blinding"
+  },
+  "protocol_sha256": "99abf1bb2203209c891ddb201571f0aa79768ad3333a76437bc0565cfe4ec33e"
+}

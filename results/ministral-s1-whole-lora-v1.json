@@ -1,0 +1,140 @@
+{
+  "experiment": "ministral-s1-whole-lora-v1",
+  "run_directory": "checkpoints/ministral-s1-whole-lora-v1-r2",
+  "status": "complete",
+  "selected_adapter": "checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+  "progress": {
+    "epoch": 2,
+    "offset": 0,
+    "update": 30,
+    "overflow_retries": 0,
+    "best_validation_nll": 2.688165730696891,
+    "best_checkpoint": "epoch-02",
+    "validation_history": [
+      {
+        "epoch": 1,
+        "reply_nll": 2.693751805083167
+      },
+      {
+        "epoch": 2,
+        "reply_nll": 2.688165730696891
+      }
+    ],
+    "initial_validation_nll": 2.881945156540538
+  },
+  "elapsed_seconds": 233.92433552999998,
+  "memory": {
+    "free_gib": 12.476154327392578,
+    "total_gib": 23.942665100097656,
+    "allocated_gib": 7.337559700012207,
+    "reserved_gib": 8.97265625,
+    "peak_allocated_gib": 10.690980911254883,
+    "peak_reserved_gib": 11.408203125
+  },
+  "data_summary": {
+    "train": {
+      "conversations": 116,
+      "rejection_counts_before_sample_filled": {
+        "very_long_thread": 304,
+        "incomplete_pair_count": 1065,
+        "over_token_budget": 366,
+        "not_two_participants": 17,
+        "nonalternating_authors": 61,
+        "missing_fields": 49,
+        "ambiguous_chronology": 13,
+        "ambiguous_thread_title": 1
+      },
+      "messages": 896,
+      "assistant_replies": 448,
+      "input_tokens": 158274,
+      "target_tokens": 69033,
+      "max_tokens": 2041
+    },
+    "validation": {
+      "conversations": 17,
+      "rejection_counts_before_sample_filled": {
+        "over_token_budget": 52,
+        "incomplete_pair_count": 137,
+        "very_long_thread": 58,
+        "nonalternating_authors": 10,
+        "missing_fields": 4,
+        "ambiguous_thread_title": 2,
+        "ambiguous_chronology": 4
+      },
+      "messages": 128,
+      "assistant_replies": 64,
+      "input_tokens": 27159,
+      "target_tokens": 12702,
+      "max_tokens": 2047
+    }
+  },
+  "curation": "structural only; no semantic/language/content review",
+  "completeness": "all available source-thread messages; narrative completion is unknown",
+  "trainable_parameters": 9371648,
+  "backbone_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+  "trainer_sha256": "167c3de17bd84891cc5e267bfca2b12c8c4268b52d10412736b877e6496ef5a5",
+  "review_policy": "Dialogue and generated replies were not read, rated, or quoted by the coding assistant.",
+  "verification": {
+    "project_suite": {
+      "run": 63,
+      "passed": 62,
+      "skipped_native_tokenizer": 1
+    },
+    "lora_environment_tests_passed": 7,
+    "native_mask_and_eos_checks": "passed",
+    "synthetic_max_length_backward_and_exact_resume": "passed",
+    "historical_split_window_hashes": {
+      "train": 548,
+      "validation": 77
+    },
+    "ruff": "passed"
+  },
+  "inference_check": {
+    "status": "complete",
+    "summary": {
+      "saved_generations": 108,
+      "by_language": {
+        "en": 54,
+        "fr": 54
+      },
+      "generation_seconds": 118.75126740299993,
+      "generated_tokens_including_eos": 2365,
+      "aggregate_tokens_per_second": 19.91557691737322,
+      "contexts_with_history_dropped": 0,
+      "final_memory": {
+        "free_gib": 11.791893005371094,
+        "total_gib": 23.942665100097656,
+        "allocated_gib": 7.236484527587891,
+        "reserved_gib": 9.220703125,
+        "peak_allocated_gib": 9.04532241821289,
+        "peak_reserved_gib": 9.220703125
+      },
+      "review_policy": "user-only"
+    },
+    "adapter": {
+      "path": "/mnt/c/Users/N3BULA/Documents/ChatGPT/RolePlayChatBot/checkpoints/ministral-s1-whole-lora-v1-r2/epoch-02",
+      "files": {
+        "adapter_model.safetensors": "60018fdbe357d579733df25cd9cb7ee3e0bf1fb847468ccee4f2209aaa7b2adc",
+        "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+      }
+    },
+    "preflight": {
+      "finite_logits": true,
+      "all_parameters_frozen": true,
+      "logits_shape": [
+        1,
+        20,
+        131072
+      ],
+      "memory": {
+        "free_gib": 11.96872329711914,
+        "total_gib": 23.942665100097656,
+        "allocated_gib": 7.241367340087891,
+        "reserved_gib": 9.173828125,
+        "peak_allocated_gib": 9.04532241821289,
+        "peak_reserved_gib": 9.173828125
+      }
+    },
+    "output_directory": "reports/ministral-s1-whole-lora-v1-user-panel"
+  }
+}

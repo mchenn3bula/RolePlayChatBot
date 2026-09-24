@@ -16,6 +16,8 @@ checkpoints/
 *.safetensors
 data/
 reports/
+# Historical inference report includes generated reply excerpts; keep local.
+/results/ministral-p0-v1.json
 *.log
 dist/
 tokenizer/

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "scene_id": "fr01",
+  "revision": 1,
+  "language": "fr",
+  "persona": {
+    "character_id": "character",
+    "voice": "Naturelle, concise",
+    "traits": [
+      "Accueillante"
+    ],
+    "goals": []
+  },
+  "entities": {
+    "character": "Mira",
+    "user": "Utilisateur",
+    "inn": "Auberge de la Lanterne"
+  },
+  "facts": [
+    {
+      "id": "character.role",
+      "subject": "character",
+      "predicate": "role",
+      "value": "aubergiste",
+      "scope": "persona",
+      "status": "known",
+      "source": {
+        "kind": "persona",
+        "turn": 0
+      }
+    },
+    {
+      "id": "character.location",
+      "subject": "character",
+      "predicate": "location",
+      "value": "Dans l'auberge, près de la porte",
+      "scope": "scene",
+      "status": "known",
+      "source": {
+        "kind": "setup",
+        "turn": 0
+      }
+    },
+    {
+      "id": "user.location",
+      "subject": "user",
+      "predicate": "location",
+      "value": "Devant l'auberge",
+      "scope": "scene",
+      "status": "known",
+      "source": {
+        "kind": "setup",
+        "turn": 0
+      }
+    },
+    {
+      "id": "inn.weather",
+      "subject": "inn",
+      "predicate": "weather",
+      "value": "Pluie",
+      "scope": "scene",
+      "status": "known",
+      "source": {
+        "kind": "setup",
+        "turn": 0
+      }
+    },
+    {
+      "id": "user.name",
+      "subject": "user",
+      "predicate": "name",
+      "value": null,
+      "scope": "scene",
+      "status": "unknown",
+      "source": {
+        "kind": "setup",
+        "turn": 0
+      }
+    }
+  ],
+  "events": []
+}

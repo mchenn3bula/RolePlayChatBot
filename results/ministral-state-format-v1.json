@@ -1,0 +1,441 @@
+{
+  "experiment": "ministral-state-format-v1",
+  "groups": {
+    "all": {
+      "n": 48,
+      "arms": {
+        "prose": {
+          "role_error": 13,
+          "contradiction": 15,
+          "omission": 4,
+          "agency": 0,
+          "language_ok": 48,
+          "mean_coherence": 3.7708333333333335,
+          "mean_relevance": 4.020833333333333,
+          "mean_grammar": 4.958333333333333,
+          "all_constraints_satisfied": 30
+        },
+        "entity": {
+          "role_error": 6,
+          "contradiction": 8,
+          "omission": 17,
+          "agency": 0,
+          "language_ok": 48,
+          "mean_coherence": 4.083333333333333,
+          "mean_relevance": 3.9583333333333335,
+          "mean_grammar": 4.979166666666667,
+          "all_constraints_satisfied": 24
+        }
+      },
+      "wins": {
+        "prose": 11,
+        "entity": 13,
+        "tie": 24
+      }
+    },
+    "en": {
+      "n": 24,
+      "arms": {
+        "prose": {
+          "role_error": 6,
+          "contradiction": 7,
+          "omission": 1,
+          "agency": 0,
+          "language_ok": 24,
+          "mean_coherence": 3.9166666666666665,
+          "mean_relevance": 4.166666666666667,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 16
+        },
+        "entity": {
+          "role_error": 3,
+          "contradiction": 4,
+          "omission": 7,
+          "agency": 0,
+          "language_ok": 24,
+          "mean_coherence": 4.166666666666667,
+          "mean_relevance": 4.166666666666667,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 13
+        }
+      },
+      "wins": {
+        "prose": 3,
+        "entity": 6,
+        "tie": 15
+      }
+    },
+    "fr": {
+      "n": 24,
+      "arms": {
+        "prose": {
+          "role_error": 7,
+          "contradiction": 8,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 24,
+          "mean_coherence": 3.625,
+          "mean_relevance": 3.875,
+          "mean_grammar": 4.916666666666667,
+          "all_constraints_satisfied": 14
+        },
+        "entity": {
+          "role_error": 3,
+          "contradiction": 4,
+          "omission": 10,
+          "agency": 0,
+          "language_ok": 24,
+          "mean_coherence": 4.0,
+          "mean_relevance": 3.75,
+          "mean_grammar": 4.958333333333333,
+          "all_constraints_satisfied": 11
+        }
+      },
+      "wins": {
+        "prose": 8,
+        "entity": 7,
+        "tie": 9
+      }
+    }
+  },
+  "language_gates": {
+    "en": false,
+    "fr": false
+  },
+  "passes_local_gate": false,
+  "families": {
+    "r2-ceramics_partner": {
+      "n": 6,
+      "arms": {
+        "prose": {
+          "role_error": 4,
+          "contradiction": 4,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 3.0,
+          "mean_relevance": 3.6666666666666665,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 2
+        },
+        "entity": {
+          "role_error": 1,
+          "contradiction": 1,
+          "omission": 6,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 3.5,
+          "mean_relevance": 3.5,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 0
+        }
+      },
+      "wins": {
+        "prose": 2,
+        "entity": 3,
+        "tie": 1
+      }
+    },
+    "r2-equipment_booking": {
+      "n": 6,
+      "arms": {
+        "prose": {
+          "role_error": 1,
+          "contradiction": 3,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 3.0,
+          "mean_relevance": 3.0,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 1
+        },
+        "entity": {
+          "role_error": 1,
+          "contradiction": 1,
+          "omission": 3,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 3.8333333333333335,
+          "mean_relevance": 3.6666666666666665,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 2
+        }
+      },
+      "wins": {
+        "prose": 0,
+        "entity": 2,
+        "tie": 4
+      }
+    },
+    "r2-film_session": {
+      "n": 6,
+      "arms": {
+        "prose": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 5.0,
+          "mean_relevance": 5.0,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 6
+        },
+        "entity": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 4,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 4.333333333333333,
+          "mean_relevance": 3.6666666666666665,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 2
+        }
+      },
+      "wins": {
+        "prose": 4,
+        "entity": 0,
+        "tie": 2
+      }
+    },
+    "r2-painting_collection": {
+      "n": 6,
+      "arms": {
+        "prose": {
+          "role_error": 3,
+          "contradiction": 3,
+          "omission": 1,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 2.6666666666666665,
+          "mean_relevance": 3.3333333333333335,
+          "mean_grammar": 4.666666666666667,
+          "all_constraints_satisfied": 2
+        },
+        "entity": {
+          "role_error": 1,
+          "contradiction": 2,
+          "omission": 2,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 3.8333333333333335,
+          "mean_relevance": 4.0,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 2
+        }
+      },
+      "wins": {
+        "prose": 0,
+        "entity": 3,
+        "tie": 3
+      }
+    },
+    "r2-song_sharing": {
+      "n": 6,
+      "arms": {
+        "prose": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 4.0,
+          "mean_relevance": 3.8333333333333335,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 6
+        },
+        "entity": {
+          "role_error": 1,
+          "contradiction": 1,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 3.8333333333333335,
+          "mean_relevance": 3.5,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 5
+        }
+      },
+      "wins": {
+        "prose": 2,
+        "entity": 1,
+        "tie": 3
+      }
+    },
+    "r2-telescope_cover": {
+      "n": 6,
+      "arms": {
+        "prose": {
+          "role_error": 3,
+          "contradiction": 3,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 3.8333333333333335,
+          "mean_relevance": 4.333333333333333,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 3
+        },
+        "entity": {
+          "role_error": 2,
+          "contradiction": 2,
+          "omission": 1,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 4.166666666666667,
+          "mean_relevance": 4.333333333333333,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 3
+        }
+      },
+      "wins": {
+        "prose": 2,
+        "entity": 2,
+        "tie": 2
+      }
+    },
+    "r2-unplayed_record": {
+      "n": 6,
+      "arms": {
+        "prose": {
+          "role_error": 2,
+          "contradiction": 2,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 4.0,
+          "mean_relevance": 4.333333333333333,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 4
+        },
+        "entity": {
+          "role_error": 0,
+          "contradiction": 1,
+          "omission": 1,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 4.333333333333333,
+          "mean_relevance": 4.166666666666667,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 4
+        }
+      },
+      "wins": {
+        "prose": 1,
+        "entity": 1,
+        "tie": 4
+      }
+    },
+    "r2-weaving_demo": {
+      "n": 6,
+      "arms": {
+        "prose": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 4.666666666666667,
+          "mean_relevance": 4.666666666666667,
+          "mean_grammar": 5.0,
+          "all_constraints_satisfied": 6
+        },
+        "entity": {
+          "role_error": 0,
+          "contradiction": 0,
+          "omission": 0,
+          "agency": 0,
+          "language_ok": 6,
+          "mean_coherence": 4.833333333333333,
+          "mean_relevance": 4.833333333333333,
+          "mean_grammar": 4.833333333333333,
+          "all_constraints_satisfied": 6
+        }
+      },
+      "wins": {
+        "prose": 0,
+        "entity": 1,
+        "tie": 5
+      }
+    }
+  },
+  "technical": {
+    "prose": {
+      "empty": 0,
+      "eos": 48,
+      "capped": 0,
+      "mean_tokens": 20.9375,
+      "mean_repeated_4gram_fraction": 0.0,
+      "mean_input_tokens": 360.4375
+    },
+    "entity": {
+      "empty": 0,
+      "eos": 48,
+      "capped": 0,
+      "mean_tokens": 17.833333333333332,
+      "mean_repeated_4gram_fraction": 0.0,
+      "mean_input_tokens": 385.8125
+    }
+  },
+  "pairing": {
+    "historical_prose_exact_output_matches": 48,
+    "requests": 48,
+    "blind_sha256": "279d7748abf0a169e86f9ed4655cdd27dd91767ce3a050d96111e2c661a0d508",
+    "key_sha256": "1c22f997ca360832f7c8b414a03ef490166a511ad346dd832db94be0e7d79509"
+  },
+  "manifest": {
+    "status": "complete",
+    "adapter": {
+      "path": "checkpoints/ministral-v2-csft-v1/epoch-02",
+      "files": {
+        "adapter_model.safetensors": "60b2c0c6a420613702946fafe040635e0fa889578fcf1fb574cef643d1356877",
+        "adapter_config.json": "99bb40505d4a7daf631dd1f6bdf92ccc4de5c48dd6dbe90d0ee5982b3cf8fc6f"
+      }
+    },
+    "preflight": {
+      "finite_logits": true,
+      "all_parameters_frozen": true,
+      "logits_shape": [
+        1,
+        20,
+        131072
+      ],
+      "memory": {
+        "free_gib": 12.077484130859375,
+        "total_gib": 23.942665100097656,
+        "allocated_gib": 7.241367340087891,
+        "reserved_gib": 9.173828125,
+        "peak_allocated_gib": 9.04532241821289,
+        "peak_reserved_gib": 9.173828125
+      }
+    },
+    "memory": {
+      "free_gib": 11.790550231933594,
+      "total_gib": 23.942665100097656,
+      "allocated_gib": 7.236484527587891,
+      "reserved_gib": 9.220703125,
+      "peak_allocated_gib": 9.04532241821289,
+      "peak_reserved_gib": 9.220703125
+    },
+    "protocol_sha256": "00735e0ca1d5461bc369c32d07743d2b195cbcab44cb3e0dbc7e371b1348100e",
+    "generations_sha256": "e71e6cd60815e2e0a60e3817918db8d5a41d42c77508987696b561b5e992ad52"
+  },
+  "review": {
+    "sha256": "ef8aebbd0858560722bfd694bed755a758e7332827c014af9a49dad0120b6e6b",
+    "fields": [
+      "role_error",
+      "contradiction",
+      "omission",
+      "agency",
+      "language_ok",
+      "coherence",
+      "relevance",
+      "grammar"
+    ],
+    "reviewer": "Single assistant; authored mapping; not independent; familiar historical outputs limit blinding"
+  },
+  "protocol_sha256": "00735e0ca1d5461bc369c32d07743d2b195cbcab44cb3e0dbc7e371b1348100e",
+  "limits": "Familiar eight-family development panel; non-independent assistant judgments; no default promotion"
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "scene_id": "en01",
+  "revision": 1,
+  "language": "en",
+  "persona": {
+    "character_id": "character",
+    "voice": "Natural, concise",
+    "traits": [
+      "Welcoming"
+    ],
+    "goals": []
+  },
+  "entities": {
+    "character": "Mira",
+    "user": "User",
+    "inn": "Lantern Inn"
+  },
+  "facts": [
+    {
+      "id": "character.role",
+      "subject": "character",
+      "predicate": "role",
+      "value": "innkeeper",
+      "scope": "persona",
+      "status": "known",
+      "source": {
+        "kind": "persona",
+        "turn": 0
+      }
+    },
+    {
+      "id": "character.location",
+      "subject": "character",
+      "predicate": "location",
+      "value": "Inside the inn, near the door",
+      "scope": "scene",
+      "status": "known",
+      "source": {
+        "kind": "setup",
+        "turn": 0
+      }
+    },
+    {
+      "id": "user.location",
+      "subject": "user",
+      "predicate": "location",
+      "value": "Outside the inn",
+      "scope": "scene",
+      "status": "known",
+      "source": {
+        "kind": "setup",
+        "turn": 0
+      }
+    },
+    {
+      "id": "inn.weather",
+      "subject": "inn",
+      "predicate": "weather",
+      "value": "Rain",
+      "scope": "scene",
+      "status": "known",
+      "source": {
+        "kind": "setup",
+        "turn": 0
+      }
+    },
+    {
+      "id": "user.name",
+      "subject": "user",
+      "predicate": "name",
+      "value": null,
+      "scope": "scene",
+      "status": "unknown",
+      "source": {
+        "kind": "setup",
+        "turn": 0
+      }
+    }
+  ],
+  "events": []
+}

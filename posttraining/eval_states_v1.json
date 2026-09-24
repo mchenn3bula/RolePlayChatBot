@@ -1,0 +1,1990 @@
+{
+  "en01": {
+    "schema_version": 1,
+    "scene_id": "en01",
+    "revision": 1,
+    "language": "en",
+    "persona": {
+      "character_id": "character",
+      "voice": "Natural, concise",
+      "traits": [
+        "Welcoming"
+      ],
+      "goals": []
+    },
+    "entities": {
+      "character": "Mira",
+      "user": "User",
+      "inn": "Lantern Inn"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "innkeeper",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.location",
+        "subject": "character",
+        "predicate": "location",
+        "value": "Inside the inn, near the door",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "user.location",
+        "subject": "user",
+        "predicate": "location",
+        "value": "Outside the inn",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "inn.weather",
+        "subject": "inn",
+        "predicate": "weather",
+        "value": "Rain",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "user.name",
+        "subject": "user",
+        "predicate": "name",
+        "value": null,
+        "scope": "scene",
+        "status": "unknown",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "fr01": {
+    "schema_version": 1,
+    "scene_id": "fr01",
+    "revision": 1,
+    "language": "fr",
+    "persona": {
+      "character_id": "character",
+      "voice": "Naturelle, concise",
+      "traits": [
+        "Accueillante"
+      ],
+      "goals": []
+    },
+    "entities": {
+      "character": "Mira",
+      "user": "Utilisateur",
+      "inn": "Auberge de la Lanterne"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "aubergiste",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.location",
+        "subject": "character",
+        "predicate": "location",
+        "value": "Dans l'auberge, près de la porte",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "user.location",
+        "subject": "user",
+        "predicate": "location",
+        "value": "Devant l'auberge",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "inn.weather",
+        "subject": "inn",
+        "predicate": "weather",
+        "value": "Pluie",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "user.name",
+        "subject": "user",
+        "predicate": "name",
+        "value": null,
+        "scope": "scene",
+        "status": "unknown",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "en02": {
+    "schema_version": 1,
+    "scene_id": "en02",
+    "revision": 1,
+    "language": "en",
+    "persona": {
+      "character_id": "character",
+      "voice": "Natural, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Oren",
+      "user": "User",
+      "key": "Brass key",
+      "screws": "Screws",
+      "watch": "Watch"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "clockmaker",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "key.location",
+        "subject": "key",
+        "predicate": "location",
+        "value": "Blue drawer",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "screws.location",
+        "subject": "screws",
+        "predicate": "location",
+        "value": "Red drawer",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "watch.owner",
+        "subject": "watch",
+        "predicate": "owner",
+        "value": {
+          "entity_id": "user"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "fr02": {
+    "schema_version": 1,
+    "scene_id": "fr02",
+    "revision": 1,
+    "language": "fr",
+    "persona": {
+      "character_id": "character",
+      "voice": "Naturelle, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Oren",
+      "user": "Utilisateur",
+      "key": "Clé en laiton",
+      "screws": "Vis",
+      "watch": "Montre"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "horloger",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "key.location",
+        "subject": "key",
+        "predicate": "location",
+        "value": "Tiroir bleu",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "screws.location",
+        "subject": "screws",
+        "predicate": "location",
+        "value": "Tiroir rouge",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "watch.owner",
+        "subject": "watch",
+        "predicate": "owner",
+        "value": {
+          "entity_id": "user"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "en03": {
+    "schema_version": 1,
+    "scene_id": "en03",
+    "revision": 1,
+    "language": "en",
+    "persona": {
+      "character_id": "character",
+      "voice": "Natural, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Nessa",
+      "user": "User",
+      "ferry": "Willow",
+      "ivo": "Ivo"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "ferry captain",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "ferry.captain",
+        "subject": "ferry",
+        "predicate": "captain",
+        "value": {
+          "entity_id": "character"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "ivo.relationship",
+        "subject": "ivo",
+        "predicate": "relationship",
+        "value": "Nessa's younger brother",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "ivo.occupation",
+        "subject": "ivo",
+        "predicate": "occupation",
+        "value": "Baker",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.served_in_royal_navy",
+        "subject": "character",
+        "predicate": "served_in_royal_navy",
+        "value": false,
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "fr03": {
+    "schema_version": 1,
+    "scene_id": "fr03",
+    "revision": 1,
+    "language": "fr",
+    "persona": {
+      "character_id": "character",
+      "voice": "Naturelle, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Nessa",
+      "user": "Utilisateur",
+      "ferry": "Saule",
+      "ivo": "Ivo"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "capitaine de ferry",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "ferry.captain",
+        "subject": "ferry",
+        "predicate": "captain",
+        "value": {
+          "entity_id": "character"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "ivo.relationship",
+        "subject": "ivo",
+        "predicate": "relationship",
+        "value": "Frère cadet de Nessa",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "ivo.occupation",
+        "subject": "ivo",
+        "predicate": "occupation",
+        "value": "Boulanger",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.served_in_royal_navy",
+        "subject": "character",
+        "predicate": "served_in_royal_navy",
+        "value": false,
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "en04": {
+    "schema_version": 1,
+    "scene_id": "en04",
+    "revision": 1,
+    "language": "en",
+    "persona": {
+      "character_id": "character",
+      "voice": "Natural, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Elian",
+      "user": "User",
+      "village": "Alder",
+      "letter": "Sealed letter",
+      "mayor": "Mayor"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "archivist",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.location",
+        "subject": "character",
+        "predicate": "location",
+        "value": {
+          "entity_id": "village"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "letter.recipient",
+        "subject": "letter",
+        "predicate": "recipient",
+        "value": {
+          "entity_id": "mayor"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "letter.contents",
+        "subject": "letter",
+        "predicate": "contents",
+        "value": null,
+        "scope": "scene",
+        "status": "unknown",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "letter.sealed",
+        "subject": "letter",
+        "predicate": "sealed",
+        "value": true,
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "fr04": {
+    "schema_version": 1,
+    "scene_id": "fr04",
+    "revision": 1,
+    "language": "fr",
+    "persona": {
+      "character_id": "character",
+      "voice": "Naturelle, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Elian",
+      "user": "Utilisateur",
+      "village": "Aulne",
+      "letter": "Lettre scellée",
+      "mayor": "Maire"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "archiviste",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.location",
+        "subject": "character",
+        "predicate": "location",
+        "value": {
+          "entity_id": "village"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "letter.recipient",
+        "subject": "letter",
+        "predicate": "recipient",
+        "value": {
+          "entity_id": "mayor"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "letter.contents",
+        "subject": "letter",
+        "predicate": "contents",
+        "value": null,
+        "scope": "scene",
+        "status": "unknown",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "letter.sealed",
+        "subject": "letter",
+        "predicate": "sealed",
+        "value": true,
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "en05": {
+    "schema_version": 1,
+    "scene_id": "en05",
+    "revision": 1,
+    "language": "en",
+    "persona": {
+      "character_id": "character",
+      "voice": "Natural, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Tavi",
+      "user": "User"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "guide",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.location",
+        "subject": "character",
+        "predicate": "location",
+        "value": "At the bridge",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "user.crossed_bridge",
+        "subject": "user",
+        "predicate": "crossed_bridge",
+        "value": false,
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "user.decision",
+        "subject": "user",
+        "predicate": "decision",
+        "value": null,
+        "scope": "scene",
+        "status": "unknown",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "fr05": {
+    "schema_version": 1,
+    "scene_id": "fr05",
+    "revision": 1,
+    "language": "fr",
+    "persona": {
+      "character_id": "character",
+      "voice": "Naturelle, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Tavi",
+      "user": "Utilisateur"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "guide",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.location",
+        "subject": "character",
+        "predicate": "location",
+        "value": "Au pont",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "user.crossed_bridge",
+        "subject": "user",
+        "predicate": "crossed_bridge",
+        "value": false,
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "user.decision",
+        "subject": "user",
+        "predicate": "decision",
+        "value": null,
+        "scope": "scene",
+        "status": "unknown",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "en06": {
+    "schema_version": 1,
+    "scene_id": "en06",
+    "revision": 1,
+    "language": "en",
+    "persona": {
+      "character_id": "character",
+      "voice": "Dry humor",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Bex",
+      "user": "User",
+      "kettle": "Kettle",
+      "ship": "Ship"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "mechanic",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "kettle.fault",
+        "subject": "kettle",
+        "predicate": "fault",
+        "value": "Broken heating element",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "ship.life_support",
+        "subject": "ship",
+        "predicate": "life_support",
+        "value": "Normal",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "fr06": {
+    "schema_version": 1,
+    "scene_id": "fr06",
+    "revision": 1,
+    "language": "fr",
+    "persona": {
+      "character_id": "character",
+      "voice": "Humour pince-sans-rire",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Bex",
+      "user": "Utilisateur",
+      "kettle": "Bouilloire",
+      "ship": "Vaisseau"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "mécanicienne",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "kettle.fault",
+        "subject": "kettle",
+        "predicate": "fault",
+        "value": "Résistance défectueuse",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "ship.life_support",
+        "subject": "ship",
+        "predicate": "life_support",
+        "value": "Normal",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "en07": {
+    "schema_version": 1,
+    "scene_id": "en07",
+    "revision": 1,
+    "language": "en",
+    "persona": {
+      "character_id": "character",
+      "voice": "Natural, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Liora",
+      "user": "User",
+      "sam": "Sam"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "botanist",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "sam.relationship",
+        "subject": "sam",
+        "predicate": "relationship",
+        "value": "Adult colleague, neither son nor partner",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "sam.allergy",
+        "subject": "sam",
+        "predicate": "allergy",
+        "value": "Mint",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.location",
+        "subject": "character",
+        "predicate": "location",
+        "value": "Shared greenhouse",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "fr07": {
+    "schema_version": 1,
+    "scene_id": "fr07",
+    "revision": 1,
+    "language": "fr",
+    "persona": {
+      "character_id": "character",
+      "voice": "Naturelle, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Liora",
+      "user": "Utilisateur",
+      "sam": "Sam"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "botaniste",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "sam.relationship",
+        "subject": "sam",
+        "predicate": "relationship",
+        "value": "Collègue adulte, ni fils ni partenaire",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "sam.allergy",
+        "subject": "sam",
+        "predicate": "allergy",
+        "value": "Menthe",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.location",
+        "subject": "character",
+        "predicate": "location",
+        "value": "Serre partagée",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "en08": {
+    "schema_version": 1,
+    "scene_id": "en08",
+    "revision": 1,
+    "language": "en",
+    "persona": {
+      "character_id": "character",
+      "voice": "Natural, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Zerin",
+      "user": "User",
+      "pavo": "Pavo",
+      "town": "Vela"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "baker",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "pavo.relationship",
+        "subject": "pavo",
+        "predicate": "relationship",
+        "value": "Zerin's apprentice",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.location",
+        "subject": "character",
+        "predicate": "location",
+        "value": {
+          "entity_id": "town"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.task",
+        "subject": "character",
+        "predicate": "task",
+        "value": "Prepare bread for market",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.soldier_or_wizard",
+        "subject": "character",
+        "predicate": "soldier_or_wizard",
+        "value": false,
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "fr08": {
+    "schema_version": 1,
+    "scene_id": "fr08",
+    "revision": 1,
+    "language": "fr",
+    "persona": {
+      "character_id": "character",
+      "voice": "Naturelle, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Zerin",
+      "user": "Utilisateur",
+      "pavo": "Pavo",
+      "town": "Vela"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "boulanger",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "pavo.relationship",
+        "subject": "pavo",
+        "predicate": "relationship",
+        "value": "Apprenti de Zerin",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.location",
+        "subject": "character",
+        "predicate": "location",
+        "value": {
+          "entity_id": "town"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.task",
+        "subject": "character",
+        "predicate": "task",
+        "value": "Préparer le pain pour le marché",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "character.soldier_or_wizard",
+        "subject": "character",
+        "predicate": "soldier_or_wizard",
+        "value": false,
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      }
+    ],
+    "events": []
+  },
+  "en09": {
+    "schema_version": 1,
+    "scene_id": "en09",
+    "revision": 1,
+    "language": "en",
+    "persona": {
+      "character_id": "character",
+      "voice": "Natural, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Runa",
+      "user": "User",
+      "parcel": "Green parcel",
+      "umbrella": "Red umbrella",
+      "keeper": "Lighthouse keeper",
+      "group": "Runa and user"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "courier",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "group.location",
+        "subject": "group",
+        "predicate": "location",
+        "value": "Village square",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "parcel.holder",
+        "subject": "parcel",
+        "predicate": "holder",
+        "value": {
+          "entity_id": "user"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "parcel.recipient",
+        "subject": "parcel",
+        "predicate": "recipient",
+        "value": {
+          "entity_id": "keeper"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "parcel.contents",
+        "subject": "parcel",
+        "predicate": "contents",
+        "value": null,
+        "scope": "scene",
+        "status": "unknown",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "keeper.name",
+        "subject": "keeper",
+        "predicate": "name",
+        "value": null,
+        "scope": "scene",
+        "status": "unknown",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "umbrella.holder",
+        "subject": "umbrella",
+        "predicate": "holder",
+        "value": {
+          "entity_id": "character"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": [
+      {
+        "turn": 2,
+        "set": [
+          {
+            "id": "group.location",
+            "subject": "group",
+            "predicate": "location",
+            "value": "Bakery",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 2
+            }
+          },
+          {
+            "id": "parcel.holder",
+            "subject": "parcel",
+            "predicate": "holder",
+            "value": {
+              "entity_id": "character"
+            },
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 2
+            }
+          }
+        ],
+        "remove": []
+      },
+      {
+        "turn": 3,
+        "set": [
+          {
+            "id": "group.location",
+            "subject": "group",
+            "predicate": "location",
+            "value": "Stone bridge",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 3
+            }
+          }
+        ],
+        "remove": []
+      },
+      {
+        "turn": 4,
+        "set": [
+          {
+            "id": "group.location",
+            "subject": "group",
+            "predicate": "location",
+            "value": "Lighthouse door",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 4
+            }
+          },
+          {
+            "id": "umbrella.holder",
+            "subject": "umbrella",
+            "predicate": "holder",
+            "value": {
+              "entity_id": "user"
+            },
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 4
+            }
+          }
+        ],
+        "remove": []
+      },
+      {
+        "turn": 5,
+        "set": [
+          {
+            "id": "keeper.door_open",
+            "subject": "keeper",
+            "predicate": "door_open",
+            "value": true,
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 5
+            }
+          }
+        ],
+        "remove": []
+      }
+    ]
+  },
+  "fr09": {
+    "schema_version": 1,
+    "scene_id": "fr09",
+    "revision": 1,
+    "language": "fr",
+    "persona": {
+      "character_id": "character",
+      "voice": "Naturelle, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Runa",
+      "user": "Utilisateur",
+      "parcel": "Colis vert",
+      "umbrella": "Parapluie rouge",
+      "keeper": "Gardien du phare",
+      "group": "Runa et utilisateur"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "messagère",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "group.location",
+        "subject": "group",
+        "predicate": "location",
+        "value": "Place du village",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "parcel.holder",
+        "subject": "parcel",
+        "predicate": "holder",
+        "value": {
+          "entity_id": "user"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "parcel.recipient",
+        "subject": "parcel",
+        "predicate": "recipient",
+        "value": {
+          "entity_id": "keeper"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "parcel.contents",
+        "subject": "parcel",
+        "predicate": "contents",
+        "value": null,
+        "scope": "scene",
+        "status": "unknown",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "keeper.name",
+        "subject": "keeper",
+        "predicate": "name",
+        "value": null,
+        "scope": "scene",
+        "status": "unknown",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "umbrella.holder",
+        "subject": "umbrella",
+        "predicate": "holder",
+        "value": {
+          "entity_id": "character"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": [
+      {
+        "turn": 2,
+        "set": [
+          {
+            "id": "group.location",
+            "subject": "group",
+            "predicate": "location",
+            "value": "Boulangerie",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 2
+            }
+          },
+          {
+            "id": "parcel.holder",
+            "subject": "parcel",
+            "predicate": "holder",
+            "value": {
+              "entity_id": "character"
+            },
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 2
+            }
+          }
+        ],
+        "remove": []
+      },
+      {
+        "turn": 3,
+        "set": [
+          {
+            "id": "group.location",
+            "subject": "group",
+            "predicate": "location",
+            "value": "Pont de pierre",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 3
+            }
+          }
+        ],
+        "remove": []
+      },
+      {
+        "turn": 4,
+        "set": [
+          {
+            "id": "group.location",
+            "subject": "group",
+            "predicate": "location",
+            "value": "Porte du phare",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 4
+            }
+          },
+          {
+            "id": "umbrella.holder",
+            "subject": "umbrella",
+            "predicate": "holder",
+            "value": {
+              "entity_id": "user"
+            },
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 4
+            }
+          }
+        ],
+        "remove": []
+      },
+      {
+        "turn": 5,
+        "set": [
+          {
+            "id": "keeper.door_open",
+            "subject": "keeper",
+            "predicate": "door_open",
+            "value": true,
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 5
+            }
+          }
+        ],
+        "remove": []
+      }
+    ]
+  },
+  "en10": {
+    "schema_version": 1,
+    "scene_id": "en10",
+    "revision": 1,
+    "language": "en",
+    "persona": {
+      "character_id": "character",
+      "voice": "Natural, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Sera",
+      "user": "User",
+      "blue_atlas": "Blue atlas",
+      "green_atlas": "Green atlas",
+      "jun": "Jun",
+      "library": "Library"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "librarian",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "jun.relationship",
+        "subject": "jun",
+        "predicate": "relationship",
+        "value": "Adult customer, not Sera's daughter",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "blue_atlas.reserved_for",
+        "subject": "blue_atlas",
+        "predicate": "reserved_for",
+        "value": {
+          "entity_id": "jun"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "blue_atlas.location",
+        "subject": "blue_atlas",
+        "predicate": "location",
+        "value": "Behind the desk",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "blue_atlas.reserved_until",
+        "subject": "blue_atlas",
+        "predicate": "reserved_until",
+        "value": "Sunset",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "green_atlas.status",
+        "subject": "green_atlas",
+        "predicate": "status",
+        "value": "Available on the shelf",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": [
+      {
+        "turn": 2,
+        "set": [
+          {
+            "id": "green_atlas.status",
+            "subject": "green_atlas",
+            "predicate": "status",
+            "value": "Borrowed by user",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 2
+            }
+          },
+          {
+            "id": "library.time",
+            "subject": "library",
+            "predicate": "time",
+            "value": "Noon",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 2
+            }
+          }
+        ],
+        "remove": []
+      },
+      {
+        "turn": 3,
+        "set": [
+          {
+            "id": "blue_atlas.reserved_until",
+            "subject": "blue_atlas",
+            "predicate": "reserved_until",
+            "value": "Tomorrow morning",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 3
+            }
+          }
+        ],
+        "remove": []
+      },
+      {
+        "turn": 4,
+        "set": [
+          {
+            "id": "library.time",
+            "subject": "library",
+            "predicate": "time",
+            "value": "Sunset",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 4
+            }
+          }
+        ],
+        "remove": []
+      },
+      {
+        "turn": 5,
+        "set": [
+          {
+            "id": "green_atlas.status",
+            "subject": "green_atlas",
+            "predicate": "status",
+            "value": "Returned and available",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 5
+            }
+          }
+        ],
+        "remove": []
+      }
+    ]
+  },
+  "fr10": {
+    "schema_version": 1,
+    "scene_id": "fr10",
+    "revision": 1,
+    "language": "fr",
+    "persona": {
+      "character_id": "character",
+      "voice": "Naturelle, concise",
+      "traits": [],
+      "goals": []
+    },
+    "entities": {
+      "character": "Sera",
+      "user": "Utilisateur",
+      "blue_atlas": "Atlas bleu",
+      "green_atlas": "Atlas vert",
+      "jun": "Jun",
+      "library": "Bibliothèque"
+    },
+    "facts": [
+      {
+        "id": "character.role",
+        "subject": "character",
+        "predicate": "role",
+        "value": "bibliothécaire",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "jun.relationship",
+        "subject": "jun",
+        "predicate": "relationship",
+        "value": "Client adulte, pas la fille de Sera",
+        "scope": "persona",
+        "status": "known",
+        "source": {
+          "kind": "persona",
+          "turn": 0
+        }
+      },
+      {
+        "id": "blue_atlas.reserved_for",
+        "subject": "blue_atlas",
+        "predicate": "reserved_for",
+        "value": {
+          "entity_id": "jun"
+        },
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "blue_atlas.location",
+        "subject": "blue_atlas",
+        "predicate": "location",
+        "value": "Derrière le bureau",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "blue_atlas.reserved_until",
+        "subject": "blue_atlas",
+        "predicate": "reserved_until",
+        "value": "Coucher du soleil",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      },
+      {
+        "id": "green_atlas.status",
+        "subject": "green_atlas",
+        "predicate": "status",
+        "value": "Disponible sur l'étagère",
+        "scope": "scene",
+        "status": "known",
+        "source": {
+          "kind": "setup",
+          "turn": 0
+        }
+      }
+    ],
+    "events": [
+      {
+        "turn": 2,
+        "set": [
+          {
+            "id": "green_atlas.status",
+            "subject": "green_atlas",
+            "predicate": "status",
+            "value": "Emprunté par l'utilisateur",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 2
+            }
+          },
+          {
+            "id": "library.time",
+            "subject": "library",
+            "predicate": "time",
+            "value": "Midi",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 2
+            }
+          }
+        ],
+        "remove": []
+      },
+      {
+        "turn": 3,
+        "set": [
+          {
+            "id": "blue_atlas.reserved_until",
+            "subject": "blue_atlas",
+            "predicate": "reserved_until",
+            "value": "Demain matin",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 3
+            }
+          }
+        ],
+        "remove": []
+      },
+      {
+        "turn": 4,
+        "set": [
+          {
+            "id": "library.time",
+            "subject": "library",
+            "predicate": "time",
+            "value": "Coucher du soleil",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 4
+            }
+          }
+        ],
+        "remove": []
+      },
+      {
+        "turn": 5,
+        "set": [
+          {
+            "id": "green_atlas.status",
+            "subject": "green_atlas",
+            "predicate": "status",
+            "value": "Rendu et disponible",
+            "scope": "scene",
+            "status": "known",
+            "source": {
+              "kind": "user",
+              "turn": 5
+            }
+          }
+        ],
+        "remove": []
+      }
+    ]
+  }
+}

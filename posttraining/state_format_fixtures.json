@@ -1,0 +1,34 @@
+{
+  "r2-telescope_cover": {
+    "en": ["telescope_cover.given_by = character", "telescope_cover.given_to = Paz", "eyepiece_case.current_carrier = character", "telescope_cover.returned_by_Paz = false"],
+    "fr": ["housse_du_télescope.donnée_par = character", "housse_du_télescope.donnée_à = Paz", "mallette_des_oculaires.porteur_actuel = character", "housse_du_télescope.rendue_par_Paz = false"]
+  },
+  "r2-film_session": {
+    "en": ["screening.previous_day = Friday", "screening.previous_room = hall 1", "screening.current_day = Saturday", "screening.current_room = hall 4", "Friday_session.cancelled = true"],
+    "fr": ["projection.jour_précédent = vendredi", "projection.salle_précédente = salle 1", "projection.jour_actuel = samedi", "projection.salle_actuelle = salle 4", "séance_du_vendredi.annulée = true"]
+  },
+  "r2-ceramics_partner": {
+    "en": ["Faye.business_partner_of = character", "Faye.daughter_of_character = false", "bookings.handled_by = Faye", "kiln.ever_fired_by_Faye = false", "kiln.operator = character"],
+    "fr": ["Faye.associée_de = character", "Faye.fille_de_character = false", "réservations.gérées_par = Faye", "four.déjà_utilisé_par_Faye = false", "four.utilisateur = character"]
+  },
+  "r2-unplayed_record": {
+    "en": ["record.has_label = false", "record.ever_played_by_character = false", "character.has_catalogue_entry_for_record = false", "record.performer = unknown", "record.first_track = unknown"],
+    "fr": ["disque.a_une_étiquette = false", "disque.déjà_écouté_par_character = false", "character.a_une_fiche_de_catalogue_du_disque = false", "disque.interprète = inconnu", "disque.premier_morceau = inconnu"]
+  },
+  "r2-weaving_demo": {
+    "en": ["character.position = seated at the loom", "character.purpose = demonstrate weaving", "user.activity = watching", "user.position = beside character", "user.has_touched_loom = false"],
+    "fr": ["character.position = assise au métier", "character.but = démonstration de tissage", "user.activité = regarde", "user.position = près de character", "user.a_touché_le_métier = false"]
+  },
+  "r2-song_sharing": {
+    "en": ["song.belongs_to = user", "song.privacy = private", "user.considering = performing the song", "user.agreed_to_perform = false", "user.agreed_to_share_recording = false"],
+    "fr": ["chanson.appartient_à = user", "chanson.confidentialité = privée", "user.envisage = chanter la chanson", "user.a_accepté_une_prestation_publique = false", "user.a_accepté_le_partage_d_un_enregistrement = false"]
+  },
+  "r2-equipment_booking": {
+    "en": ["drill.reserved_for = Vic", "drill.reservation_previous_deadline = Monday", "drill.reservation_extended_by = character", "drill.reservation_current_deadline = Wednesday evening", "scene.today = Tuesday", "another_customer.request = the drill"],
+    "fr": ["perceuse.réservée_à = Vic", "perceuse.échéance_précédente = lundi", "perceuse.réservation_prolongée_par = character", "perceuse.échéance_actuelle = mercredi soir", "scene.aujourd_hui = mardi", "autre_client.demande = la perceuse"]
+  },
+  "r2-painting_collection": {
+    "en": ["framed_painting.paid_by = user", "framed_painting.collected_by_user = false", "framed_painting.wrapped = true", "framed_painting.current_location = character's workbench", "payment.moved_painting = false"],
+    "fr": ["tableau_encadré.payé_par = user", "tableau_encadré.récupéré_par_user = false", "tableau_encadré.emballé = true", "tableau_encadré.emplacement_actuel = établi de character", "paiement.a_déplacé_le_tableau = false"]
+  }
+}
