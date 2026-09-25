@@ -15,6 +15,8 @@ are collected in:
 These sources motivate hypotheses; our measured results are reported separately
 in the experiment reports below. Future research-backed changes should include
 primary-source references and distinguish published evidence from local findings.
+The [training mathematics](#training-mathematics) below defines our reply-only
+objective, LoRA parameterization and standard DPO loss, with implementation links.
 
 ## Response-rule refinement and fresh scenes
 
@@ -129,6 +131,107 @@ The fixed baseline architecture, completed Colab run, and evaluation protocol ar
 documented in [BASELINE.md](BASELINE.md).
 For moving the project to another PC and continuing with Codex, see
 [TRANSFER_README.md](TRANSFER_README.md) and [CODEX_HANDOFF.md](CODEX_HANDOFF.md).
+
+## Training mathematics
+
+### Reply-only loss and perplexity
+
+Let $x_{i,1:T_i}$ be tokenized conversation $i$. Define $m_{i,t}=1$ for a
+supervised reply token, including its terminal EOS, and $m_{i,t}=0$ for context,
+padding or other unsupervised positions. With natural logarithms and at least
+one supervised target, the token-normalized negative log-likelihood is
+
+$$
+\mathcal L_{\mathrm{SFT}}(\theta)
+=-\frac{\sum_i\sum_{t=2}^{T_i}m_{i,t}\log p_\theta(x_{i,t}\mid x_{i,<t})}
+{\sum_i\sum_{t=2}^{T_i}m_{i,t}},
+\qquad \mathrm{PPL}=\exp(\mathcal L_{\mathrm{SFT}}).
+$$
+
+The hidden state at position $t-1$ predicts token $t$: shift exactly once.
+Masked context tokens still condition the reply, but contribute no direct target
+loss. The same mask convention is applied to the selected assistant spans in
+whole-conversation SFT. Ignored labels use `-100`; see the
+[PyTorch cross-entropy definition](https://docs.pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html).
+
+If batch $b$ has mean loss $L_b$ and $N_b$ supervised tokens, aggregation is
+$L=\sum_b N_bL_b/\sum_b N_b$, followed by $\mathrm{PPL}=e^L$.
+This follows by adding token loss sums before dividing; averaging batch
+perplexities generally gives a different answer. Our accumulation groups use
+this token weighting too. Lower perplexity measures better prediction on the
+scored tokens, not guaranteed role consistency or conversational quality;
+different tokenizers do not provide directly comparable token perplexities.
+
+Implementation: [scratch-model loss and evaluation](mini_deepseek.py),
+[LoRA target masking](posttraining/lora_data.py) and
+[token-weighted SFT](posttraining/lora_train.py).
+
+### LoRA: adapting a frozen weight matrix
+
+For a frozen matrix $W_0\in\mathbb R^{d_{\mathrm{out}}\times d_{\mathrm{in}}}$,
+LoRA learns two smaller matrices:
+
+$$
+W=W_0+\Delta W,
+\qquad \Delta W=\frac{\alpha}{r}BA,
+\qquad A\in\mathbb R^{r\times d_{\mathrm{in}}},
+\quad B\in\mathbb R^{d_{\mathrm{out}}\times r}.
+$$
+
+Here $r$ is the adapter rank and $\alpha/r$ scales its update;
+$\operatorname{rank}(\Delta W)\le r$. Counting entries gives
+$r(d_{\mathrm{in}}+d_{\mathrm{out}})$ trainable parameters instead of
+$d_{\mathrm{in}}d_{\mathrm{out}}$. For a square matrix of width $d$, the ratio
+is $2r/d$. This is a parameter-count ratio, not a total VRAM ratio: frozen base
+weights, activations and runtime buffers still occupy memory.
+[Hu et al., LoRA (2021), Section 4.1](https://arxiv.org/abs/2106.09685).
+
+Our S1 configuration uses $r=16$, $\alpha=32$, and attention `q_proj`, `k_proj`,
+`v_proj`, `o_proj` adapters. The equation describes the effective linear weight
+at inference; S1 training additionally uses adapter dropout. See the
+[S1 configuration](configs/ministral_s1_lora.json) and
+[adapter training implementation](posttraining/lora_train.py).
+
+### DPO: learning from preferred and rejected replies
+
+Let $x$ be a prompt, $y^+$ the preferred reply, $y^-$ the rejected reply,
+$\pi_\theta$ the trainable policy, and $\pi_{\mathrm{ref}}$ the frozen SFT reference.
+The sequence log-probability is
+$\ell_\theta(y\mid x)=\sum_{t=1}^{|y|}\log\pi_\theta(y_t\mid x,y_{<t})$.
+Our completion includes EOS and excludes prompt/padding loss; it is a sum,
+not a length-normalized mean. Define the reference-relative preference margin:
+
+$$
+\Delta_\theta=
+\big[\ell_\theta(y^+\mid x)-\ell_\theta(y^-\mid x)\big]
+-\big[\ell_{\mathrm{ref}}(y^+\mid x)-\ell_{\mathrm{ref}}(y^-\mid x)\big].
+$$
+
+For $\beta>0$ and sigmoid $\sigma(z)=1/(1+e^{-z})$, standard DPO minimizes
+
+$$
+\mathcal L_{\mathrm{DPO}}(\theta)
+=-\mathbb E_{(x,y^+,y^-)\sim\mathcal D}
+\left[\log\sigma(\beta\Delta_\theta)\right].
+$$
+
+**Derivation sketch.** For a fixed prompt and reward $R$, the
+KL-regularized objective
+$\max_\pi\{\mathbb E_{y\sim\pi}[R(x,y)]-\beta D_{\mathrm{KL}}(\pi\|\pi_{\mathrm{ref}})\}$
+has solution $\pi^*(y\mid x)=\pi_{\mathrm{ref}}(y\mid x)e^{R(x,y)/\beta}/Z(x)$,
+assuming reference support and finite normalization. Rearranging gives
+$R(x,y)=\beta\log[\pi^*(y\mid x)/\pi_{\mathrm{ref}}(y\mid x)]+\beta\log Z(x)$.
+In the Bradley-Terry model, preference probability is
+$\sigma(R(x,y^+)-R(x,y^-))$. The two $\log Z(x)$ terms cancel; parameterizing
+the policy yields the loss above.
+[Rafailov et al., DPO (2023), Section 4 and Appendix A](https://arxiv.org/abs/2305.18290).
+
+Locally, each pair receives equal weight. When policy equals reference,
+$\Delta_\theta=0$ and the loss is $\log 2$: our smoke check verifies this.
+The [DPO core](posttraining/dpo_core.py) uses a frozen reference and disables
+dropout. Our preference labels are assistant-authored/curated, not independent
+human judgments. A lower preference loss does not establish better factual
+replies; see the [matched bilingual comparison](BILINGUAL_CONTROL_RESULTS.md).
 
 ## Setup
 
